@@ -1,122 +1,36 @@
-# simpleRAG
-
-A simple Retrieval-Augmented Generation (RAG) assistant built with **Next.js**, **Supabase**, and **TypeScript**.
-
----
-
-## Project Structure
-
-```
-simpleRAG/
-├── frontend/                # Next.js 14 App (UI)
-│   ├── app/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx                # Login (Screen A)
-│   │   ├── dashboard/
-│   │   │   ├── chat/page.tsx       # Chat (Screen B)
-│   │   │   ├── library/page.tsx    # Library (Screen C)
-│   │   │   └── settings/page.tsx   # Settings (Screen D)
-│   │   └── api/
-│   │       ├── auth/route.ts
-│   │       ├── upload/route.ts
-│   │       └── rag/route.ts
-│   ├── components/
-│   │   ├── Sidebar.tsx
-│   │   └── AnimatedButton.tsx
-│   ├── lib/
-│   │   └── supabase.ts
-│   └── package.json
-├── backend/                 # Node.js Services (API & Logic)
-│   ├── services/
-│   │   ├── rag_core.ts
-│   │   ├── doc_manager.ts
-│   │   └── auth_service.ts
-│   ├── utils/
-│   │   ├── supabase_client.ts
-│   │   └── embeddings.ts
-│   └── main.ts
-└── .env.local               # Environment Variables
-```
-
----
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-### 1. Clone the Repository
+First, run the development server:
 
-```sh
-git clone https://github.com/your-username/simpleRAG.git
-cd simpleRAG
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-### 2. Install Dependencies
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-#### Frontend (Next.js)
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```sh
-cd frontend
-npm install
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-#### Backend (Node.js)
+## Learn More
 
-```sh
-cd ../backend
-npm install
-```
+To learn more about Next.js, take a look at the following resources:
 
----
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Library Reference
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-### Frontend
+## Deploy on Vercel
 
-- **Framework:** Next.js 14, React
-- **UI:** Tailwind CSS, Framer Motion, Lucide React
-- **API:** Supabase, OpenAI
-- **TypeScript:** Types, type safety
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### Backend
-
-- **API:** Supabase, OpenAI
-- **PDF Parsing:** pdf-parse
-- **Email:** nodemailer
-- **Environment:** dotenv
-- **TypeScript:** Types, type safety
-
----
-
-## Environment Variables
-
-Create a `.env.local` file in the root directory and add your Supabase and OpenAI credentials.
-
----
-
-## Scripts
-
-### Frontend
-
-```sh
-npm run dev      # Start Next.js development server
-```
-
-### Backend
-
-```sh
-npx ts-node main.ts   # Run backend services
-```
-
----
-
-## Screens
-
-- **Screen A:** Login
-- **Screen B:** Chat
-- **Screen C:** Library
-- **Screen D:** Settings
-
----
-
-## License
-
-Apache License 2.0
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
