@@ -1,5 +1,4 @@
-@tailwind base;
-@tailwind components;
+@import "tailwindcss/preflight"
 @tailwind utilities;
 
 :root {
@@ -71,39 +70,58 @@
   --sidebar-ring: #707070;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+* {
+  border-color: var(--border);
+}
 
-  body {
-    @apply bg-background text-foreground;
-    font-size: var(--font-size);
-  }
-  h1 {
-    @apply text-4xl font-bold tracking-tight;
-  }
-  h2 {
-    @apply text-3xl font-semibold tracking-tight;
-  }
-  h3 {
-    @apply text-2xl font-semibold tracking-tight;
-  }
-  h4 {
-    @apply text-xl font-semibold tracking-tight;
-  }
-  h5 {
-    @apply text-lg font-semibold;
-  }
-  h6 {
-    @apply text-base font-semibold;
-  }
-  p {
-    @apply text-base leading-relaxed;
-  }
-  label, button, input {
-    @apply text-base;
-  }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: var(--font-size);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+label, button, input {
+  font-size: 1rem;
 }
 
 /* Toast animation */
@@ -120,4 +138,36 @@
 
 .animate-slide-in {
   animation: slide-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+/* Custom scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }

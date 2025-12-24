@@ -1,117 +1,140 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Send, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { RAGService } from '@/lib/rag_service';
+import { supabase } from '@/lib/supabase';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
-  citations?: { file: string; page: number }[];
+  citations?: Array<{ file: string; page: number; url?: string }>;
 }
 
-export default function ChatPage() {
+export default function ChatDashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState('All');
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
+  const [loading, setLoading] = useState(false);
+  const ragService = new RAGService();
 
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const userMsg: Message = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMsg]);
+    const userMessage: Message = { role: 'user', content: input };
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setLoading(true);
 
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: userMsg.content, category }),
-      });
-      
-      const data = await res.json();
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: data.answer,
-        citations: data.citations 
-      }]);
-    } catch (e) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "Xin lỗi, đã có lỗi xảy ra." }]);
-    } finally {
-      setLoading(false);
+      const { answer, citations } = await ragService.generateResponse(input, category);
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: answer,
+        citations,
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error('Error:', error);
     }
+
+    setLoading(false);
+  };
+
+  const handleFeedback = async (messageIndex: number, isPositive: boolean) => {
+    const message = messages[messageIndex];
+    // FIXED: Use .from() instead of .table()
+    await supabase.from('messages').insert({
+      content: message.content,
+      role: message.role,
+      user_rating: isPositive,
+    });
+    alert(isPositive ? 'Cảm ơn phản hồi tích cực!' : 'Chúng tôi sẽ cải thiện câu trả lời.');
   };
 
   return (
-    <div className="flex flex-col h-full max-w-4xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-slate-800">💬 Chat Dashboard</h2>
-        <select 
-          className="border rounded-md px-3 py-1 text-sm bg-white"
+    <div className="flex flex-col h-full">
+      <div className="p-4 border-b">
+        <h1 className="text-2xl font-bold mb-4">💬 Chat Dashboard</h1>
+        <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          className="px-3 py-2 border rounded-md"
         >
-          <option value="All">Tất cả phòng ban</option>
+          <option value="All">All</option>
           <option value="HR">HR</option>
           <option value="IT">IT</option>
           <option value="Sales">Sales</option>
         </select>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2" ref={scrollRef}>
-        {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] rounded-lg p-4 ${
-              msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-white border shadow-sm text-slate-800'
-            }`}>
-              <div className="whitespace-pre-wrap">{msg.content}</div>
-              
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map((msg, idx) => (
+          <div
+            key={idx}
+            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-2xl p-4 rounded-lg ${
+                msg.role === 'user'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-900'
+              }`}
+            >
+              <p>{msg.content}</p>
               {msg.citations && msg.citations.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-slate-200 text-xs">
-                  <p className="font-semibold text-slate-500 mb-1">📚 Nguồn tham khảo:</p>
-                  <ul className="list-disc pl-4 space-y-1 text-slate-600">
-                    {msg.citations.map((c, idx) => (
-                      <li key={idx}>{c.file} (Trang {c.page})</li>
+                <details className="mt-2">
+                  <summary className="cursor-pointer text-sm underline">
+                    📚 Nguồn trích dẫn
+                  </summary>
+                  <ul className="mt-2 text-sm space-y-1">
+                    {msg.citations.map((cite, i) => (
+                      <li key={i}>
+                        - {cite.file} (Trang {cite.page})
+                      </li>
                     ))}
                   </ul>
-                </div>
+                </details>
               )}
-
               {msg.role === 'assistant' && (
-                <div className="flex gap-2 mt-2 justify-end">
-                   <button className="text-slate-400 hover:text-green-500"><ThumbsUp size={14}/></button>
-                   <button className="text-slate-400 hover:text-red-500"><ThumbsDown size={14}/></button>
+                <div className="mt-2 flex gap-2">
+                  <button
+                    onClick={() => handleFeedback(idx, true)}
+                    className="text-sm hover:bg-gray-200 px-2 py-1 rounded"
+                  >
+                    👍
+                  </button>
+                  <button
+                    onClick={() => handleFeedback(idx, false)}
+                    className="text-sm hover:bg-gray-200 px-2 py-1 rounded"
+                  >
+                    👎
+                  </button>
                 </div>
               )}
             </div>
           </div>
         ))}
-        {loading && <div className="text-slate-400 text-sm italic">AI đang trả lời...</div>}
       </div>
 
-      <div className="bg-white p-4 rounded-lg shadow-sm border flex gap-2">
-        <input 
-          className="flex-1 outline-none text-slate-700"
-          placeholder="Nhập câu hỏi..." 
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-        />
-        <button 
-          onClick={handleSend}
-          disabled={loading}
-          className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
-        >
-          <Send size={20} />
-        </button>
+      <div className="p-4 border-t">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="Nhập câu hỏi của bạn..."
+            className="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={loading}
+          />
+          <button
+            onClick={handleSend}
+            disabled={loading}
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+          >
+            {loading ? 'Đang xử lý...' : 'Gửi'}
+          </button>
+        </div>
       </div>
     </div>
   );
