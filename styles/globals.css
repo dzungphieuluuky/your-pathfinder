@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-size: 16px;
+  --background: #ffffff;
+  --foreground: #232323;
+  --card: #ffffff;
+  --card-foreground: #232323;
+  --popover: #ffffff;
+  --popover-foreground: #232323;
+  --primary: #030213;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f3fa;
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #b4b4b4;
+  --radius: 0.625rem;
+  --sidebar: #fafbfc;
+  --sidebar-foreground: #232323;
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: #fafbfc;
+  --sidebar-accent: #f7f7fa;
+  --sidebar-accent-foreground: #343434;
+  --sidebar-border: #ebebeb;
+  --sidebar-ring: #b4b4b4;
+}
+
+.dark {
+  --background: #232323;
+  --foreground: #fafbfc;
+  --card: #232323;
+  --card-foreground: #fafbfc;
+  --popover: #232323;
+  --popover-foreground: #fafbfc;
+  --primary: #fafbfc;
+  --primary-foreground: #343434;
+  --secondary: #444444;
+  --secondary-foreground: #fafbfc;
+  --muted: #444444;
+  --muted-foreground: #b4b4b4;
+  --accent: #444444;
+  --accent-foreground: #fafbfc;
+  --destructive: #a02a2a;
+  --destructive-foreground: #fafbfc;
+  --border: #444444;
+  --input: #444444;
+  --ring: #707070;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --radius: 0.625rem;
+  --sidebar: #343434;
+  --sidebar-foreground: #fafbfc;
+  --sidebar-primary: #6b7cff;
+  --sidebar-primary-foreground: #fafbfc;
+  --sidebar-accent: #444444;
+  --sidebar-accent-foreground: #fafbfc;
+  --sidebar-border: #444444;
+  --sidebar-ring: #707070;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: var(--font-size);
+  }
+  h1 {
+    @apply text-4xl font-bold tracking-tight;
+  }
+  h2 {
+    @apply text-3xl font-semibold tracking-tight;
+  }
+  h3 {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+  h4 {
+    @apply text-xl font-semibold tracking-tight;
+  }
+  h5 {
+    @apply text-lg font-semibold;
+  }
+  h6 {
+    @apply text-base font-semibold;
+  }
+  p {
+    @apply text-base leading-relaxed;
+  }
+  label, button, input {
+    @apply text-base;
+  }
+}
+
+/* Toast animation */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
