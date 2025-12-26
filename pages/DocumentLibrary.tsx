@@ -26,7 +26,7 @@ import {
   Check,
   FileUp,
   AlertTriangle,
-  File,
+  File as FileIcon,
   ShieldAlert,
   SearchCheck,
   RefreshCw,
@@ -34,7 +34,8 @@ import {
   ArrowUpDown,
   FileSpreadsheet,
   FileCode,
-  FileJson
+  FileJson,
+  ArrowDownUp
 } from 'lucide-react';
 import { Document, User, Workspace, KnowledgeNode } from '../types';
 import { supabaseService } from '../services/supabase';
@@ -101,8 +102,8 @@ const getFileStyle = (fileName: string) => {
       };
     default:
       return { 
-        icon: <File size={18} />, 
-        detailIcon: <File size={32} />,
+        icon: <FileIcon size={18} />, 
+        detailIcon: <FileIcon size={32} />,
         color: 'text-slate-400', 
         bg: 'bg-slate-50', 
         hoverBg: 'group-hover:bg-slate-100',
@@ -264,13 +265,21 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   }, [documents, searchTerm, selectedCategoryFilter, dateFilter]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length === 0) return;
+    const fileList = e.target.files;
+    if (!fileList || fileList.length === 0) return;
+
+    // Explicitly casting the Array items to File to satisfy TypeScript
+    const files = Array.from(fileList) as File[];
+    
     const newTasks: UploadTask[] = files.map(file => ({
       id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      file, progress: 0, status: 'uploading'
+      file, 
+      progress: 0, 
+      status: 'uploading'
     }));
+
     setUploadQueue(prev => [...prev, ...newTasks]);
+
     newTasks.forEach(async (task) => {
       try {
         await supabaseService.uploadDocument(task.file, uploadCategory, workspace.id);
@@ -462,16 +471,23 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                     <span className="text-xs font-black uppercase text-indigo-600 tracking-widest">{c.topic}</span>
                   </div>
                   <div className="space-y-3">
-                    <div className="p-3 bg-white border border-slate-100 rounded-xl">
+                    <div className="p-3 bg-white border border-slate-100 rounded-xl relative overflow-hidden">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-200"></div>
                       <p className="text-[10px] font-bold text-slate-400 mb-1">{c.sourceA.file}</p>
                       <p className="text-xs text-slate-700 italic">"{c.sourceA.text}"</p>
                     </div>
-                    <div className="p-3 bg-white border border-slate-100 rounded-xl">
+                    <div className="flex justify-center -my-2 relative z-10">
+                      <div className="bg-slate-900 text-white p-1 rounded-full border-2 border-white">
+                        <ArrowDownUp size={12} />
+                      </div>
+                    </div>
+                    <div className="p-3 bg-white border border-slate-100 rounded-xl relative overflow-hidden">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-rose-200"></div>
                       <p className="text-[10px] font-bold text-slate-400 mb-1">{c.sourceB.file}</p>
                       <p className="text-xs text-slate-700 italic">"{c.sourceB.text}"</p>
                     </div>
                   </div>
-                  <p className="text-xs text-amber-800 font-medium leading-relaxed bg-amber-50 p-3 rounded-xl">
+                  <p className="text-xs text-amber-800 font-medium leading-relaxed bg-amber-50 p-3 rounded-xl border border-amber-100">
                     {c.explanation}
                   </p>
                 </div>
