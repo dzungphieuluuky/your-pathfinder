@@ -1,0 +1,5 @@
+{
+  "name": "Intelligent RAG Assistant",
+  "description": "A sophisticated Retrieval Augmented Generation (RAG) platform built with React, Supabase, and Gemini for internal document knowledge management.",
+  "requestFramePermissions": []
+}
