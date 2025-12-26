@@ -1,12 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
-
 /**
- * Supabase client initialization.
- * Fallbacks are provided to prevent the application from crashing if environment
- * variables are not yet configured. Actual database operations will require 
- * valid credentials in .env.local or the deployment environment.
+ * DEPRECATED: Use /services/supabase.ts instead.
+ * 
+ * This file is maintained as an empty module to prevent 
+ * build errors from legacy imports while migration finishes.
  */
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-project.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export {};

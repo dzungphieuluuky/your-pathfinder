@@ -1,50 +1,99 @@
 
-import { supabase } from '../lib/supabase';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Document, KnowledgeNode, Invitation, WorkspaceMember, UserRole, InvitationStatus, Workspace } from '../types';
 
+/**
+ * PATHFINDER SUPABASE SERVICE
+ * 
+ * Supports both Next.js prefixed and standard environment variable names.
+ * Standard (Python-style): SUPABASE_URL, SUPABASE_KEY
+ * Next.js (Browser-style): NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
+ */
+
+const supabaseUrl = 
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 
+  process.env.SUPABASE_URL || 
+  'https://your-project.supabase.co';
+
+const supabaseAnonKey = 
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 
+  process.env.SUPABASE_ANON_KEY || 
+  process.env.SUPABASE_KEY || 
+  'your-key';
+
+// Validation logic to prevent the "Failed to fetch" error
+const isConfigured = 
+  supabaseUrl !== 'https://your-project.supabase.co' && 
+  supabaseAnonKey !== 'your-key' &&
+  supabaseUrl.startsWith('https://');
+
+export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
 export class SupabaseService {
-  public supabase = supabase;
+  /**
+   * Helper to verify if the service is actually connected to a real backend.
+   */
+  checkConfiguration() {
+    if (!isConfigured) {
+      console.error("Configuration Check Failed:", { url: supabaseUrl, hasKey: !!supabaseAnonKey });
+      throw new Error("SUPABASE_CONFIG_MISSING");
+    }
+  }
 
-  // --- Workspace Methods ---
-  async getWorkspaces(userId: string): Promise<Workspace[]> {
-    const { data, error } = await supabase
-      .from('workspaces')
-      .select('*')
-      .or(`owner_id.eq.${userId},id.in.(select workspace_id from workspace_members where user_id.eq.${userId})`);
+  /**
+   * --- FEATURE 1: CORE VAULT ---
+   */
+  async getOrCreateDefaultWorkspace(userId: string): Promise<Workspace> {
+    this.checkConfiguration();
     
-    // Fallback for demo if DB is empty
-    if (!data || data.length === 0) return [];
-    return data;
+    try {
+      const { data: workspaces, error: fetchError } = await supabase
+        .from('workspaces')
+        .select('*')
+        .eq('name', 'Global Intelligence Vault')
+        .limit(1);
+
+      if (fetchError) throw fetchError;
+
+      if (workspaces && workspaces.length > 0) {
+        return workspaces[0];
+      }
+
+      const { data: newWs, error: createError } = await supabase
+        .from('workspaces')
+        .insert({ 
+          name: 'Global Intelligence Vault', 
+          owner_id: userId, 
+          created_at: new Date().toISOString() 
+        })
+        .select()
+        .single();
+
+      if (createError) throw createError;
+
+      await supabase.from('workspace_members').insert({
+        workspace_id: newWs.id,
+        user_id: userId,
+        role: UserRole.ADMIN,
+        status: 'active',
+        joined_at: new Date().toISOString()
+      });
+
+      return newWs;
+    } catch (err: any) {
+      console.error("[Supabase] Initialization Error:", err);
+      if (err.message === 'Failed to fetch') {
+        throw new Error("CONNECTION_REFUSED");
+      }
+      throw err;
+    }
   }
 
-  async createWorkspace(name: string, userId: string): Promise<Workspace> {
-    const { data, error } = await supabase
-      .from('workspaces')
-      .insert({ name, owner_id: userId, created_at: new Date().toISOString() })
-      .select()
-      .single();
-    if (error) throw error;
-
-    // Automatically make creator an admin member
-    await supabase.from('workspace_members').insert({
-      workspace_id: data.id,
-      user_id: userId,
-      role: UserRole.ADMIN,
-      status: 'active',
-      joined_at: new Date().toISOString()
-    });
-
-    return data;
-  }
-
-  async deleteWorkspace(workspaceId: string) {
-    const { error } = await supabase.from('workspaces').delete().eq('id', workspaceId);
-    if (error) throw error;
-  }
-
-  // --- Scoped Document Methods ---
-  async getDocuments(workspaceId?: string): Promise<Document[]> {
-    if (!workspaceId) return [];
+  /**
+   * --- FEATURE 2: DOCUMENT UPLOADS ---
+   */
+  async getDocuments(workspaceId: string): Promise<Document[]> {
+    this.checkConfiguration();
     const { data, error } = await supabase
       .from('documents')
       .select('*')
@@ -55,15 +104,17 @@ export class SupabaseService {
   }
 
   async uploadDocument(file: File, category: string, workspaceId: string): Promise<Document> {
-    const filePath = `${workspaceId}/${category}/${Date.now()}_${file.name}`;
+    this.checkConfiguration();
+    const timestamp = Date.now();
+    const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const storagePath = `${workspaceId}/${category}/${timestamp}_${cleanName}`;
+
     const { error: uploadError } = await supabase.storage
       .from('documents')
-      .upload(filePath, file);
+      .upload(storagePath, file);
     if (uploadError) throw uploadError;
 
-    const { data: urlData } = supabase.storage
-      .from('documents')
-      .getPublicUrl(filePath);
+    const { data: urlData } = supabase.storage.from('documents').getPublicUrl(storagePath);
 
     const { data, error } = await supabase
       .from('documents')
@@ -72,109 +123,91 @@ export class SupabaseService {
         file_name: file.name,
         category: category,
         url: urlData.publicUrl,
-        storage_path: filePath
+        storage_path: storagePath
       })
       .select()
       .single();
-    if (error) throw error;
 
-    // Trigger simulated notification
-    await this.broadcastWorkspaceActivity(workspaceId, 'uploaded', file.name);
-
+    if (error) {
+      await supabase.storage.from('documents').remove([storagePath]);
+      throw error;
+    }
     return data;
   }
 
-  async deleteDocument(id: string, storagePath: string, workspaceId: string, fileName: string) {
+  async deleteDocument(id: string, storagePath: string): Promise<void> {
+    this.checkConfiguration();
     await supabase.storage.from('documents').remove([storagePath]);
-    const { error: dbError } = await supabase.from('documents').delete().eq('id', id);
-    if (dbError) throw dbError;
-
-    // Trigger simulated notification
-    await this.broadcastWorkspaceActivity(workspaceId, 'deleted', fileName);
+    const { error } = await supabase.from('documents').delete().eq('id', id);
+    if (error) throw error;
   }
 
-  private async broadcastWorkspaceActivity(workspaceId: string, action: string, fileName: string) {
-    // 1. Get all members of the workspace
-    const { data: members } = await supabase
-      .from('workspace_members')
-      .select('email')
-      .eq('workspace_id', workspaceId);
-
-    if (members && members.length > 0) {
-      console.log(`[Email System] Workspace Event: ${action.toUpperCase()}`);
-      console.log(`Resource: ${fileName}`);
-      members.forEach(m => {
-        console.log(`>>> Sending notification dispatch to: ${m.email}`);
-      });
-    }
-  }
-
-  async matchEmbeddings(queryEmbedding: number[], category: string, workspaceId: string, threshold: number = 0.5, matchCount: number = 5): Promise<KnowledgeNode[]> {
+  /**
+   * --- FEATURE 3: RAG ---
+   */
+  async matchEmbeddings(queryEmbedding: number[], category: string, workspaceId: string): Promise<KnowledgeNode[]> {
+    this.checkConfiguration();
     const { data, error } = await supabase.rpc('match_documents', {
       query_embedding: queryEmbedding,
-      match_threshold: threshold,
-      match_count: matchCount,
+      match_threshold: 0.5,
+      match_count: 5,
       filter_category: category === 'All' ? null : category,
       filter_workspace_id: workspaceId
     });
-    if (error) return [];
+    
+    if (error) {
+      const { data: fallback } = await supabase
+        .from('documents')
+        .select('*')
+        .eq('workspace_id', workspaceId)
+        .limit(3);
+
+      return (fallback || []).map(d => ({
+        id: d.id,
+        content: `Indexing Ref: ${d.file_name}. (Note: Vector search RPC not detected).`,
+        category: d.category,
+        metadata: { file: d.file_name, page: 1, url: d.url }
+      }));
+    }
     return (data || []).map((item: any) => ({
       id: item.id,
       content: item.content,
       category: item.category,
-      metadata: { file: item.file_name, page: item.page_number, url: item.url }
+      metadata: { file: item.file_name, page: item.page_number || 1, url: item.url }
     }));
   }
 
-  // --- Scoped Invitation Methods ---
+  /**
+   * --- FEATURE 4: INVITATIONS ---
+   */
   async getInvitations(workspaceId: string): Promise<Invitation[]> {
-    const { data, error } = await supabase
-      .from('invitations')
-      .select('*')
-      .eq('workspace_id', workspaceId)
-      .order('invited_at', { ascending: false });
-    if (error) throw error;
+    this.checkConfiguration();
+    const { data, error } = await supabase.from('invitations').select('*').eq('workspace_id', workspaceId);
     return data || [];
   }
 
   async createInvitation(email: string, role: UserRole, workspaceId: string): Promise<Invitation> {
-    const { data, error } = await supabase
-      .from('invitations')
-      .insert({
-        workspace_id: workspaceId,
-        email,
-        role,
-        status: InvitationStatus.PENDING,
-        invited_at: new Date().toISOString()
-      })
-      .select()
-      .single();
+    this.checkConfiguration();
+    const { data, error } = await supabase.from('invitations').insert({
+      workspace_id: workspaceId,
+      email,
+      role,
+      status: InvitationStatus.PENDING,
+      invited_at: new Date().toISOString()
+    }).select().single();
     if (error) throw error;
     return data;
   }
 
-  // Added revokeInvitation fix
-  async revokeInvitation(id: string) {
-    const { error } = await supabase
-      .from('invitations')
-      .update({ status: InvitationStatus.REVOKED })
-      .eq('id', id);
-    if (error) throw error;
+  async revokeInvitation(id: string): Promise<void> {
+    this.checkConfiguration();
+    await supabase.from('invitations').update({ status: InvitationStatus.REVOKED }).eq('id', id);
   }
 
   async getWorkspaceMembers(workspaceId: string): Promise<WorkspaceMember[]> {
-    const { data, error } = await supabase
-      .from('workspace_members')
-      .select('*')
-      .eq('workspace_id', workspaceId)
-      .order('joined_at', { ascending: false });
-    if (error) throw error;
+    this.checkConfiguration();
+    const { data, error } = await supabase.from('workspace_members').select('*').eq('workspace_id', workspaceId);
     return data || [];
-  }
-
-  async notifyAdminOfFailure(fileName: string, error: string) {
-    console.error(`Admin Notification: ${fileName} failed indexing. Error: ${error}`);
-    return true;
   }
 }
 

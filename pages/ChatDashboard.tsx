@@ -1,6 +1,6 @@
 
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Send, FileText, CheckCircle, ThumbsUp, ThumbsDown, Info, ExternalLink, ShieldAlert, AlertTriangle, HelpCircle, Layers, Library, ChevronDown, ChevronUp, Eye, BookOpen, Check } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Send, FileText, CheckCircle, HelpCircle, Layers, ChevronDown, Check, Loader2, Compass, AlertCircle, Bookmark } from 'lucide-react';
 import { Message, User, Citation, Workspace } from '../types';
 import { ragService } from '../services/gemini';
 import { supabaseService } from '../services/supabase';
@@ -10,9 +10,6 @@ interface ChatDashboardProps {
   workspace: Workspace;
 }
 
-// ... Previous KnowledgeBaseSelect and CitationInspector code remains exactly the same ...
-// [OMITTED FOR BREVITY - KEEPING ORIGINAL COMPONENTS]
-
 const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -20,7 +17,6 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Clear messages when switching workspaces for security
   useEffect(() => {
     setMessages([]);
   }, [workspace.id]);
@@ -40,7 +36,6 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
 
     try {
       const embedding = await ragService.generateEmbedding(input);
-      // SCOPED SEARCH: Pass workspace.id
       const contextNodes = await supabaseService.matchEmbeddings(embedding, category, workspace.id);
       const { text, citations, alerts } = await ragService.generateResponse(input, contextNodes);
 
@@ -58,7 +53,7 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
       setMessages(prev => [...prev, {
         id: `e-${Date.now()}`,
         role: 'assistant',
-        content: `Error: ${error.message || "Failed to retrieve information."}`,
+        content: `I'm having trouble accessing the path right now. Error: ${error.message}`,
         timestamp: new Date()
       }]);
     } finally {
@@ -71,29 +66,42 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
       <header className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-indigo-600 rounded-xl text-white">
-            <Layers size={20} />
+            <Compass size={20} />
           </div>
           <div>
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">Intelligence Engine</h1>
+            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">PathFinder Insights</h1>
             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Secure Cluster: {workspace.name}
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              Active Vault: {workspace.name}
             </p>
           </div>
         </div>
-        {/* KnowledgeBaseSelect component used here */}
+        
+        <div className="flex items-center gap-3">
+          <select 
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-xs font-bold text-slate-600 outline-none focus:ring-2 focus:ring-indigo-100 transition-all"
+          >
+            <option value="All">Search All Categories</option>
+            <option value="General">General</option>
+            <option value="HR">HR</option>
+            <option value="IT">IT</option>
+            <option value="Legal">Legal</option>
+          </select>
+        </div>
       </header>
 
-      {/* Main chat UI and Input form - remains same as previous but with workspace context */}
-      {/* ... [KEEP REST OF COMPONENT LOGIC] ... */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-10 scroll-smooth">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-10">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto">
-            <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-[2.5rem] flex items-center justify-center mb-6 animate-bounce">
-              <HelpCircle size={40} />
+          <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto py-20">
+            <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-[2.5rem] flex items-center justify-center mb-6 shadow-inner">
+              <HelpCircle size={40} className="animate-pulse" />
             </div>
-            <h2 className="text-2xl font-black text-slate-900 mb-2">Workspace Insight</h2>
-            <p className="text-slate-500 text-sm">You are currently connected to <span className="text-indigo-600 font-bold">{workspace.name}</span>. Ask any question relative to this isolated library.</p>
+            <h2 className="text-2xl font-black text-slate-900 mb-2">Ready to Guide You</h2>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Ask me anything about the documents indexed in <span className="text-indigo-600 font-bold">{workspace.name}</span>. I will find the most accurate path to your answer.
+            </p>
           </div>
         ) : (
           messages.map(msg => (
@@ -106,13 +114,61 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
                 }`}>
                   {msg.content}
                 </div>
-                {/* Citations and Alerts rendering logic remains the same */}
+
+                {msg.alerts && msg.alerts.map((alert, i) => (
+                  <div key={i} className="bg-amber-50 border border-amber-100 rounded-2xl p-4 flex gap-4 animate-in zoom-in-95">
+                    <div className="text-amber-600 shrink-0"><AlertCircle size={20} /></div>
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-widest text-amber-700 mb-1">{alert.title}</p>
+                      <p className="text-xs text-amber-800 leading-relaxed">{alert.content}</p>
+                      <p className="text-[10px] font-bold text-amber-500 mt-2 uppercase">Source: {alert.source}</p>
+                    </div>
+                  </div>
+                ))}
+
+                {msg.citations && (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {msg.citations.map((cite, i) => (
+                      <div key={i} className="flex items-center gap-2 bg-white border border-slate-100 px-3 py-1.5 rounded-full text-[10px] font-bold text-slate-500 shadow-sm hover:border-indigo-200 transition-all cursor-default">
+                        <Bookmark size={10} className="text-indigo-400" />
+                        {cite.file} (p. {cite.page})
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))
         )}
+        {isTyping && (
+          <div className="flex justify-start animate-in fade-in">
+            <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 flex gap-2 items-center text-slate-400">
+              <Loader2 size={16} className="animate-spin" />
+              <span className="text-xs font-bold uppercase tracking-widest">Consulting Knowledge Vault...</span>
+            </div>
+          </div>
+        )}
       </div>
-      {/* Footer and Send form same as original */}
+
+      <footer className="p-8 pt-0">
+        <form onSubmit={handleSend} className="max-w-4xl mx-auto relative group">
+          <input 
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={isTyping}
+            placeholder="Search your knowledge paths..."
+            className="w-full bg-white border border-slate-200 rounded-[2rem] pl-8 pr-20 py-6 text-slate-700 font-medium outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all shadow-xl shadow-slate-200/50"
+          />
+          <button 
+            type="submit"
+            disabled={!input.trim() || isTyping}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition-all shadow-lg active:scale-90 disabled:opacity-30 disabled:pointer-events-none"
+          >
+            <Send size={20} />
+          </button>
+        </form>
+        <p className="text-center text-[10px] text-slate-400 mt-4 font-black uppercase tracking-[0.2em]">PathFinder AI Intelligence Node</p>
+      </footer>
     </div>
   );
 };
