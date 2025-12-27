@@ -1,8 +1,7 @@
 
 "use client";
 
-import React from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { 
   MessageSquare, 
   Library, 
@@ -10,34 +9,42 @@ import {
   LogOut,
   Compass
 } from 'lucide-react';
-import { useAuth } from './providers';
+import { AuthProvider, useAuth } from './providers';
 
-interface AppLayoutProps {
-  children: React.ReactNode;
-}
+// Import our page components directly for simulation
+import ChatPage from './page';
+import LibraryPage from './library/page';
+import SettingsPage from './settings/page';
+import LoginPage from './login/page';
 
-export function AppLayout({ children }: AppLayoutProps) {
-  const { user, activeWorkspace, logout, loading } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
+function AppLayout({ children }: { children?: React.ReactNode }) {
+  const { user, activeWorkspace, logout, loading, pathname, push } = useAuth();
 
-  // Redirect to login if not authenticated
-  React.useEffect(() => {
-    if (!loading && !user && location.pathname !== '/login') {
-      navigate('/login');
+  // Simple Router logic
+  const renderPage = () => {
+    if (!user) return <LoginPage />;
+    
+    switch (pathname) {
+      case '/login': return <LoginPage />;
+      case '/library': return <LibraryPage />;
+      case '/settings': return <SettingsPage />;
+      case '/': 
+      default:
+        return <ChatPage />;
     }
-  }, [user, loading, location.pathname, navigate]);
+  };
 
   if (loading) {
     return (
       <div className="h-screen w-screen flex flex-col items-center justify-center bg-slate-50 gap-4">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        <p className="text-slate-400 font-bold text-xs uppercase tracking-widest animate-pulse">Initializing Vault...</p>
+        <p className="text-slate-400 font-bold text-xs uppercase tracking-widest animate-pulse">Initializing PathFinder...</p>
       </div>
     );
   }
 
-  if (!user || location.pathname === '/login') return <>{children}</>;
+  // Handle unauthenticated state
+  if (!user) return <LoginPage />;
 
   const menuItems = [
     { path: '/', icon: <MessageSquare size={20} />, label: 'Conversation' },
@@ -62,25 +69,25 @@ export function AppLayout({ children }: AppLayoutProps) {
              </div>
              <div className="overflow-hidden">
                 <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest leading-none mb-1">Active Vault</p>
-                <p className="text-xs font-bold text-slate-700 truncate">{activeWorkspace?.name || 'Loading...'}</p>
+                <p className="text-xs font-bold text-slate-700 truncate">{activeWorkspace?.name || 'Connecting...'}</p>
              </div>
           </div>
         </div>
 
         <nav className="flex-1 px-4 py-6 space-y-1">
           {menuItems.map((item) => (
-            <Link
+            <button
               key={item.path}
-              to={item.path}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all ${
-                location.pathname === item.path
+              onClick={() => push(item.path)}
+              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all ${
+                pathname === item.path
                   ? 'bg-slate-900 text-white font-medium shadow-lg shadow-slate-200'
                   : 'text-slate-600 hover:bg-slate-50 hover:pl-6'
               }`}
             >
               {item.icon}
               <span className="text-sm font-bold">{item.label}</span>
-            </Link>
+            </button>
           ))}
         </nav>
 
@@ -95,7 +102,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             </div>
           </div>
           <button
-            onClick={() => { logout(); navigate('/login'); }}
+            onClick={logout}
             className="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-rose-50 hover:text-rose-600 rounded-xl transition-all text-sm font-bold"
           >
             <LogOut size={18} />
@@ -105,12 +112,16 @@ export function AppLayout({ children }: AppLayoutProps) {
       </aside>
 
       <main className="flex-1 overflow-auto relative flex flex-col">
-        {children}
+        {renderPage()}
       </main>
     </div>
   );
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <AppLayout children={children} />;
+export default function RootLayout({ children }: { children?: React.ReactNode }) {
+  return (
+    <AuthProvider>
+      <AppLayout>{children}</AppLayout>
+    </AuthProvider>
+  );
 }

@@ -1,8 +1,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import { AuthProvider } from './app/providers';
+import RootLayout from './app/layout';
+
+/**
+ * PATHFINDER NEXT.JS ENTRY POINT
+ * In a standard Next.js environment, this is handled by the framework.
+ * Here we mount the RootLayout which acts as the application container.
+ */
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -13,7 +18,6 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    {/* Explicitly passing children as a prop to resolve TypeScript's missing children error for AuthProvider */}
-    <AuthProvider children={<App />} />
+    <RootLayout />
   </React.StrictMode>
 );
