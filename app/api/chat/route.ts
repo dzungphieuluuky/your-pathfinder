@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ error: "Gemini API key missing" }), { status: 500 });
     }
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY || "" });
     
     const contextText = context
       .map((node: any) => `[Source: ${node.metadata.file}, Category: ${node.category}, Page: ${node.metadata.page}]\n${node.content}`)

@@ -15,7 +15,7 @@ export class RAGService {
    * Initialize the AI client using the mandatory process.env.API_KEY.
    */
   private getClient() {
-    return new GoogleGenAI({ apiKey: process.env.API_KEY });
+    return new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY || "" });
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
