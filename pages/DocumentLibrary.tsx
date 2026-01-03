@@ -1,9 +1,12 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { FileText, Trash2, Search, Plus, X, FileUp, File as FileIcon, FileSpreadsheet, ChevronDown, Loader2, Download, Info } from 'lucide-react';
+import * as pdfjsLib from 'pdfjs-dist';
 import { Document, User, Workspace, UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
 import { ragService } from '../services/gemini';
+
+// Set worker path for PDF parsing
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 interface DocumentLibraryProps {
   user: User;
@@ -65,10 +68,29 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         // 2. Local Text Extraction
         setUploadStatus(`Extracting text for RAG...`);
         const content = await new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : "Unsupported binary content.");
-          reader.onerror = () => resolve("Error reading file.");
-          reader.readAsText(file);
+          if (file.type === 'application/pdf') {
+            const reader = new FileReader();
+            reader.onload = async () => {
+              try {
+                const pdf = await pdfjsLib.getDocument(new Uint8Array(reader.result as ArrayBuffer)).promise;
+                let fullText = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                  const page = await pdf.getPage(i);
+                  const textContent = await page.getTextContent();
+                  fullText += textContent.items.map((item: any) => item.str).join(' ') + '\n';
+                }
+                resolve(fullText);
+              } catch (err) {
+                resolve(`Error parsing PDF: ${file.name}`);
+              }
+            };
+            reader.readAsArrayBuffer(file);
+          } else {
+            // Handle text files
+            const reader = new FileReader();
+            reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : "Unsupported binary content.");
+            reader.readAsText(file);
+          }
         });
 
         // 3. Chunking & Vector Ingestion
@@ -155,8 +177,8 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
             </div>
             <label className="flex-[2] w-full border-2 border-dashed border-slate-200 rounded-[2.5rem] p-10 cursor-pointer hover:bg-indigo-50/30 transition-all text-center group">
                <FileUp className="mx-auto mb-2 text-indigo-600 group-hover:scale-110 transition-transform" />
-               <span className="text-sm font-bold text-slate-500">SELECT CLOUD ASSETS (.TXT)</span>
-               <input type="file" className="hidden" onChange={handleUpload} accept=".txt" />
+               <span className="text-sm font-bold text-slate-500">SELECT CLOUD ASSETS (.TXT, .PDF)</span>
+               <input type="file" className="hidden" onChange={handleUpload} accept=".txt,.pdf" />
             </label>
           </div>
         </div>
