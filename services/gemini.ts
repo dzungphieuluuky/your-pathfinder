@@ -2,6 +2,21 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Citation, KnowledgeNode, ClarificationAlert } from "../types";
 
+/**
+ * Lấy API Key an toàn
+ */
+const getGeminiKey = () => {
+  let key: string | undefined;
+  try {
+    key = process.env.API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  } catch (e) {}
+
+  if (!key && typeof window !== 'undefined') {
+    key = (window as any).API_KEY || localStorage.getItem('GEMINI_API_KEY_OVERRIDE') || undefined;
+  }
+  return key;
+};
+
 export interface Contradiction {
   topic: string;
   sourceA: { file: string; text: string };
@@ -12,7 +27,11 @@ export interface Contradiction {
 
 export class RAGService {
   private getClient() {
-    return new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = getGeminiKey();
+    if (!apiKey) {
+      throw new Error("Gemini API Key is missing. Please configure it in settings.");
+    }
+    return new GoogleGenAI({ apiKey });
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
@@ -25,8 +44,7 @@ export class RAGService {
       return result.embeddings[0].values;
     } catch (e) {
       console.error("Embedding failed:", e);
-      // Fallback to random if API fails for some reason during dev, 
-      // though real usage requires the key.
+      // Fallback to random for UI stability, though real RAG won't work correctly
       return Array.from({ length: 768 }, () => Math.random());
     }
   }

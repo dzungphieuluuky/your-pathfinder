@@ -1,27 +1,28 @@
-
 # Your PathFinder Setup Guide
 
-To fix "Row-Level Security (RLS)" errors, you must apply the policies to your Supabase project.
+To run this project, you need to configure your Supabase environment correctly.
 
-## 1. Database & Table Policies
-1. Open the **SQL Editor** in your Supabase dashboard.
-2. Paste the contents of `supabase_setup.txt` and run it.
-3. This creates the tables AND enables public RLS policies for development.
+## 1. Get Your API Keys
+1. Go to **Project Settings** > **API**.
+2. **NEXT_PUBLIC_SUPABASE_URL**: Use your Project URL.
+3. **NEXT_PUBLIC_SUPABASE_ANON_KEY**: Use your `anon` `public` key.
 
-## 2. Storage Bucket Policies
-Supabase Storage uses its own RLS. If you get errors uploading files:
-1. Go to **Storage** > **Policies**.
-2. For the `documents` bucket, create a "New Policy".
-3. Select **"Allow all operations for all users"** (For Dev) or use this SQL:
-```sql
--- Allow anyone to upload to 'documents' bucket
-CREATE POLICY "Public Upload" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'documents');
--- Allow anyone to read from 'documents' bucket
-CREATE POLICY "Public View" ON storage.objects FOR SELECT USING (bucket_id = 'documents');
-```
+## 2. Storage Setup (IMPORTANT)
+1. Go to **Storage** > Create bucket named `documents`.
+2. Ensure the bucket is **Public** (or configure RLS policies for authenticated access).
+3. Recommended RLS for the `documents` bucket:
+   - SELECT: Allow all (or authenticated).
+   - INSERT: Allow authenticated.
 
-## 3. Local Environment
-Ensure your `.env.local` contains:
+## 3. Database Setup (FIXES CONNECTION ERROR)
+1. Open the **SQL Editor** in Supabase.
+2. Open the file `supabase_setup.txt` in this project.
+3. **Copy the entire text** and paste it into a new query in the SQL Editor.
+4. Click **Run**.
+5. This creates the tables and the `match_embeddings` function used for RAG.
+
+## 4. Local Environment
+Create `.env.local`:
 ```env
 API_KEY=your_gemini_key
 NEXT_PUBLIC_SUPABASE_URL=...
