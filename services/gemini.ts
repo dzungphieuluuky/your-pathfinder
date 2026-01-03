@@ -11,16 +11,24 @@ export interface Contradiction {
 }
 
 export class RAGService {
-  /**
-   * Initialize the AI client using the mandatory process.env.API_KEY.
-   */
   private getClient() {
-    return new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY || "" });
+    return new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
-    // Simulated embedding dimension for Supabase schema compatibility
-    return Array.from({ length: 768 }, () => Math.random());
+    try {
+      const ai = this.getClient();
+      const result = await ai.models.embedContent({
+        model: 'text-embedding-004',
+        contents: [{ parts: [{ text }] }]
+      });
+      return result.embeddings[0].values;
+    } catch (e) {
+      console.error("Embedding failed:", e);
+      // Fallback to random if API fails for some reason during dev, 
+      // though real usage requires the key.
+      return Array.from({ length: 768 }, () => Math.random());
+    }
   }
 
   async detectContradictions(nodes: KnowledgeNode[]): Promise<Contradiction[]> {
@@ -31,25 +39,7 @@ export class RAGService {
 
     const systemInstruction = `
       You are an Integrity Auditor. Your task is to analyze document snippets and find direct factual contradictions.
-      
-      RULES:
-      1. Only report TRUE contradictions (e.g., File A says 'Mon-Fri' but File B says 'Sun-Thu').
-      2. Ignore minor wording differences that mean the same thing.
-      3. Focus on: Dates, Numbers, Policy Rules, and Person names/roles.
-      
-      OUTPUT:
-      You MUST return valid JSON:
-      {
-        "contradictions": [
-          {
-            "topic": "Short title of the conflict",
-            "sourceA": { "file": "Filename A", "text": "Snippet of conflicting text from A" },
-            "sourceB": { "file": "Filename B", "text": "Snippet of conflicting text from B" },
-            "explanation": "Briefly why this is a problem",
-            "severity": "high or medium"
-          }
-        ]
-      }
+      Only report TRUE contradictions. Return JSON.
     `;
 
     try {
@@ -101,91 +91,69 @@ export class RAGService {
   async generateResponse(
     query: string, 
     contextNodes: KnowledgeNode[]
-  ): Promise<{ text: string, citations: Citation[], alerts: ClarificationAlert[] }> {
+  ): Promise<{ answer: string, alerts: ClarificationAlert[] }> {
     const ai = this.getClient();
-    const contextText = contextNodes
-      .map(node => `[Source: ${node.metadata.file}, Category: ${node.category}, Page: ${node.metadata.page}]\n${node.content}`)
-      .join('\n\n---\n\n');
+    const contextText = contextNodes.length > 0
+      ? contextNodes
+          .map(node => `[Source: ${node.metadata.file}, Category: ${node.category}, Page: ${node.metadata.page}]\n${node.content}`)
+          .join('\n\n---\n\n')
+      : "No relevant documents found in the vault.";
 
     const systemInstruction = `
-      You are a formal and highly accurate Corporate AI Assistant. 
+      You are PathFinder, a formal and highly accurate Corporate AI Assistant. 
       Your primary goal is to provide information strictly based on the provided document context.
       
       CORE DIRECTIVES:
-      1. FORMAL TONE: Maintain a professional, polite, and formal tone.
-      2. STRICT CONTEXT: Only use provided context. If context is missing, state: "I apologize, but I am unable to locate specific information regarding this request within our current indexed library."
-      3. CITATIONS: Always mention source files and pages.
-      4. SIMILARITY DETECTION: Identify if the context contains information that might be confused with the primary answer (e.g., a similar policy for a different department).
+      1. FORMAL TONE: Professional and polite.
+      2. STRICT CONTEXT: Only use provided context. 
+      3. CITATIONS: Mention source files.
       
       OUTPUT FORMAT:
-      You must return your response in a JSON structure:
+      You must return valid JSON:
       {
-        "answer": "Your formal response with citations in-text",
-        "alerts": [
-          {
-            "title": "Short title for the alert",
-            "content": "Explanation of how this info differs from the primary answer to prevent confusion",
-            "source": "Source Name (e.g. HR Handbook)"
-          }
-        ]
+        "answer": "Your response text",
+        "alerts": []
       }
     `;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: `User Query: ${query}\n\nContext:\n${contextText}`,
-      config: {
-        systemInstruction,
-        temperature: 0.2,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            answer: { type: Type.STRING },
-            alerts: {
-              type: Type.ARRAY,
-              items: {
-                type: Type.OBJECT,
-                properties: {
-                  title: { type: Type.STRING },
-                  content: { type: Type.STRING },
-                  source: { type: Type.STRING }
-                },
-                required: ["title", "content", "source"]
-              }
-            }
-          },
-          required: ["answer", "alerts"]
-        }
-      },
-    });
-
-    let result = { answer: "", alerts: [] };
     try {
-      result = JSON.parse(response.text || "{}");
-    } catch (e) {
-      result.answer = response.text || "Error processing response.";
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: `User Query: ${query}\n\nContext:\n${contextText}`,
+        config: {
+          systemInstruction,
+          temperature: 0.1,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              answer: { type: Type.STRING },
+              alerts: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    title: { type: Type.STRING },
+                    content: { type: Type.STRING },
+                    source: { type: Type.STRING }
+                  },
+                  required: ["title", "content", "source"]
+                }
+              }
+            },
+            required: ["answer", "alerts"]
+          }
+        },
+      });
+
+      return JSON.parse(response.text || '{"answer": "Error parsing response", "alerts": []}');
+    } catch (e: any) {
+      console.error("Gemini generation failed", e);
+      return { 
+        answer: "I apologize, but I encountered an error while generating your response. Please ensure your API key is valid.", 
+        alerts: [] 
+      };
     }
-
-    const citations: Citation[] = contextNodes.map(node => ({
-      file: node.metadata.file,
-      page: node.metadata.page,
-      url: node.metadata.url
-    }));
-
-    const uniqueMap = new Map<string, Citation>();
-    citations.forEach(c => {
-      const key = `${c.file}-${c.page}`;
-      if (!uniqueMap.has(key)) {
-        uniqueMap.set(key, c);
-      }
-    });
-
-    return {
-      text: result.answer,
-      citations: Array.from(uniqueMap.values()),
-      alerts: result.alerts || []
-    };
   }
 }
 

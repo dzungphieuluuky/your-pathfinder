@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, Workspace } from '../types';
+import { supabaseService, supabase, getSupabaseConfig } from '../services/supabase';
 
 interface AuthContextType {
   user: User | null;
@@ -21,9 +22,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [pathname, setPathname] = useState('/');
 
   useEffect(() => {
-    // Sync with initial URL or fallback to root
-    const initialPath = window.location.hash.replace('#', '') || '/';
-    setPathname(initialPath);
+    const initialHash = window.location.hash.replace('#', '') || '/';
+    setPathname(initialHash);
 
     const savedUser = localStorage.getItem('rag_user');
     if (savedUser) {
@@ -47,25 +47,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const initializeVault = async (userId: string) => {
+    const { url, key } = getSupabaseConfig();
+
+    if (!url || !key) {
+      console.warn("Supabase configuration keys not found via multi-key detection.");
+      setActiveWorkspace(null);
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('/api/vault', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId })
-      });
-      
-      if (!response.ok) throw new Error("Vault sync failed");
-      
-      const vault = await response.json();
+      const vault = await supabaseService.getOrCreateDefaultWorkspace(userId);
       setActiveWorkspace(vault);
-    } catch (e) {
-      console.error("Vault initialization failed:", e);
-      setActiveWorkspace({
-        id: 'mock-id',
-        name: 'Preview Vault (Local)',
-        owner_id: userId,
-        created_at: new Date().toISOString()
-      });
+    } catch (e: any) {
+      console.error("Supabase Connection Error during Vault initialization:", e.message);
+      setActiveWorkspace(null);
     } finally {
       setLoading(false);
     }

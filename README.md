@@ -1,42 +1,29 @@
 
-# Intelligent RAG Assistant (TypeScript/Next.js/Supabase)
+# Your PathFinder Setup Guide
 
-This project has been rewritten from Python/Streamlit to a modern TypeScript/React stack.
+To fix "Row-Level Security (RLS)" errors, you must apply the policies to your Supabase project.
 
-## Directory Structure
-```text
-/
-├── components/          # Reusable UI components (Layout, Sidebar)
-├── pages/               # Main application screens (Dashboard, Library, Auth)
-├── services/            # Logic for Gemini API and Supabase
-├── types.ts             # Global TypeScript interfaces
-├── App.tsx              # Main routing and auth state
-├── index.tsx            # Entry point
-├── supabase_schema.sql  # SQL for database setup
-└── README.md            # Documentation
+## 1. Database & Table Policies
+1. Open the **SQL Editor** in your Supabase dashboard.
+2. Paste the contents of `supabase_setup.txt` and run it.
+3. This creates the tables AND enables public RLS policies for development.
+
+## 2. Storage Bucket Policies
+Supabase Storage uses its own RLS. If you get errors uploading files:
+1. Go to **Storage** > **Policies**.
+2. For the `documents` bucket, create a "New Policy".
+3. Select **"Allow all operations for all users"** (For Dev) or use this SQL:
+```sql
+-- Allow anyone to upload to 'documents' bucket
+CREATE POLICY "Public Upload" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'documents');
+-- Allow anyone to read from 'documents' bucket
+CREATE POLICY "Public View" ON storage.objects FOR SELECT USING (bucket_id = 'documents');
 ```
 
-## How to Deploy to Vercel
-
-1. **Setup Supabase**:
-   - Create a project at [supabase.com](https://supabase.com).
-   - Run the contents of `supabase_schema.sql` in the SQL Editor.
-   - Create a Storage bucket named `documents`.
-
-2. **Configuration**:
-   - You will need your `SUPABASE_URL` and `SUPABASE_ANON_KEY`.
-   - You will need a `GOOGLE_API_KEY` (Gemini API).
-
-3. **Vercel Deployment**:
-   - Push this code to a GitHub repository.
-   - Link the repository to [Vercel](https://vercel.com).
-   - Add the following Environment Variables in Vercel settings:
-     - `API_KEY`: Your Gemini API Key.
-     - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase URL.
-     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase Key.
-   - Click "Deploy".
-
-## Local Development
-- Run `npm install`.
-- Set up a `.env.local` file with the variables above.
-- Run `npm run dev`.
+## 3. Local Environment
+Ensure your `.env.local` contains:
+```env
+API_KEY=your_gemini_key
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
