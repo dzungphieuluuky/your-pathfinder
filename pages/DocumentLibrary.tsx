@@ -56,7 +56,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     setUploadStatus('Preparing Cloud Upload...');
     
     try {
-      const fileArray = Array.from(files);
+      const fileArray = Array.from(files) as File[];
       for (const file of fileArray) {
         // 1. Storage Upload
         setUploadStatus(`Uploading ${file.name} to Storage...`);
@@ -179,7 +179,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
             const style = getFileStyle(doc.file_name);
             const Icon = style.icon;
             return (
-              <div key={doc.id} className="flex items-center justify-between p-6 border-b border-slate-50 hover:bg-slate-50 transition-all group">
+              <div key={doc.id} className="flex items-center justify-between p-6 border-b border-slate-50 hover:bg-indigo-50/40 transition-all duration-300 group transform hover:scale-[1.02] hover:px-8">
                  <div className="flex items-center gap-4">
                     <div className={`p-4 rounded-2xl ${style.bg} ${style.color}`}><Icon size={20} /></div>
                     <div>

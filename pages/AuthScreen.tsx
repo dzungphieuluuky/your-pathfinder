@@ -66,7 +66,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                   <button 
                     type="button"
                     onClick={() => setRole(UserRole.ADMIN)}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${role === UserRole.ADMIN ? 'border-indigo-600 bg-indigo-50' : 'border-slate-100 hover:border-slate-200'}`}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${role === UserRole.ADMIN ? 'border-indigo-600 bg-indigo-50 scale-105 shadow-lg' : 'border-slate-100 hover:border-slate-200'}`}
                   >
                     <Shield size={18} className={role === UserRole.ADMIN ? 'text-indigo-600' : 'text-slate-400'} />
                     <span className="text-[10px] font-bold uppercase tracking-widest">Admin</span>
@@ -74,7 +74,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                   <button 
                     type="button"
                     onClick={() => setRole(UserRole.USER)}
-                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${role === UserRole.USER ? 'border-indigo-600 bg-indigo-50' : 'border-slate-100 hover:border-slate-200'}`}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${role === UserRole.USER ? 'border-indigo-600 bg-indigo-50 scale-105 shadow-lg' : 'border-slate-100 hover:border-slate-200'}`}
                   >
                     <Shield size={18} className={role === UserRole.USER ? 'text-indigo-600' : 'text-slate-400'} />
                     <span className="text-[10px] font-bold uppercase tracking-widest">User</span>
@@ -86,7 +86,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-xl hover:bg-black transition-all active:scale-95 flex items-center justify-center gap-2 group disabled:opacity-50"
+              className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-xl hover:bg-black transition-all active:scale-95 flex items-center justify-center gap-2 group disabled:opacity-50 duration-300 hover:shadow-2xl hover:-translate-y-1"
             >
               {loading ? 'Initializing...' : 'Enter PathFinder'}
               {!loading && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}

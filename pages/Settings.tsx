@@ -112,7 +112,7 @@ const Settings: React.FC<SettingsProps> = ({ user, workspace }) => {
         <div className="md:col-span-1 space-y-1">
           <button 
             onClick={() => setActiveTab('profile')}
-            className={`w-full flex items-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all ${
+            className={`w-full flex items-center gap-3 px-6 py-4 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
               activeTab === 'profile' ? 'bg-slate-900 text-white shadow-xl translate-x-2' : 'text-slate-500 hover:bg-slate-100'
             }`}
           >
@@ -266,7 +266,7 @@ const Settings: React.FC<SettingsProps> = ({ user, workspace }) => {
                             {sortedInvitations.map((inv, idx) => (
                               <tr 
                                 key={inv.id} 
-                                className={`group hover:bg-white transition-colors ${idx !== sortedInvitations.length - 1 ? 'border-b border-slate-100' : ''}`}
+                                className={`group hover:bg-white transition-all duration-200 hover:shadow-md transform hover:scale-[1.01] ${idx !== sortedInvitations.length - 1 ? 'border-b border-slate-100' : ''}`}
                               >
                                 <td className="px-4 py-3 text-sm font-bold text-slate-900 truncate max-w-[150px]">
                                   {inv.email}
@@ -316,7 +316,7 @@ const Settings: React.FC<SettingsProps> = ({ user, workspace }) => {
                     ) : (
                       <div className="space-y-3">
                         {members.map(member => (
-                          <div key={member.id} className="flex items-center justify-between p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:border-indigo-100 transition-all group">
+                          <div key={member.id} className="flex items-center justify-between p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-all duration-300 group transform hover:scale-105 hover:shadow-lg hover:-translate-y-1">
                             <div className="flex items-center gap-4">
                               <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center font-black">
                                 {member.email[0].toUpperCase()}

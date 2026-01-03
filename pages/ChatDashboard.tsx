@@ -119,16 +119,16 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
                   {msg.content}
                 </div>
                 {msg.role === 'assistant' && (
-                  <div className="flex items-center gap-4 px-4">
+                  <div className={`p-6 rounded-[2rem] shadow-sm leading-relaxed font-medium animate-in fade-in slide-in-from-bottom-2 duration-300 ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 rounded-tl-none text-slate-800'}`}>
                     <button 
                       onClick={() => handleFeedback(msg.id, msg.content, true)}
-                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-slate-300 hover:text-slate-500'}`}
+                      className={`p-2 rounded-lg transition-all duration-200 transform hover:scale-110 ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-slate-300 hover:text-slate-500'}`}
                     >
                       <ThumbsUp size={16} />
                     </button>
                     <button 
                       onClick={() => handleFeedback(msg.id, msg.content, false)}
-                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'down' ? 'text-rose-600 bg-rose-50' : 'text-slate-300 hover:text-slate-500'}`}
+                      className={`p-2 rounded-lg transition-all duration-200 transform hover:scale-110 ${msg.feedback === 'down' ? 'text-rose-600 bg-rose-50' : 'text-slate-300 hover:text-slate-500'}`}
                     >
                       <ThumbsDown size={16} />
                     </button>
@@ -164,9 +164,9 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
             onChange={(e) => setInput(e.target.value)}
             disabled={isTyping}
             placeholder="Search Intelligence Vault..."
-            className="w-full bg-white border border-slate-200 rounded-[2rem] pl-8 pr-20 py-6 text-slate-700 font-medium outline-none focus:ring-4 focus:ring-indigo-50 transition-all shadow-xl"
+            className="w-full bg-white border border-slate-200 rounded-[2rem] pl-8 pr-20 py-6 text-slate-700 font-medium outline-none focus:ring-4 focus:ring-indigo-50 focus:border-indigo-400 transition-all duration-300 shadow-xl hover:shadow-2xl"
           />
-          <button type="submit" disabled={!input.trim() || isTyping} className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition-all shadow-lg">
+          <button type="submit" disabled={!input.trim() || isTyping} className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-110 active:scale-95">
             <Send size={20} />
           </button>
         </form>
