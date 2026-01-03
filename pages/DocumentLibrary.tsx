@@ -61,9 +61,17 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     try {
       const fileArray = Array.from(files) as File[];
       for (const file of fileArray) {
+        // Sanitize filename - remove special characters
+        const sanitizedName = file.name
+          .replace(/[[\]{}()]/g, '') // Remove brackets and braces
+          .replace(/\s+/g, '_')       // Replace spaces with underscores
+          .trim();
+        
+        const sanitizedFile = new File([file], sanitizedName, { type: file.type });
+        
         // 1. Storage Upload
-        setUploadStatus(`Uploading ${file.name} to Storage...`);
-        const doc = await supabaseService.uploadDocument(file, uploadCategory, workspace.id);
+        setUploadStatus(`Uploading ${sanitizedName} to Storage...`);
+        const doc = await supabaseService.uploadDocument(sanitizedFile, uploadCategory, workspace.id);
         
         // 2. Local Text Extraction
         setUploadStatus(`Extracting text for RAG...`);
