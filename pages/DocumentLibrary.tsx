@@ -14,8 +14,7 @@ import {
   Info,
   CheckCircle2,
   HardDrive,
-  ShieldAlert,
-  ArrowRight
+  ShieldAlert
 } from 'lucide-react';
 import { Document, User, Workspace, UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
@@ -166,7 +165,8 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       
       for (const file of fileArray) {
         setCurrentFileName(file.name);
-        setUploadStatus('Uploading Asset to Cloud Storage');
+        
+        setUploadStatus('Uploading to Cloud Bucket...');
         setUploadProgress(20);
         
         const doc = await supabaseService.uploadDocument(file, uploadCategory, workspace.id);
@@ -196,7 +196,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         for (let i = 0; i < finalChunks.length; i++) {
           const progressStep = 55 + ((i + 1) / finalChunks.length) * 40;
           setUploadProgress(Math.min(progressStep, 95));
-          setUploadStatus(`Indexing knowledge unit ${i + 1}/${finalChunks.length}`);
+          setUploadStatus(`Indexing knowledge chunk ${i + 1}/${finalChunks.length}...`);
           
           try {
             const embedding = await ragService.generateEmbedding(finalChunks[i]);
@@ -220,7 +220,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         }
         
         setUploadProgress(100);
-        setUploadStatus('Finalizing Ingestion');
+        setUploadStatus('Document Ingested Successfully.');
         await new Promise(r => setTimeout(r, 800));
       }
       
@@ -241,12 +241,12 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   };
 
   const handleDelete = async (doc: Document) => {
-    if (!isAdmin || !window.confirm(`Permanently excise ${doc.file_name} from the Intelligence Vault?`)) return;
+    if (!isAdmin || !window.confirm(`Permanently remove ${doc.file_name}?`)) return;
     try {
       await supabaseService.deleteDocument(doc.id, doc.storage_path || '', doc.file_name);
       fetchDocs();
     } catch (e: any) { 
-      alert(`Excision failed: ${e.message}`); 
+      alert(`Delete failed: ${e.message}`); 
     }
   };
 
@@ -258,72 +258,76 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   }, [documents, searchTerm]);
 
   return (
-    <div className="p-12 max-w-7xl mx-auto w-full h-full flex flex-col space-y-12">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+    <div className="p-10 max-w-6xl mx-auto w-full h-full flex flex-col">
+      <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-5xl font-black text-slate-900 tracking-tighter mb-2">Vault Library</h1>
-          <p className="text-slate-500 font-bold flex items-center gap-2 uppercase text-[10px] tracking-[0.2em]">
-            <HardDrive size={16} className="text-indigo-600" /> Secure Asset Management System
+          <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-1">Intelligence Vault</h1>
+          <p className="text-slate-500 font-bold flex items-center gap-2">
+            <HardDrive size={16} /> Cloud-Managed Knowledge Asset Management
           </p>
         </div>
         {isAdmin ? (
           <button 
             onClick={() => setShowUpload(!showUpload)} 
             disabled={uploading}
-            className={`px-10 py-5 rounded-[2rem] font-black flex items-center gap-4 transition-all shadow-2xl active:scale-95 group uppercase text-[11px] tracking-widest ${
-              showUpload 
-              ? 'bg-slate-100 text-slate-500' 
-              : 'bg-indigo-600 text-white shadow-indigo-200 hover:bg-indigo-700'
-            }`}
+            className={`px-8 py-4 rounded-2xl font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-indigo-600 text-white shadow-indigo-100 hover:bg-indigo-700 active:scale-95'}`}
           >
-            {uploading ? <Loader2 className="animate-spin" size={18} /> : (showUpload ? <X size={18} /> : <Plus size={18} className="group-hover:rotate-90 transition-transform" />)} 
-            {uploading ? 'Processing Assets' : (showUpload ? 'Exit Dashboard' : 'Ingest Intelligence')}
+            {uploading ? <Loader2 className="animate-spin" size={20} /> : (showUpload ? <X size={20} /> : <Plus size={20} className="group-hover:rotate-90 transition-transform" />)} 
+            {uploading ? 'Processing Assets...' : (showUpload ? 'Close Dashboard' : 'Ingest Document')}
           </button>
         ) : (
-          <div className="flex items-center gap-3 text-[10px] font-black text-indigo-400 bg-white border border-slate-200 px-6 py-3 rounded-2xl shadow-sm uppercase tracking-widest">
-             <Info size={14} /> Vault Access: Read-Only
+          <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-white border border-slate-100 px-4 py-2 rounded-xl shadow-sm">
+             <Info size={14} className="text-indigo-400" /> READ-ONLY VAULT ACCESS
           </div>
         )}
       </header>
 
       {errorMsg && (
-        <div className="p-6 bg-rose-50 border-2 border-rose-100 rounded-[2.5rem] flex items-start gap-5 animate-in slide-in-from-top-4 duration-300">
-          <div className="p-3 bg-rose-500 text-white rounded-2xl shrink-0 shadow-lg shadow-rose-200 transform -rotate-3">
-            <ShieldAlert size={28} />
+        <div className="mb-8 p-6 bg-rose-50 border border-rose-100 rounded-[2rem] flex items-start gap-4 animate-in slide-in-from-top-4 duration-300">
+          <div className="p-3 bg-rose-500 text-white rounded-2xl shrink-0 shadow-lg shadow-rose-100">
+            <ShieldAlert size={24} />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-black text-rose-900 uppercase tracking-widest mb-1">Security Conflict Detected</p>
+            <p className="text-sm font-black text-rose-900 uppercase tracking-tight mb-1">Vault Security Conflict</p>
             <p className="text-xs font-bold text-rose-700/80 leading-relaxed">{errorMsg}</p>
+            <div className="mt-2 flex gap-2">
+               <button 
+                 onClick={() => window.open('https://app.supabase.com', '_blank')}
+                 className="text-[10px] font-black text-rose-600 bg-rose-100 px-3 py-1 rounded-full hover:bg-rose-200"
+               >
+                 Open Supabase SQL Editor
+               </button>
+            </div>
           </div>
-          <button onClick={() => setErrorMsg(null)} className="p-2 text-rose-300 hover:text-rose-600 transition-colors">
-            <X size={24} />
+          <button onClick={() => setErrorMsg(null)} className="p-2 text-rose-300 hover:text-rose-500 transition-colors">
+            <X size={20} />
           </button>
         </div>
       )}
 
       {showUpload && isAdmin && (
-        <div className="bg-white p-12 rounded-[3rem] border border-slate-200 shadow-2xl mb-12 animate-in slide-in-from-top-6 duration-500">
-          <div className="flex flex-col gap-10">
-            <div className="flex flex-col lg:flex-row gap-10 items-center">
-              <div className="w-full lg:w-1/3 relative">
-                <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.3em] block mb-4 px-1">Classification Hub</label>
+        <div className="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-2xl mb-10 animate-in slide-in-from-top-4 duration-500">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              <div className="flex-1 w-full relative">
+                <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-3 px-1">Classification Category</label>
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
                   disabled={uploading}
-                  className="w-full flex justify-between items-center px-8 py-5 bg-slate-50 border border-slate-200 rounded-3xl font-black text-slate-700 hover:bg-white hover:shadow-lg transition-all active:scale-95 uppercase text-xs tracking-widest"
+                  className="w-full flex justify-between items-center px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
-                  <span>{uploadCategory}</span> <ChevronDown size={20} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <span>{uploadCategory}</span> <ChevronDown size={18} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute mt-3 w-full bg-white border border-slate-100 rounded-[2rem] shadow-2xl z-50 py-3 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                  <div className="absolute mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95">
                     {categories.map(cat => (
                       <button 
                         key={cat} 
                         onClick={() => {setUploadCategory(cat); setIsDropdownOpen(false);}} 
-                        className="w-full px-8 py-4 text-left hover:bg-indigo-50 font-bold transition-colors flex items-center justify-between text-xs uppercase tracking-widest text-slate-600"
+                        className="w-full px-6 py-4 text-left hover:bg-indigo-50 font-bold transition-colors flex items-center justify-between"
                       >
                         {cat}
-                        {uploadCategory === cat && <CheckCircle2 size={18} className="text-indigo-600" />}
+                        {uploadCategory === cat && <CheckCircle2 size={16} className="text-indigo-600" />}
                       </button>
                     ))}
                   </div>
@@ -341,23 +345,19 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
             </div>
 
             {uploading && (
-              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
+              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex justify-between items-end">
-                  <div className="space-y-2">
-                    <p className="text-xs font-black text-indigo-600 uppercase tracking-[0.2em] animate-pulse">{uploadStatus}</p>
-                    <p className="text-sm font-bold text-slate-400 flex items-center gap-2">
-                      <FileText size={14} /> {currentFileName}
-                    </p>
+                  <div className="space-y-1">
+                    <p className="text-xs font-black text-slate-900 uppercase tracking-tight">{uploadStatus}</p>
+                    <p className="text-[10px] text-slate-400 font-medium">Processing: <span className="text-indigo-600 font-bold">{currentFileName}</span></p>
                   </div>
-                  <span className="text-4xl font-black text-slate-900 tracking-tighter">{Math.round(uploadProgress)}%</span>
+                  <span className="text-xl font-black text-indigo-600">{Math.round(uploadProgress)}%</span>
                 </div>
-                <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner relative">
+                <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
                   <div 
-                    className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 transition-all duration-700 ease-out shadow-lg relative"
+                    className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 transition-all duration-500 ease-out shadow-lg"
                     style={{ width: `${uploadProgress}%` }}
-                  >
-                    <div className="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite] transform -skew-x-12"></div>
-                  </div>
+                  />
                 </div>
               </div>
             )}
@@ -365,53 +365,43 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         </div>
       )}
 
-      <div className="bg-white border border-slate-200 rounded-[3rem] flex-1 overflow-hidden flex flex-col shadow-2xl shadow-slate-200/50">
-        <div className="p-10 border-b border-slate-50 flex items-center gap-6 bg-slate-50/30">
-           <Search size={28} className="text-slate-300" />
+      <div className="bg-white border border-slate-200 rounded-[2.5rem] flex-1 overflow-hidden flex flex-col shadow-xl">
+        <div className="p-8 border-b border-slate-100 flex items-center gap-5 bg-slate-50/30">
+           <Search size={22} className="text-slate-300" />
            <input 
-            placeholder="Search Vault Manifests..." 
-            className="w-full bg-transparent outline-none font-black text-slate-900 placeholder:text-slate-300 text-2xl tracking-tight" 
+            placeholder="Search Intelligence Vault records..." 
+            className="w-full bg-transparent outline-none font-bold text-slate-800 placeholder:text-slate-300 text-lg" 
             value={searchTerm} 
             onChange={e => setSearchTerm(e.target.value)} 
           />
         </div>
         
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
           {isLoading ? (
-            <div className="p-32 text-center">
-              <div className="relative inline-block mb-6">
-                <div className="h-24 w-24 rounded-[2rem] border-4 border-slate-100 border-t-indigo-600 animate-spin"></div>
-              </div>
-              <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.4em]">Establishing Secure Datagram Link</p>
+            <div className="p-32 text-center animate-pulse">
+              <Loader2 className="animate-spin text-indigo-600 mx-auto" size={48} />
+              <p className="mt-4 text-slate-400 font-black uppercase tracking-widest text-xs">Accessing Knowledge Database...</p>
             </div>
           ) : filteredDocs.length === 0 ? (
-            <div className="p-40 text-center opacity-30 flex flex-col items-center">
-              <div className="w-24 h-24 bg-slate-100 rounded-[2.5rem] flex items-center justify-center mb-6">
-                <FileText size={48} className="text-slate-400" />
-              </div>
-              <p className="font-black text-slate-500 uppercase tracking-widest text-sm">Vault Empty</p>
+            <div className="p-32 text-center opacity-40 grayscale flex flex-col items-center">
+              <FileText size={48} className="text-slate-300 mb-4" />
+              <p className="font-black text-slate-400 uppercase tracking-widest text-sm">No Records Found</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-4">
+            <div className="divide-y divide-slate-50">
               {filteredDocs.map(doc => {
                 const style = getFileStyle(doc.file_name);
                 const Icon = style.icon;
                 return (
-                  <div key={doc.id} className="flex items-center justify-between p-8 bg-white hover:bg-slate-50 rounded-[2rem] border border-transparent hover:border-slate-100 transition-all group relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    
-                    <div className="flex items-center gap-8">
-                      <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center transform group-hover:-rotate-3 transition-transform ${style.bg} ${style.color}`}>
-                        <Icon size={28} />
+                  <div key={doc.id} className="flex items-center justify-between p-8 hover:bg-slate-50 transition-all group">
+                    <div className="flex items-center gap-6">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${style.bg} ${style.color}`}>
+                        <Icon size={24} />
                       </div>
                       <div>
-                        <div className="flex items-center gap-4 mb-1">
-                          <p className="font-black text-slate-900 text-lg tracking-tight">{doc.file_name}</p>
-                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full tracking-widest">{doc.category}</span>
-                        </div>
-                        <div className="flex items-center gap-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                          <span className="flex items-center gap-1.5"><Layers size={12} className="text-indigo-400" /> {formatFileSize(doc.file_size)}</span>
-                          <span className="flex items-center gap-1.5"><Calendar size={12} className="text-indigo-400" /> {new Date(doc.created_at).toLocaleDateString()}</span>
+                        <div className="flex items-center gap-3">
+                          <p className="font-bold text-slate-800">{doc.file_name}</p>
+                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{doc.category}</span>
                         </div>
                         <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">
                           {new Date(doc.created_at).toLocaleDateString()}
@@ -419,15 +409,15 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
                       {doc.url && (
                         <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
                           <Download size={18} />
                         </a>
                       )}
                       {isAdmin && (
-                        <button onClick={() => handleDelete(doc)} className="w-12 h-12 flex items-center justify-center text-slate-200 hover:text-rose-600 bg-white shadow-sm border border-slate-100 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all">
-                          <Trash2 size={20} />
+                        <button onClick={() => handleDelete(doc)} className="p-3 text-slate-200 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
+                          <Trash2 size={18} />
                         </button>
                       )}
                     </div>
@@ -438,12 +428,6 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
           )}
         </div>
       </div>
-      <style>{`
-        @keyframes shimmer {
-          0% { transform: translateX(-100%) skewX(-12deg); }
-          100% { transform: translateX(200%) skewX(-12deg); }
-        }
-      `}</style>
     </div>
   );
 };
