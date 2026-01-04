@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
   FileText, 
@@ -13,8 +12,6 @@ import {
   Loader2, 
   Download, 
   Info,
-  Calendar,
-  Layers,
   CheckCircle2,
   HardDrive,
   ShieldAlert
@@ -22,19 +19,12 @@ import {
 import { Document, User, Workspace, UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
 import { ragService } from '../services/gemini';
+import { extractTextFromPDF } from '../utils/supabase/pdfParser';
 
 interface DocumentLibraryProps {
   user: User;
   workspace: Workspace;
 }
-
-const formatFileSize = (bytes?: number) => {
-  if (!bytes) return '0 B';
-  const k = 1024;
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-};
 
 const getFileStyle = (fileName: string) => {
   const ext = fileName.split('.').pop()?.toLowerCase();
@@ -45,6 +35,54 @@ const getFileStyle = (fileName: string) => {
     case 'txt': return { icon: FileText, color: 'text-indigo-500', bg: 'bg-indigo-50', label: 'Text File' };
     default: return { icon: FileIcon, color: 'text-slate-400', bg: 'bg-slate-50', label: 'Raw Asset' };
   }
+};
+
+/**
+ * Smart text chunking that respects sentence boundaries
+ */
+const chunkText = (text: string, chunkSize: number = 500, overlapSize: number = 50): string[] => {
+  // Clean up whitespace
+  const cleanText = text.trim();
+  
+  if (cleanText.length === 0) {
+    return [];
+  }
+
+  // Try to split by sentences first
+  const sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [];
+  
+  // If no sentences found, fall back to paragraph splitting
+  if (sentences.length === 0) {
+    const paragraphs = cleanText.split('\n\n').filter(p => p.trim().length > 0);
+    if (paragraphs.length > 0) {
+      return paragraphs.map(p => p.trim()).filter(p => p.length > 20);
+    }
+    // Last resort: split into arbitrary chunks
+    const chunks: string[] = [];
+    for (let i = 0; i < cleanText.length; i += chunkSize) {
+      chunks.push(cleanText.substring(i, i + chunkSize).trim());
+    }
+    return chunks.filter(c => c.length > 20);
+  }
+
+  const chunks: string[] = [];
+  let currentChunk = '';
+
+  for (const sentence of sentences) {
+    if ((currentChunk + sentence).length > chunkSize && currentChunk.length > 0) {
+      chunks.push(currentChunk.trim());
+      currentChunk = currentChunk.slice(-overlapSize) + sentence;
+    } else {
+      currentChunk += sentence;
+    }
+  }
+
+  if (currentChunk.trim().length > 0) {
+    chunks.push(currentChunk.trim());
+  }
+
+  // Filter out very small chunks (minimum 20 chars instead of 50)
+  return chunks.filter(chunk => chunk.trim().length > 20);
 };
 
 const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) => {
@@ -76,8 +114,6 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       console.error("Fetch documents failed:", e.message);
       if (e.message.toLowerCase().includes('row-level security') || e.code === '42501') {
         setErrorMsg("Database Access Denied: You need to apply the RLS policies in supabase_setup.txt to your Supabase project.");
-      } else if (e.message.toLowerCase().includes('schema cache') || e.message.toLowerCase().includes('file_size')) {
-        setErrorMsg("Schema Mismatch: Your database is missing the 'file_size' column. Please run the updated Section 3 in supabase_setup.txt to add it.");
       } else {
         setErrorMsg(`Fetch Error: ${e.message}`);
       }
@@ -87,6 +123,33 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   }, [workspace.id]);
 
   useEffect(() => { fetchDocs(); }, [fetchDocs]);
+
+  /**
+   * Extract text based on file type
+   */
+  const extractTextFromFile = async (file: File): Promise<string> => {
+    const ext = file.name.split('.').pop()?.toLowerCase();
+
+    if (ext === 'pdf') {
+      try {
+        return await extractTextFromPDF(file);
+      } catch (error) {
+        console.error('PDF extraction failed:', error);
+        throw new Error(`Failed to extract PDF text: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    } else {
+      // Plain text file handling
+      return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = typeof reader.result === 'string' ? reader.result : '';
+          resolve(result);
+        };
+        reader.onerror = () => reject(new Error('Failed to read text file'));
+        reader.readAsText(file);
+      });
+    }
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isAdmin) return;
@@ -98,7 +161,6 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     setErrorMsg(null);
     
     try {
-      // Annotating the data type as File[] for strict TypeScript compliance
       const fileArray = Array.from(files) as File[];
       
       for (const file of fileArray) {
@@ -111,36 +173,50 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         setUploadProgress(40);
         
         setUploadStatus('Extracting text content...');
-        const content = await new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(typeof reader.result === 'string' ? reader.result : "");
-          reader.onerror = () => resolve("");
-          reader.readAsText(file);
-        });
+        const content = await extractTextFromFile(file);
+        
+        // Debug logging
+        console.log(`📄 ${file.name}: Extracted ${content.length} characters`);
+        
         setUploadProgress(55);
 
-        const rawChunks = content.split('\n\n').filter(c => c.trim().length > 10);
-        const finalChunks = rawChunks.length > 0 ? rawChunks : [`Source Asset: ${file.name}`];
+        // Intelligent chunking with fallback
+        let finalChunks = chunkText(content, 500, 50);
+        
+        // If chunking fails, create a default chunk
+        if (finalChunks.length === 0) {
+          console.warn(`⚠️ Chunking failed for ${file.name}, using fallback chunk`);
+          finalChunks = [
+            `Document: ${file.name}\n\nContent:\n${content.substring(0, 1000)}${content.length > 1000 ? '...' : ''}`
+          ];
+        }
+
+        console.log(`📄 ${file.name}: Created ${finalChunks.length} knowledge chunks`);
 
         for (let i = 0; i < finalChunks.length; i++) {
           const progressStep = 55 + ((i + 1) / finalChunks.length) * 40;
           setUploadProgress(Math.min(progressStep, 95));
           setUploadStatus(`Indexing knowledge chunk ${i + 1}/${finalChunks.length}...`);
           
-          const embedding = await ragService.generateEmbedding(finalChunks[i]);
-          
-          await supabaseService.saveKnowledgeEmbedding({
-            documentId: doc.id,
-            workspaceId: workspace.id,
-            content: finalChunks[i],
-            embedding,
-            category: uploadCategory,
-            metadata: {
-              file: file.name,
-              page: i + 1,
-              url: doc.url || ''
-            }
-          });
+          try {
+            const embedding = await ragService.generateEmbedding(finalChunks[i]);
+            
+            await supabaseService.saveKnowledgeEmbedding({
+              documentId: doc.id,
+              workspaceId: workspace.id,
+              content: finalChunks[i],
+              embedding,
+              category: uploadCategory,
+              metadata: {
+                file: file.name,
+                page: i + 1,
+                url: doc.url || ''
+              }
+            });
+          } catch (chunkError) {
+            console.error(`Failed to embed chunk ${i + 1}:`, chunkError);
+            throw new Error(`Embedding failed for chunk ${i + 1}: ${chunkError instanceof Error ? chunkError.message : 'Unknown error'}`);
+          }
         }
         
         setUploadProgress(100);
@@ -154,8 +230,6 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       console.error("Upload process failed:", e);
       if (e.message.toLowerCase().includes('row-level security') || e.code === '42501' || e.message.toLowerCase().includes('policy')) {
         setErrorMsg("Security Violation: Supabase is blocking this action. Ensure you ran Section 8 (Table Policies) AND Section 9 (Storage Policies) in supabase_setup.txt.");
-      } else if (e.message.toLowerCase().includes('schema cache') || e.message.toLowerCase().includes('file_size')) {
-        setErrorMsg(`Schema Mismatch: ${e.message}.`);
       } else {
         setErrorMsg(`Processing Error: ${e.message}`);
       }
@@ -264,8 +338,8 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                 <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-50 border-slate-200 opacity-50' : 'border-indigo-100 hover:border-indigo-400 hover:bg-indigo-50/30'}`}>
                    <FileUp className={`mx-auto mb-3 text-indigo-600 ${uploading ? '' : 'group-hover:-translate-y-1'} transition-transform`} size={32} />
                    <p className="text-sm font-bold text-slate-600 mb-1">{uploading ? 'INGESTION IN PROGRESS' : 'SELECT VAULT ASSETS'}</p>
-                   <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Supported: .TXT Files</p>
-                   <input type="file" className="hidden" onChange={handleUpload} accept=".txt" disabled={uploading} />
+                   <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Supported: .PDF, .TXT Files</p>
+                   <input type="file" className="hidden" onChange={handleUpload} accept=".pdf,.txt" disabled={uploading} multiple />
                 </label>
               </div>
             </div>
@@ -330,14 +404,14 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                           <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{doc.category}</span>
                         </div>
                         <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">
-                          {formatFileSize(doc.file_size)} • {new Date(doc.created_at).toLocaleDateString()}
+                          {new Date(doc.created_at).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
                       {doc.url && (
-                        <a href={doc.url} target="_blank" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
+                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
                           <Download size={18} />
                         </a>
                       )}
