@@ -73,31 +73,25 @@ export class SupabaseService {
     const timestamp = Date.now();
     const storagePath = `${workspaceId}/${timestamp}_${file.name}`;
 
-    // Upload to Storage
     const { error: uploadError } = await client.storage
       .from('documents')
-      .upload(storagePath, file, {
-        cacheControl: '3600',
-        upsert: false
-      });
+      .upload(storagePath, file);
+    
     if (uploadError) throw uploadError;
 
-    // Get Public URL
     const { data: { publicUrl } } = client.storage
       .from('documents')
       .getPublicUrl(storagePath);
 
-    // Save to Database
     const { data, error } = await client
       .from('documents')
       .insert({
         workspace_id: workspaceId,
         file_name: file.name,
-        file_type: file.type || file.name.split('.').pop(),
-        file_size: file.size,
         category,
         url: publicUrl,
         storage_path: storagePath
+        // ❌ REMOVED: file_type and file_size - they don't exist in schema
       })
       .select()
       .single();
