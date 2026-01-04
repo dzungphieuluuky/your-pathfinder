@@ -22,7 +22,6 @@ import {
 } from 'lucide-react';
 import { Document, User, Workspace, UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
-import { ragService } from '../services/gemini';
 
 interface DocumentLibraryProps {
   user: User;
@@ -99,12 +98,10 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     setErrorMsg(null);
     
     try {
-      // Annotating the data type as File[] for strict TypeScript compliance
       const fileArray = Array.from(files) as File[];
       
       for (const file of fileArray) {
         setCurrentFileName(file.name);
-        
         setUploadStatus('Uploading Asset to Cloud Storage');
         setUploadProgress(20);
         
@@ -128,7 +125,15 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
           setUploadProgress(Math.min(progressStep, 95));
           setUploadStatus(`Indexing knowledge unit ${i + 1}/${finalChunks.length}`);
           
-          const embedding = await ragService.generateEmbedding(finalChunks[i]);
+          // GENERATE EMBEDDING VIA BACKEND API
+          const embedResp = await fetch('/api/embed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: finalChunks[i] })
+          });
+          
+          if (!embedResp.ok) throw new Error("Failed to generate intelligence embedding.");
+          const { embedding } = await embedResp.json();
           
           await supabaseService.saveKnowledgeEmbedding({
             documentId: doc.id,
@@ -153,11 +158,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       setShowUpload(false);
     } catch (e: any) { 
       console.error("Upload process failed:", e);
-      if (e.message.toLowerCase().includes('security') || e.code === '42501') {
-        setErrorMsg("Security Violation: Ingestion blocked by Cloud RLS policies.");
-      } else {
-        setErrorMsg(`Ingestion Error: ${e.message}`);
-      }
+      setErrorMsg(`Ingestion Protocol Failure: ${e.message}`);
     } finally { 
       setUploading(false); 
       setUploadStatus('');

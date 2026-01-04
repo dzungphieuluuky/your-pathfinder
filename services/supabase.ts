@@ -2,39 +2,18 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Document, KnowledgeNode, Invitation, WorkspaceMember, UserRole, InvitationStatus, Workspace } from '../types';
 
-/**
- * Lấy cấu hình Supabase một cách an toàn từ nhiều nguồn:
- * 1. process.env (nếu có build tool)
- * 2. window (biến toàn cục)
- * 3. localStorage (fallback cho môi trường preview)
- */
 export const getSupabaseConfig = () => {
-  let url: string | undefined;
-  let key: string | undefined;
-
-  // 1. Thử lấy từ process.env (Next.js/Vite)
-  try {
-    url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-    key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
-  } catch (e) {
-    // process không tồn tại trong browser thuần
-  }
-
-  // 2. Thử lấy từ window
-  if (!url && typeof window !== 'undefined') {
-    url = (window as any).NEXT_PUBLIC_SUPABASE_URL || (window as any).SUPABASE_URL;
-  }
-  if (!key && typeof window !== 'undefined') {
-    key = (window as any).NEXT_PUBLIC_SUPABASE_ANON_KEY || (window as any).SUPABASE_ANON_KEY;
-  }
-
-  // 3. Fallback từ localStorage (Dành cho người dùng nhập tay khi env fail)
-  if (!url && typeof window !== 'undefined') {
-    url = localStorage.getItem('SUPABASE_URL_OVERRIDE') || undefined;
-  }
-  if (!key && typeof window !== 'undefined') {
-    key = localStorage.getItem('SUPABASE_KEY_OVERRIDE') || undefined;
-  }
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 
+              process.env.SUPABASE_URL || 
+              (typeof window !== 'undefined' ? (window as any).NEXT_PUBLIC_SUPABASE_URL : undefined) ||
+              (typeof window !== 'undefined' ? (window as any).SUPABASE_URL : undefined);
+  
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 
+              process.env.SUPABASE_ANON_KEY || 
+              process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+              process.env.SUPABASE_PUBLISHABLE_KEY ||
+              (typeof window !== 'undefined' ? (window as any).NEXT_PUBLIC_SUPABASE_ANON_KEY : undefined) ||
+              (typeof window !== 'undefined' ? (window as any).SUPABASE_ANON_KEY : undefined);
 
   return { url, key };
 };
@@ -52,7 +31,7 @@ export class SupabaseService {
         supabase = createClient(url, key);
         return supabase;
       }
-      throw new Error(`Cấu hình Supabase chưa hoàn tất. Vui lòng kiểm tra lại URL và Key.`);
+      throw new Error(`Supabase configuration missing.`);
     }
     return supabase;
   }
@@ -69,7 +48,7 @@ export class SupabaseService {
 
     const { data: newWs, error: insertError } = await client
       .from('workspaces')
-      .insert({ name: 'Kho Tri Thức Tổng Hợp', owner_id: userId })
+      .insert({ name: 'Main Intelligence Vault', owner_id: userId })
       .select()
       .single();
 
@@ -96,7 +75,10 @@ export class SupabaseService {
 
     const { error: uploadError } = await client.storage
       .from('documents')
-      .upload(storagePath, file);
+      .upload(storagePath, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
     if (uploadError) throw uploadError;
 
     const { data: { publicUrl } } = client.storage
@@ -108,6 +90,8 @@ export class SupabaseService {
       .insert({
         workspace_id: workspaceId,
         file_name: file.name,
+        file_type: file.type || file.name.split('.').pop(),
+        file_size: file.size,
         category,
         url: publicUrl,
         storage_path: storagePath
@@ -121,8 +105,14 @@ export class SupabaseService {
 
   async deleteDocument(id: string, storagePath: string, fileName: string): Promise<void> {
     const client = this.ensureClient();
-    await client.storage.from('documents').remove([storagePath]);
-    await client.from('documents').delete().eq('id', id);
+    const { error: storageError } = await client.storage
+      .from('documents')
+      .remove([storagePath]);
+    if (storageError) console.error("Storage delete error:", storageError);
+
+    await client.from('knowledge_embeddings').delete().filter('metadata->>file', 'eq', fileName);
+    const { error: dbError } = await client.from('documents').delete().eq('id', id);
+    if (dbError) throw dbError;
   }
 
   async saveKnowledgeEmbedding(params: {
@@ -171,31 +161,62 @@ export class SupabaseService {
 
   async getInvitations(workspaceId: string): Promise<Invitation[]> {
     const client = this.ensureClient();
-    const { data, error } = await client.from('invitations').select('*').eq('workspace_id', workspaceId);
+    const { data, error } = await client
+      .from('invitations')
+      .select('*')
+      .eq('workspace_id', workspaceId)
+      .order('invited_at', { ascending: false });
     if (error) throw error;
     return data || [];
   }
 
   async getWorkspaceMembers(workspaceId: string): Promise<WorkspaceMember[]> {
     const client = this.ensureClient();
-    const { data, error } = await client.from('workspace_members').select('*').eq('workspace_id', workspaceId);
+    const { data, error } = await client
+      .from('workspace_members')
+      .select('*')
+      .eq('workspace_id', workspaceId)
+      .order('joined_at', { ascending: false });
     if (error) throw error;
     return data || [];
   }
 
-  async createInvitation(email: string, role: UserRole, workspaceId: string): Promise<void> {
-    const client = this.ensureClient();
-    await client.from('invitations').insert({ email, role, workspace_id: workspaceId });
-  }
-
   async revokeInvitation(id: string): Promise<void> {
     const client = this.ensureClient();
-    await client.from('invitations').update({ status: InvitationStatus.REVOKED }).eq('id', id);
+    const { error } = await client
+      .from('invitations')
+      .update({ status: InvitationStatus.REVOKED })
+      .eq('id', id);
+    if (error) throw error;
+  }
+
+  async sendRealInvitation(email: string, role: UserRole, workspaceId: string): Promise<{ success: boolean; inviteLink: string }> {
+    const response = await fetch('/api/invite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, role, workspaceId })
+    });
+
+    const text = await response.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      // If parsing fails, the response was likely not JSON (e.g. 404 or 500 HTML page)
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}`);
+    }
+    
+    if (!response.ok) throw new Error(data.error || 'Failed to dispatch invitation');
+    return data;
   }
 
   async saveFeedback(content: string, rating: boolean): Promise<void> {
     const client = this.ensureClient();
-    // Feedback logic here
+    await client.from('messages').insert({
+      content,
+      role: 'assistant',
+      user_rating: rating
+    });
   }
 }
 

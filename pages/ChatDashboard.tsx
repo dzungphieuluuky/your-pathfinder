@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Compass, HelpCircle, ChevronDown, Check, Loader2, ThumbsUp, ThumbsDown, Bookmark, AlertCircle } from 'lucide-react';
 import { Message, User, Workspace } from '../types';
 import { supabaseService } from '../services/supabase';
-import { ragService } from '../services/gemini';
 
 interface ChatDashboardProps {
   user: User;
@@ -47,15 +46,42 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
     setIsTyping(true);
 
     try {
-      const embedding = await ragService.generateEmbedding(input);
+      // 1. Fetch embedding from our internal API
+      const embedResp = await fetch('/api/embed', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: input })
+      });
+      
+      if (!embedResp.ok) throw new Error("Intelligence server failed to generate embedding.");
+      const { embedding } = await embedResp.json();
+
+      // 2. Search local Supabase vault for relevant context
       const contextNodes = await supabaseService.matchEmbeddings(embedding, category, workspace.id);
-      const result = await ragService.generateResponse(input, contextNodes);
+
+      // 3. Generate response via our internal API (which has server-side API_KEY access)
+      const chatResp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: input, context: contextNodes })
+      });
+
+      if (!chatResp.ok) {
+        const errorData = await chatResp.json();
+        throw new Error(errorData.error || "Intelligence server failed to generate response.");
+      }
+      
+      const result = await chatResp.json();
 
       const botMsg: Message = {
         id: `a-${Date.now()}`,
         role: 'assistant',
         content: result.answer,
-        citations: contextNodes.map(n => ({ file: n.metadata.file, page: n.metadata.page, url: n.metadata.url })),
+        citations: contextNodes.map(n => ({ 
+          file: n.metadata.file, 
+          page: n.metadata.page, 
+          url: n.metadata.url 
+        })),
         alerts: result.alerts,
         timestamp: new Date()
       };
@@ -65,7 +91,7 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
       setMessages(prev => [...prev, {
         id: `e-${Date.now()}`,
         role: 'assistant',
-        content: "I encountered a technical interruption. Please verify the Gemini API key and Supabase cloud connection.",
+        content: `Intelligence Protocol Interrupted: ${error.message || "Unknown connectivity error"}. Please verify your server-side API key configuration.`,
         timestamp: new Date()
       }]);
     } finally {
