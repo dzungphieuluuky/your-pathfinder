@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
         // Gemini API
         'process.env.API_KEY': JSON.stringify(env.API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.API_KEY),
+        'process.env.VITE_GEMINI_API_KEY': JSON.stringify(env.VITE_GEMINI_API_KEY),
         
         // Supabase Configuration
         'process.env.SUPABASE_URL': JSON.stringify(env.NEXT_PUBLIC_SUPABASE_URL),
