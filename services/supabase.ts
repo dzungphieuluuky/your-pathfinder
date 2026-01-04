@@ -99,7 +99,7 @@ export class SupabaseService {
     if (error) throw error;
     return data;
   }
-  
+
   async deleteDocument(id: string, storagePath: string, fileName: string): Promise<void> {
     const client = this.ensureClient();
     const { error: storageError } = await client.storage
@@ -187,24 +187,16 @@ export class SupabaseService {
     if (error) throw error;
   }
 
-  async sendRealInvitation(email: string, role: UserRole, workspaceId: string): Promise<{ success: boolean; inviteLink: string }> {
-    const response = await fetch('/api/invite', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, role, workspaceId })
+  async createInvitation(email: string, role: UserRole, workspaceId: string): Promise<void> {
+    const client = this.ensureClient();
+    const { error } = await client.from('invitations').insert({
+      email,
+      role,
+      workspace_id: workspaceId,
+      status: InvitationStatus.PENDING,
+      invited_at: new Date().toISOString()
     });
-
-    const text = await response.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      // If parsing fails, the response was likely not JSON (e.g. 404 or 500 HTML page)
-      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}`);
-    }
-    
-    if (!response.ok) throw new Error(data.error || 'Failed to dispatch invitation');
-    return data;
+    if (error) throw error;
   }
 
   async saveFeedback(content: string, rating: boolean): Promise<void> {
