@@ -90,8 +90,9 @@ export class SupabaseService {
       .insert({
         workspace_id: workspaceId,
         file_name: file.name,
-        file_type: file.type || file.name.split('.').pop(),
-        file_size: file.size,
+        // Remove these lines - they don't exist in schema:
+        // file_type: file.type || file.name.split('.').pop(),
+        // file_size: file.size,
         category,
         url: publicUrl,
         storage_path: storagePath
@@ -102,7 +103,7 @@ export class SupabaseService {
     if (error) throw error;
     return data;
   }
-
+  
   async deleteDocument(id: string, storagePath: string, fileName: string): Promise<void> {
     const client = this.ensureClient();
     const { error: storageError } = await client.storage

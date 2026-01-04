@@ -12,17 +12,24 @@ export default defineConfig(({ mode }) => {
       },
       plugins: [react()],
       define: {
+        // Gemini API
+        'process.env.API_KEY': JSON.stringify(env.API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.API_KEY),
-        'process.env.SUPABASE_URL': JSON.stringify(env.SUPABASE_URL),
-        'process.env.SUPABASE_SERVICE_KEY': JSON.stringify(env.SUPABASE_SERVICE_KEY),
+        
+        // Supabase Configuration
+        'process.env.SUPABASE_URL': JSON.stringify(env.NEXT_PUBLIC_SUPABASE_URL),
+        'process.env.NEXT_PUBLIC_SUPABASE_URL': JSON.stringify(env.NEXT_PUBLIC_SUPABASE_URL),
+        'process.env.SUPABASE_ANON_KEY': JSON.stringify(env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+        'process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+        'process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY': JSON.stringify(env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY),
+        
+        // Email Configuration
         'process.env.RESEND_API_KEY': JSON.stringify(env.RESEND_API_KEY),
         'process.env.GMAIL_USER': JSON.stringify(env.GMAIL_USER),
         'process.env.GMAIL_PASS': JSON.stringify(env.GMAIL_PASS),
+        
+        // File Monitoring
         'process.env.WATCHED_DIR': JSON.stringify(env.WATCHED_DIR),
-        // Legacy aliases for backward compatibility
-        'process.env.API_KEY': JSON.stringify(env.API_KEY),
-        'process.env.NEXT_PUBLIC_SUPABASE_URL': JSON.stringify(env.SUPABASE_URL),
-        'process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(env.SUPABASE_SERVICE_KEY),
       },
       resolve: {
         alias: {

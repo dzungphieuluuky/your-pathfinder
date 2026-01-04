@@ -1,7 +1,6 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, Workspace } from '../types';
-import { supabaseService, supabase, getSupabaseConfig } from '../services/supabase';
+import { supabaseService, getSupabaseConfig } from '../services/supabase';
 
 interface AuthContextType {
   user: User | null;
