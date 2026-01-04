@@ -75,10 +75,8 @@ export class SupabaseService {
 
     const { error: uploadError } = await client.storage
       .from('documents')
-      .upload(storagePath, file, {
-        cacheControl: '3600',
-        upsert: false
-      });
+      .upload(storagePath, file);
+    
     if (uploadError) throw uploadError;
 
     const { data: { publicUrl } } = client.storage
@@ -90,12 +88,10 @@ export class SupabaseService {
       .insert({
         workspace_id: workspaceId,
         file_name: file.name,
-        // Remove these lines - they don't exist in schema:
-        // file_type: file.type || file.name.split('.').pop(),
-        // file_size: file.size,
         category,
         url: publicUrl,
         storage_path: storagePath
+        // ❌ REMOVED: file_type and file_size - they don't exist in schema
       })
       .select()
       .single();
