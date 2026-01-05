@@ -127,31 +127,76 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
 
+    const userContent = input;
     const userMsg: Message = { 
       id: `u-${Date.now()}`, 
       role: 'user', 
-      content: input, 
+      content: '', // Start with empty content
       timestamp: new Date() 
     };
+    
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
 
+    // Animate user message typing effect
+    let currentIndex = 0;
+    const typeInterval = setInterval(() => {
+      if (currentIndex < userContent.length) {
+        setMessages(prev => prev.map(m => 
+          m.id === userMsg.id 
+            ? { ...m, content: userContent.substring(0, currentIndex + 1) }
+            : m
+        ));
+        currentIndex++;
+      } else {
+        clearInterval(typeInterval);
+        // Continue with AI processing after user message is fully typed
+        processAIResponse(userContent);
+      }
+    }, 30); // Adjust speed: lower = faster, higher = slower
+  };
+
+  const processAIResponse = async (userInput: string) => {
     try {
       // 1. Generate Embedding directly via service
-      const embedding = await ragService.generateEmbedding(input);
+      const embedding = await ragService.generateEmbedding(userInput);
 
       // 2. Query Supabase for context
-      const contextNodes = await supabaseService.matchEmbeddings(embedding, category, workspace.id);
+      let contextNodes = await supabaseService.matchEmbeddings(embedding, category, workspace.id);
 
-      // 3. Generate Response directly via service
-      const result = await ragService.generateResponse(input, contextNodes);
+      // 3. STRICT FILTERING: Only keep highly relevant documents
+      const SIMILARITY_THRESHOLD = 0.72; // Adjust this value
+      contextNodes = contextNodes.filter((node: any) => {
+        const similarity = 1 - (node.similarity || node.distance || 1);
+        return similarity >= SIMILARITY_THRESHOLD;
+      });
+
+      // 4. If no relevant documents found, return warning
+      if (contextNodes.length === 0) {
+        setMessages(prev => [...prev, {
+          id: `a-${Date.now()}`,
+          role: 'assistant',
+          content: "I couldn't find any relevant documents in the vault to answer your question. Try asking about documents that have been uploaded.",
+          timestamp: new Date()
+        }]);
+        setIsTyping(false);
+        return;
+      }
+
+      // 5. Generate Response directly via service
+      const result = await ragService.generateResponse(userInput, contextNodes);
 
       const botMsg: Message = {
         id: `a-${Date.now()}`,
         role: 'assistant',
         content: result.answer,
-        citations: contextNodes.map(n => ({ file: n.metadata.file, page: n.metadata.page, url: n.metadata.url })),
+        citations: contextNodes.map(n => ({ 
+          file: n.metadata.file, 
+          page: n.metadata.page, 
+          url: n.metadata.url,
+          similarity: (1 - (n.similarity || n.distance || 1)).toFixed(3) // Show relevance score
+        })),
         alerts: result.alerts,
         timestamp: new Date()
       };

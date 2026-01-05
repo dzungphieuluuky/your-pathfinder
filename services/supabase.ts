@@ -173,30 +173,45 @@ async updateDocumentCategory(docId: string, newCategory: string): Promise<void> 
     }
   }
 
-  async matchEmbeddings(queryEmbedding: number[], category: string, workspaceId: string): Promise<KnowledgeNode[]> {
+  async matchEmbeddings(embedding: number[], category: string, workspaceId: string): Promise<any[]> {
     const client = this.ensureClient();
+    
+    // Minimum similarity threshold (0-1 scale)
+    // 0.7 = strict (only very similar documents)
+    // 0.6 = moderate (somewhat similar)
+    // 0.5 = lenient (loosely related)
+    const SIMILARITY_THRESHOLD = 0.72;
+    
     const { data, error } = await client.rpc('match_embeddings', {
-      query_embedding: queryEmbedding,
-      match_threshold: 0.1,
-      match_count: 5,
-      filter_category: category === 'All' ? null : category,
-      filter_workspace_id: workspaceId
-    });
-    
-    if (error) throw error;
-    
-    return (data || []).map((item: any) => ({
-      id: item.id.toString(),
-      content: item.content,
-      category: item.category,
-      metadata: { 
-        file: item.metadata?.file || "Unknown", 
-        page: item.metadata?.page || 1, 
-        url: item.metadata?.url 
+      query_embedding: embedding,
+      match_count: 10, // Get more results to filter
+      filter: { 
+        workspace_id: workspaceId, 
+        category: category === 'All' ? null : category 
       }
-    }));
-  }
+    });
 
+    if (error) {
+      console.error('Embedding match error:', error);
+      throw error;
+    }
+
+    // Filter results by similarity threshold
+    const filteredResults = (data || []).filter((result: any) => {
+      // The similarity score is typically returned as distance (lower = more similar)
+      // For cosine similarity: similarity = 1 - distance
+      const similarity = 1 - (result.similarity || result.distance || 1);
+      
+      console.log(`Document: ${result.metadata?.file}, Similarity: ${similarity.toFixed(3)}`);
+      
+      return similarity >= SIMILARITY_THRESHOLD;
+    });
+
+    console.log(`Filtered ${data?.length || 0} results to ${filteredResults.length} above threshold ${SIMILARITY_THRESHOLD}`);
+
+    return filteredResults;
+  }
+  
   async getInvitations(workspaceId: string): Promise<Invitation[]> {
     const client = this.ensureClient();
     const { data, error } = await client
