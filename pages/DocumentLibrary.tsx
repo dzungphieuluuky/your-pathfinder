@@ -14,7 +14,9 @@ import {
   Info,
   CheckCircle2,
   HardDrive,
-  ShieldAlert
+  ShieldAlert,
+  Code2,
+  Globe
 } from 'lucide-react';
 import { Document, User, Workspace, UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
@@ -26,38 +28,63 @@ interface DocumentLibraryProps {
   workspace: Workspace;
 }
 
-const getFileStyle = (fileName: string) => {
-  const ext = fileName.split('.').pop()?.toLowerCase();
-  switch (ext) {
-    case 'pdf': return { icon: FileText, color: 'text-rose-500', bg: 'bg-rose-50', label: 'PDF Document' };
-    case 'xls':
-    case 'xlsx': return { icon: FileSpreadsheet, color: 'text-emerald-500', bg: 'bg-emerald-50', label: 'Spreadsheet' };
-    case 'txt': return { icon: FileText, color: 'text-indigo-500', bg: 'bg-indigo-50', label: 'Text File' };
-    default: return { icon: FileIcon, color: 'text-slate-400', bg: 'bg-slate-50', label: 'Raw Asset' };
-  }
+// ============================================
+// FILE TYPE CONFIGURATION
+// ============================================
+const SUPPORTED_FILE_TYPES = {
+  documents: ['.pdf', '.docx', '.doc', '.txt', '.md', '.markdown', '.html', '.htm', '.rtf'],
+  spreadsheets: ['.xlsx', '.xls', '.csv'],
+  data: ['.json'],
+  all: ['.pdf', '.docx', '.doc', '.txt', '.md', '.markdown', '.html', '.htm', '.rtf', '.xlsx', '.xls', '.csv', '.json']
 };
 
-/**
- * Smart text chunking that respects sentence boundaries
- */
+// ============================================
+// ENHANCED FILE STYLE WITH MORE TYPES
+// ============================================
+const getFileStyle = (fileName: string) => {
+  const ext = fileName.split('.').pop()?.toLowerCase();
+  
+  const styles: Record<string, any> = {
+    // Documents
+    pdf: { icon: FileText, color: 'text-rose-500', bg: 'bg-rose-50', label: 'PDF Document' },
+    docx: { icon: FileText, color: 'text-blue-500', bg: 'bg-blue-50', label: 'Word Document' },
+    doc: { icon: FileText, color: 'text-blue-500', bg: 'bg-blue-50', label: 'Word Document' },
+    txt: { icon: FileText, color: 'text-slate-500', bg: 'bg-slate-50', label: 'Text File' },
+    md: { icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50', label: 'Markdown' },
+    markdown: { icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50', label: 'Markdown' },
+    rtf: { icon: FileText, color: 'text-indigo-500', bg: 'bg-indigo-50', label: 'Rich Text' },
+    
+    // Spreadsheets
+    xlsx: { icon: FileSpreadsheet, color: 'text-emerald-500', bg: 'bg-emerald-50', label: 'Excel Sheet' },
+    xls: { icon: FileSpreadsheet, color: 'text-emerald-500', bg: 'bg-emerald-50', label: 'Excel Sheet' },
+    csv: { icon: FileSpreadsheet, color: 'text-teal-500', bg: 'bg-teal-50', label: 'CSV Data' },
+    
+    // Web & Data
+    html: { icon: Globe, color: 'text-orange-500', bg: 'bg-orange-50', label: 'Web Page' },
+    htm: { icon: Globe, color: 'text-orange-500', bg: 'bg-orange-50', label: 'Web Page' },
+    json: { icon: Code2, color: 'text-purple-500', bg: 'bg-purple-50', label: 'JSON Data' }
+  };
+  
+  return styles[ext] || { icon: FileIcon, color: 'text-slate-400', bg: 'bg-slate-50', label: 'File' };
+};
+
+// ============================================
+// SMART TEXT CHUNKING
+// ============================================
 const chunkText = (text: string, chunkSize: number = 500, overlapSize: number = 50): string[] => {
-  // Clean up whitespace
   const cleanText = text.trim();
   
   if (cleanText.length === 0) {
     return [];
   }
 
-  // Try to split by sentences first
   const sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [];
   
-  // If no sentences found, fall back to paragraph splitting
   if (sentences.length === 0) {
     const paragraphs = cleanText.split('\n\n').filter(p => p.trim().length > 0);
     if (paragraphs.length > 0) {
       return paragraphs.map(p => p.trim()).filter(p => p.length > 20);
     }
-    // Last resort: split into arbitrary chunks
     const chunks: string[] = [];
     for (let i = 0; i < cleanText.length; i += chunkSize) {
       chunks.push(cleanText.substring(i, i + chunkSize).trim());
@@ -81,10 +108,246 @@ const chunkText = (text: string, chunkSize: number = 500, overlapSize: number = 
     chunks.push(currentChunk.trim());
   }
 
-  // Filter out very small chunks (minimum 20 chars instead of 50)
   return chunks.filter(chunk => chunk.trim().length > 20);
 };
 
+// ============================================
+// UNIVERSAL FILE PARSER
+// ============================================
+const parseFileContent = async (file: File): Promise<string> => {
+  const ext = file.name.split('.').pop()?.toLowerCase() || '';
+  
+  try {
+    switch (ext) {
+      case 'pdf':
+        return await parsePDF(file);
+      case 'docx':
+        return await parseDOCX(file);
+      case 'doc':
+        return await parseDOC(file);
+      case 'xlsx':
+      case 'xls':
+        return await parseExcel(file);
+      case 'csv':
+        return await parseCSV(file);
+      case 'json':
+        return await parseJSON(file);
+      case 'html':
+      case 'htm':
+        return await parseHTML(file);
+      case 'txt':
+      case 'md':
+      case 'markdown':
+        return await parseTextFile(file);
+      case 'rtf':
+        return await parseRTF(file);
+      default:
+        throw new Error(`Unsupported file type: .${ext}`);
+    }
+  } catch (error) {
+    throw new Error(`Failed to parse ${ext.toUpperCase()}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+};
+
+// ============================================
+// PDF PARSER
+// ============================================
+async function parsePDF(file: File): Promise<string> {
+  try {
+    return await extractTextFromPDF(file);
+  } catch (error) {
+    throw new Error(`PDF parsing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// DOCX PARSER (Word Documents)
+// ============================================
+async function parseDOCX(file: File): Promise<string> {
+  try {
+    const { default: DocxParser } = await import('docx-parser');
+    const docxParser = new DocxParser();
+    const doc = await docxParser.parseBuffer(await file.arrayBuffer());
+    
+    const paragraphs = doc.body?.paragraphs || [];
+    const text = paragraphs
+      .map((para: any) => para.text || '')
+      .filter((t: string) => t.trim().length > 0)
+      .join('\n');
+    
+    return text || '';
+  } catch (error) {
+    throw new Error(`DOCX parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// DOC PARSER (Legacy Word Documents)
+// ============================================
+async function parseDOC(file: File): Promise<string> {
+  try {
+    const mammoth = await import('mammoth');
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    return result.value || '';
+  } catch (error) {
+    throw new Error(`DOC parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// EXCEL PARSER (XLSX/XLS)
+// ============================================
+async function parseExcel(file: File): Promise<string> {
+  try {
+    const XLSX = await import('xlsx');
+    const arrayBuffer = await file.arrayBuffer();
+    const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+    
+    let fullText = '';
+    
+    workbook.SheetNames.forEach((sheetName) => {
+      const worksheet = workbook.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(worksheet);
+      
+      fullText += `\n### Sheet: ${sheetName}\n`;
+      fullText += JSON.stringify(json, null, 2);
+    });
+    
+    return fullText;
+  } catch (error) {
+    throw new Error(`Excel parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// CSV PARSER
+// ============================================
+async function parseCSV(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const Papa = await import('papaparse');
+    
+    return new Promise((resolve, reject) => {
+      Papa.parse(text, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results: any) => {
+          const formatted = results.data
+            .map((row: any) => 
+              Object.entries(row)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join(' | ')
+            )
+            .join('\n');
+          resolve(formatted);
+        },
+        error: (error: any) => reject(new Error(`CSV parsing failed: ${error.message}`))
+      });
+    });
+  } catch (error) {
+    throw new Error(`CSV parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// JSON PARSER
+// ============================================
+async function parseJSON(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    return JSON.stringify(data, null, 2);
+  } catch (error) {
+    throw new Error(`JSON parsing: Invalid JSON format`);
+  }
+}
+
+// ============================================
+// HTML PARSER
+// ============================================
+async function parseHTML(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const cheerio = await import('cheerio');
+    const $ = cheerio.load(text);
+    
+    $('script').remove();
+    $('style').remove();
+    
+    const content = $('body').text() || $('html').text() || '';
+    
+    return content
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .join('\n');
+  } catch (error) {
+    throw new Error(`HTML parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// RTF PARSER
+// ============================================
+async function parseRTF(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const rtfParser = await import('rtf-parser');
+    
+    return new Promise((resolve, reject) => {
+      rtfParser.default.parseString(text, (err: any, doc: any) => {
+        if (err) reject(new Error(`RTF parsing: ${err.message}`));
+        else {
+          const content = doc.content
+            .map((item: any) => item.text || '')
+            .filter((t: string) => t.trim().length > 0)
+            .join('\n');
+          resolve(content);
+        }
+      });
+    });
+  } catch (error) {
+    throw new Error(`RTF parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// PLAIN TEXT PARSER
+// ============================================
+async function parseTextFile(file: File): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === 'string' ? reader.result : '';
+      resolve(result);
+    };
+    reader.onerror = () => reject(new Error('Failed to read text file'));
+    reader.readAsText(file);
+  });
+}
+
+// ============================================
+// INTELLIGENT CHUNKING BY FILE TYPE
+// ============================================
+const chunkContentByType = (
+  content: string, 
+  fileName: string, 
+  chunkSize: number = 500, 
+  overlapSize: number = 50
+): string[] => {
+  const ext = fileName.split('.').pop()?.toLowerCase() || '';
+  
+  if (ext === 'json' || ext === 'csv') {
+    return chunkText(content, 300, 30);
+  }
+  
+  return chunkText(content, chunkSize, overlapSize);
+};
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
 const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,33 +387,6 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
 
   useEffect(() => { fetchDocs(); }, [fetchDocs]);
 
-  /**
-   * Extract text based on file type
-   */
-  const extractTextFromFile = async (file: File): Promise<string> => {
-    const ext = file.name.split('.').pop()?.toLowerCase();
-
-    if (ext === 'pdf') {
-      try {
-        return await extractTextFromPDF(file);
-      } catch (error) {
-        console.error('PDF extraction failed:', error);
-        throw new Error(`Failed to extract PDF text: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      }
-    } else {
-      // Plain text file handling
-      return new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const result = typeof reader.result === 'string' ? reader.result : '';
-          resolve(result);
-        };
-        reader.onerror = () => reject(new Error('Failed to read text file'));
-        reader.readAsText(file);
-      });
-    }
-  };
-
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isAdmin) return;
     const files = e.target.files;
@@ -173,17 +409,14 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         setUploadProgress(40);
         
         setUploadStatus('Extracting text content...');
-        const content = await extractTextFromFile(file);
+        const content = await parseFileContent(file);
         
-        // Debug logging
         console.log(`📄 ${file.name}: Extracted ${content.length} characters`);
         
         setUploadProgress(55);
 
-        // Intelligent chunking with fallback
-        let finalChunks = chunkText(content, 500, 50);
+        let finalChunks = chunkContentByType(content, file.name, 500, 50);
         
-        // If chunking fails, create a default chunk
         if (finalChunks.length === 0) {
           console.warn(`⚠️ Chunking failed for ${file.name}, using fallback chunk`);
           finalChunks = [
@@ -338,8 +571,8 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                 <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-100 border-slate-300 opacity-50' : 'border-indigo-300 hover:border-indigo-500 hover:bg-indigo-50/50 bg-white'}`}>
                    <FileUp className={`mx-auto mb-3 text-indigo-600 text-4xl ${uploading ? '' : 'group-hover:scale-110 group-hover:-translate-y-2'} transition-all`} size={40} />
                    <p className="text-sm font-bold text-slate-700 mb-1">{uploading ? '⏳ INGESTION IN PROGRESS' : '📤 SELECT VAULT ASSETS'}</p>
-                   <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Supported: .PDF, .TXT Files</p>
-                   <input type="file" className="hidden" onChange={handleUpload} accept=".pdf,.txt" disabled={uploading} multiple />
+                   <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Supported: PDF, DOCX, XLSX, CSV, JSON, HTML, TXT, MD, RTF</p>
+                   <input type="file" className="hidden" onChange={handleUpload} accept={SUPPORTED_FILE_TYPES.all.join(',')} disabled={uploading} multiple />
                 </label>
               </div>
             </div>
