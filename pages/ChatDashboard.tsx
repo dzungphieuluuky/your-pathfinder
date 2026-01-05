@@ -75,8 +75,6 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
 
   return (
     <div className="flex flex-col h-full bg-slate-50">
-// Replace the header section with:
-
       <header className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-8 py-6 flex items-center justify-between sticky top-0 z-20 shadow-2xl">
         <div className="flex items-center gap-4">
           <div className="p-3 rounded-xl text-white shadow-lg bg-gradient-to-br from-indigo-500 to-purple-600">
