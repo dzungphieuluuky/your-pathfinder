@@ -141,6 +141,38 @@ async updateDocumentCategory(docId: string, newCategory: string): Promise<void> 
     if (error) throw error;
   }
 
+  async getKnowledgeByMetadata(
+    workspaceId: string,
+    fileName: string,
+    page: number
+  ): Promise<{ data: { content: string } | null; error: any }> {
+    const client = this.ensureClient();
+    
+    try {
+      // Use ->> operator for text comparison (extracts text value)
+      const { data, error } = await client
+        .from('knowledge_embeddings')
+        .select('content')
+        .eq('workspace_id', workspaceId)
+        .filter('metadata->>file', 'eq', fileName)
+        .filter('metadata->>page', 'eq', page.toString())
+        .single();
+
+      if (error) {
+        console.error('Query error:', error);
+        return { data: null, error };
+      }
+
+      return { data, error };
+    } catch (err: any) {
+      console.error('Failed to fetch knowledge:', err);
+      return { 
+        data: null, 
+        error: new Error(`Failed to load preview: ${err.message}`) 
+      };
+    }
+  }
+
   async matchEmbeddings(queryEmbedding: number[], category: string, workspaceId: string): Promise<KnowledgeNode[]> {
     const client = this.ensureClient();
     const { data, error } = await client.rpc('match_embeddings', {

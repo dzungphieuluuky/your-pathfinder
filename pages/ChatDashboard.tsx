@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Compass, HelpCircle, ChevronDown, Check, Loader2, ThumbsUp, ThumbsDown, Bookmark } from 'lucide-react';
+import { Send, Compass, HelpCircle, ChevronDown, Check, Loader2, ThumbsUp, ThumbsDown, Bookmark, X } from 'lucide-react';
 import { Message, User, Workspace } from '../types';
 import { supabaseService } from '../services/supabase';
 import { ragService } from '../services/gemini';
@@ -21,6 +21,14 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
   const [isLoading, setIsLoading] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const [previewCitation, setPreviewCitation] = useState<{
+    file: string;
+    page: number;
+    url: string;
+    content: string;
+  } | null>(null);
+  const [isLoadingPreview, setIsLoadingPreview] = useState(false);
 
   const categories = ['All', 'HR', 'IT', 'Sales', 'General'];
 
@@ -82,6 +90,37 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
       m.id === msgId ? { ...m, feedback: rating ? 'up' : 'down' } : m
     ));
     await supabaseService.saveFeedback(content, rating);
+  };
+
+  const handleCitationClick = async (citation: { file: string; page: number; url: string }) => {
+    setIsLoadingPreview(true);
+    try {
+      // Fetch the knowledge embedding content from Supabase
+      const { data, error } = await supabaseService.getKnowledgeByMetadata(
+        workspace.id,
+        citation.file,
+        citation.page
+      );
+
+      if (error) throw error;
+
+      setPreviewCitation({
+        file: citation.file,
+        page: citation.page,
+        url: citation.url,
+        content: data?.content || 'Preview not available'
+      });
+    } catch (e: any) {
+      console.error('Failed to load preview:', e);
+      setPreviewCitation({
+        file: citation.file,
+        page: citation.page,
+        url: citation.url,
+        content: `Failed to load preview: ${e.message}`
+      });
+    } finally {
+      setIsLoadingPreview(false);
+    }
   };
 
   const handleSend = async (e: React.FormEvent) => {
@@ -251,15 +290,14 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
                 {msg.citations && msg.citations.length > 0 && (
                   <div className="flex flex-wrap gap-2 px-2">
                     {msg.citations.map((cite, idx) => (
-                      <a 
-                        key={idx} 
-                        href={cite.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 hover:border-indigo-400 hover:shadow-md px-3 py-1.5 rounded-full text-[10px] font-bold text-indigo-700 hover:bg-indigo-100 transition-all group"
+                      <button
+                        key={idx}
+                        onClick={() => handleCitationClick(cite)}
+                        className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 hover:border-indigo-400 hover:shadow-md px-3 py-1.5 rounded-full text-[10px] font-bold text-indigo-700 hover:bg-indigo-100 transition-all group active:scale-95"
                       >
                         <Bookmark size={10} className="group-hover:scale-110 transition-transform" /> {cite.file}
-                      </a>
+                        <span className="text-[8px] opacity-60 group-hover:opacity-100">👁️</span>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -305,6 +343,88 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
           💾 Conversations are auto-saved to your device
         </p>
       </footer>
+      {/* Citation Preview Modal */}
+      {previewCitation && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+            
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-white/20 rounded-lg">
+                  <Bookmark size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="font-black text-white text-lg">Document Reference</h3>
+                  <p className="text-white/80 text-[10px] font-bold uppercase tracking-widest">{previewCitation.file}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setPreviewCitation(null)}
+                className="p-2 hover:bg-white/20 rounded-lg transition-all text-white"
+                title="Close preview"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-slate-50 to-white">
+              {isLoadingPreview ? (
+                <div className="flex flex-col items-center justify-center h-full gap-3">
+                  <div className="w-8 h-8 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin"></div>
+                  <p className="text-slate-600 font-bold">Loading content preview...</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {/* Meta Info */}
+                  <div className="grid grid-cols-2 gap-4 p-4 bg-white rounded-xl border border-slate-200">
+                    <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">📄 File</p>
+                      <p className="font-bold text-slate-900 text-sm break-all">{previewCitation.file}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">📖 Section</p>
+                      <p className="font-bold text-slate-900 text-sm">Section {previewCitation.page}</p>
+                    </div>
+                  </div>
+
+                  {/* Content Preview */}
+                  <div className="p-6 bg-white rounded-xl border-2 border-indigo-200">
+                    <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-3 block">📝 Referenced Content</p>
+                    <div className="text-slate-700 leading-relaxed font-medium text-sm space-y-3 whitespace-pre-wrap break-words max-h-96 overflow-y-auto">
+                      {previewCitation.content}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    {previewCitation.url && (
+                      <a
+                        href={previewCitation.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all text-center text-sm"
+                      >
+                        📥 Download Full Document
+                      </a>
+                    )}
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(previewCitation.content);
+                        alert('✓ Content copied to clipboard!');
+                      }}
+                      className="flex-1 px-4 py-3 bg-slate-200 hover:bg-slate-300 text-slate-900 font-bold rounded-xl transition-all text-sm"
+                    >
+                      📋 Copy Content
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
