@@ -100,6 +100,15 @@ export class SupabaseService {
     return data;
   }
 
+async updateDocumentCategory(docId: string, newCategory: string): Promise<void> {
+  const client = this.ensureClient();
+  const { error } = await client
+    .from('documents')
+    .update({ category: newCategory })
+    .eq('id', docId);
+
+  if (error) throw new Error(`Failed to update category: ${error.message}`);
+}
   async deleteDocument(id: string, storagePath: string, fileName: string): Promise<void> {
     const client = this.ensureClient();
     const { error: storageError } = await client.storage
