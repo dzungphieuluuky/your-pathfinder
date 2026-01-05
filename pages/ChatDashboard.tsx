@@ -154,26 +154,33 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
         // Continue with AI processing after user message is fully typed
         processAIResponse(userContent);
       }
-    }, 30); // Adjust speed: lower = faster, higher = slower
+    }, 30);
   };
 
   const processAIResponse = async (userInput: string) => {
     try {
-      // 1. Generate Embedding directly via service
+      console.log('🔍 Processing user query:', userInput);
+      console.log('📂 Category filter:', category);
+      console.log('🏢 Workspace ID:', workspace.id);
+
+      // 1. Generate Embedding for the user query
+      console.log('⏳ Generating embedding...');
       const embedding = await ragService.generateEmbedding(userInput);
+      console.log('✅ Embedding generated, dimensions:', embedding.length);
 
-      // 2. Query Supabase for context
-      let contextNodes = await supabaseService.matchEmbeddings(embedding, category, workspace.id);
+      // 2. Query Supabase for relevant context
+      console.log('🔎 Searching knowledge base...');
+      let contextNodes = await supabaseService.matchEmbeddings(
+        embedding,
+        category,
+        workspace.id
+      );
 
-      // 3. STRICT FILTERING: Only keep highly relevant documents
-      const SIMILARITY_THRESHOLD = 0.72; // Adjust this value
-      contextNodes = contextNodes.filter((node: any) => {
-        const similarity = 1 - (node.similarity || node.distance || 1);
-        return similarity >= SIMILARITY_THRESHOLD;
-      });
+      console.log(`📊 Found ${contextNodes.length} relevant documents`);
 
-      // 4. If no relevant documents found, return warning
-      if (contextNodes.length === 0) {
+      // 3. If no relevant documents found, return warning
+      if (!contextNodes || contextNodes.length === 0) {
+        console.warn('⚠️ No relevant documents found in the vault');
         setMessages(prev => [...prev, {
           id: `a-${Date.now()}`,
           role: 'assistant',
@@ -184,29 +191,33 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
         return;
       }
 
-      // 5. Generate Response directly via service
+      // 4. Generate Response using context from documents
+      console.log('🤖 Generating AI response...');
       const result = await ragService.generateResponse(userInput, contextNodes);
 
+      // 5. Create bot message with citations
       const botMsg: Message = {
         id: `a-${Date.now()}`,
         role: 'assistant',
         content: result.answer,
         citations: contextNodes.map(n => ({ 
-          file: n.metadata.file, 
-          page: n.metadata.page, 
-          url: n.metadata.url,
-          similarity: (1 - (n.similarity || n.distance || 1)).toFixed(3) // Show relevance score
+          file: n.metadata?.file || 'Unknown', 
+          page: n.metadata?.page || 0, 
+          url: n.metadata?.url || '',
+          similarity: (n.similarity || 0).toFixed(3)
         })),
         alerts: result.alerts,
         timestamp: new Date()
       };
+
+      console.log('✅ Response generated successfully');
       setMessages(prev => [...prev, botMsg]);
     } catch (error: any) {
-      console.error("Chat error:", error);
+      console.error('❌ Chat error:', error);
       setMessages(prev => [...prev, {
         id: `e-${Date.now()}`,
         role: 'assistant',
-        content: "Error retrieving response. Please check your Gemini API key and Supabase connection.",
+        content: `Error: ${error.message || 'Failed to process your request. Please check your API keys and database connection.'}`,
         timestamp: new Date()
       }]);
     } finally {
@@ -313,7 +324,7 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
 
                 {/* Feedback Buttons */}
                 {msg.role === 'assistant' && (
-                  <div className="flex items-center gap-3 px-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-3 px-2 opacity-0 hover:opacity-100 transition-opacity">
                     <button 
                       onClick={() => handleFeedback(msg.id, msg.content, true)}
                       className={`p-2 rounded-lg transition-all ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
@@ -340,7 +351,8 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
                         onClick={() => handleCitationClick(cite)}
                         className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 hover:border-indigo-400 hover:shadow-md px-3 py-1.5 rounded-full text-[10px] font-bold text-indigo-700 hover:bg-indigo-100 transition-all group active:scale-95"
                       >
-                        <Bookmark size={10} className="group-hover:scale-110 transition-transform" /> {cite.file}
+                        <Bookmark size={10} className="group-hover:scale-110 transition-transform" /> 
+                        {cite.file}
                         <span className="text-[8px] opacity-60 group-hover:opacity-100">👁️</span>
                       </button>
                     ))}
@@ -388,6 +400,7 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
           💾 Conversations are auto-saved to your device
         </p>
       </footer>
+
       {/* Citation Preview Modal */}
       {previewCitation && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
