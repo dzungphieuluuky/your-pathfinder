@@ -8,7 +8,10 @@ interface AuthScreenProps {
 
 const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [otp, setOtp] = useState('');
   const [role, setRole] = useState<UserRole>(UserRole.USER);
+  const [isActivating, setIsActivating] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,7 +26,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
         isActive: true
       });
       setLoading(false);
-    }, 1200);
+    }, 800);
   };
 
   return (

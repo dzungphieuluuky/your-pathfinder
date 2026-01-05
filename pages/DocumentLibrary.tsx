@@ -369,6 +369,10 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   
   const isAdmin = user.role === UserRole.ADMIN;
 
+  const [editingDocId, setEditingDocId] = useState<string | null>(null);
+  const [editCategory, setEditCategory] = useState('');
+  const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
+
   const fetchDocs = useCallback(async () => {
     setIsLoading(true);
     setErrorMsg(null);
@@ -482,6 +486,26 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       fetchDocs();
     } catch (e: any) { 
       alert(`Delete failed: ${e.message}`); 
+    }
+  };
+
+
+  const handleEditCategory = async (docId: string, newCategory: string) => {
+    if (!isAdmin) return;
+    try {
+      // Update in Supabase
+      await supabaseService.updateDocumentCategory(docId, newCategory);
+      
+      // Update local state
+      setDocuments(prev => prev.map(d => 
+        d.id === docId ? { ...d, category: newCategory } : d
+      ));
+      
+      setEditingDocId(null);
+      setEditCategory('');
+      setIsEditDropdownOpen(false);
+    } catch (e: any) {
+      alert(`Update failed: ${e.message}`);
     }
   };
 
@@ -694,16 +718,62 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
               {filteredDocs.map(doc => {
                 const style = getFileStyle(doc.file_name);
                 const Icon = style.icon;
+                const isEditing = editingDocId === doc.id;
+                
                 return (
                   <div key={doc.id} className="flex items-center justify-between p-8 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 transition-all group border-b border-slate-100 last:border-0">
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-6 flex-1">
                       <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${style.bg} ${style.color} shadow-lg group-hover:scale-110 transition-transform`}>
                         <Icon size={28} />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <div className="flex items-center gap-3 mb-1">
                           <p className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{doc.file_name}</p>
-                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">{doc.category}</span>
+                          
+                          {/* Category Badge - Click to Edit */}
+                          {isEditing ? (
+                            <div className="relative">
+                              <button
+                                onClick={() => setIsEditDropdownOpen(!isEditDropdownOpen)}
+                                className="text-[8px] font-black uppercase text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-full transition-all flex items-center gap-1"
+                              >
+                                {editCategory || doc.category}
+                                <ChevronDown size={10} className={`transition-transform ${isEditDropdownOpen ? 'rotate-180' : ''}`} />
+                              </button>
+
+                              {/* Category Dropdown */}
+                              {isEditDropdownOpen && (
+                                <div className="absolute top-full mt-1 bg-white border-2 border-indigo-200 rounded-xl shadow-2xl z-50 py-1 min-w-max animate-in fade-in zoom-in-95">
+                                  {categories.map(cat => (
+                                    <button
+                                      key={cat}
+                                      onClick={() => {
+                                        setEditCategory(cat);
+                                        handleEditCategory(doc.id, cat);
+                                      }}
+                                      className={`block w-full px-4 py-2 text-left text-[8px] font-black uppercase hover:bg-indigo-100 transition-colors ${
+                                        doc.category === cat ? 'bg-indigo-50 text-indigo-700' : 'text-slate-700'
+                                      }`}
+                                    >
+                                      ✓ {cat}
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setEditingDocId(doc.id);
+                                setEditCategory(doc.category);
+                                setIsEditDropdownOpen(false);
+                              }}
+                              className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-100 hover:bg-indigo-200 px-3 py-1 rounded-full transition-all cursor-pointer group/edit"
+                              title="Click to edit category"
+                            >
+                              <span className="inline-block group-hover/edit:scale-125 transition-transform">✏️</span> {doc.category}
+                            </button>
+                          )}
                         </div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                           📅 {new Date(doc.created_at).toLocaleDateString()}
@@ -711,16 +781,37 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                      {doc.url && (
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-indigo-200 transition-all">
-                          <Download size={18} />
-                        </a>
-                      )}
-                      {isAdmin && (
-                        <button onClick={() => handleDelete(doc)} className="p-3 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-rose-200 transition-all">
-                          <Trash2 size={18} />
+                    <div className="flex items-center gap-2">
+                      {isEditing ? (
+                        // Edit mode buttons
+                        <button
+                          onClick={() => {
+                            setEditingDocId(null);
+                            setEditCategory('');
+                            setIsEditDropdownOpen(false);
+                          }}
+                          className="p-3 text-slate-400 hover:text-slate-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-200 transition-all"
+                          title="Cancel edit"
+                        >
+                          <X size={18} />
                         </button>
+                      ) : (
+                        <>
+                          {doc.url && (
+                            <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-indigo-200 transition-all opacity-0 group-hover:opacity-100">
+                              <Download size={18} />
+                            </a>
+                          )}
+                          {isAdmin && (
+                            <button 
+                              onClick={() => handleDelete(doc)} 
+                              className="p-3 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-rose-200 transition-all opacity-0 group-hover:opacity-100"
+                              title="Delete document"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
