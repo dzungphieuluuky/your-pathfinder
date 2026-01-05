@@ -261,23 +261,23 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     <div className="p-10 max-w-6xl mx-auto w-full h-full flex flex-col">
       <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-1">Intelligence Vault</h1>
-          <p className="text-slate-500 font-bold flex items-center gap-2">
-            <HardDrive size={16} /> Cloud-Managed Knowledge Asset Management
+          <h1 className="text-5xl font-black text-transparent bg-gradient-to-r from-slate-900 to-indigo-600 bg-clip-text tracking-tight mb-2">Intelligence Vault</h1>
+          <p className="text-slate-600 font-bold flex items-center gap-2">
+            <HardDrive size={18} className="text-indigo-600" /> Cloud-Managed Knowledge Asset Management
           </p>
         </div>
         {isAdmin ? (
           <button 
             onClick={() => setShowUpload(!showUpload)} 
             disabled={uploading}
-            className={`px-8 py-4 rounded-2xl font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-indigo-600 text-white shadow-indigo-100 hover:bg-indigo-700 active:scale-95'}`}
+            className={`px-8 py-4 rounded-full font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-indigo-200 hover:shadow-2xl active:scale-95'}`}
           >
             {uploading ? <Loader2 className="animate-spin" size={20} /> : (showUpload ? <X size={20} /> : <Plus size={20} className="group-hover:rotate-90 transition-transform" />)} 
-            {uploading ? 'Processing Assets...' : (showUpload ? 'Close Dashboard' : 'Ingest Document')}
+            {uploading ? 'Processing Assets...' : (showUpload ? 'Close' : 'Ingest Document')}
           </button>
         ) : (
-          <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-white border border-slate-100 px-4 py-2 rounded-xl shadow-sm">
-             <Info size={14} className="text-indigo-400" /> READ-ONLY VAULT ACCESS
+          <div className="flex items-center gap-2 text-[10px] font-black text-indigo-600 bg-indigo-50 border border-indigo-200 px-4 py-3 rounded-full shadow-md">
+             <Info size={14} /> READ-ONLY VAULT
           </div>
         )}
       </header>
@@ -306,28 +306,28 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       )}
 
       {showUpload && isAdmin && (
-        <div className="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-2xl mb-10 animate-in slide-in-from-top-4 duration-500">
+        <div className="bg-gradient-to-br from-white to-slate-50 p-10 rounded-[2.5rem] border-2 border-indigo-100 shadow-2xl mb-10 animate-in slide-in-from-top-4 duration-500">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="flex-1 w-full relative">
-                <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-3 px-1">Classification Category</label>
+                <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest block mb-3 px-1">📁 Classification Category</label>
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
                   disabled={uploading}
-                  className="w-full flex justify-between items-center px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="w-full flex justify-between items-center px-6 py-4 bg-white border-2 border-slate-200 rounded-2xl font-bold text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 transition-all"
                 >
-                  <span>{uploadCategory}</span> <ChevronDown size={18} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <span>{uploadCategory}</span> <ChevronDown size={18} className={`transition-transform text-indigo-600 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95">
+                  <div className="absolute mt-2 w-full bg-white border-2 border-indigo-100 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95">
                     {categories.map(cat => (
                       <button 
                         key={cat} 
                         onClick={() => {setUploadCategory(cat); setIsDropdownOpen(false);}} 
-                        className="w-full px-6 py-4 text-left hover:bg-indigo-50 font-bold transition-colors flex items-center justify-between"
+                        className="w-full px-6 py-4 text-left hover:bg-indigo-50 font-bold transition-colors flex items-center justify-between group"
                       >
-                        {cat}
-                        {uploadCategory === cat && <CheckCircle2 size={16} className="text-indigo-600" />}
+                        <span>{cat}</span>
+                        {uploadCategory === cat && <CheckCircle2 size={16} className="text-indigo-600 animate-pulse" />}
                       </button>
                     ))}
                   </div>
@@ -335,25 +335,25 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
               </div>
               
               <div className="flex-[2] w-full">
-                <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-50 border-slate-200 opacity-50' : 'border-indigo-100 hover:border-indigo-400 hover:bg-indigo-50/30'}`}>
-                   <FileUp className={`mx-auto mb-3 text-indigo-600 ${uploading ? '' : 'group-hover:-translate-y-1'} transition-transform`} size={32} />
-                   <p className="text-sm font-bold text-slate-600 mb-1">{uploading ? 'INGESTION IN PROGRESS' : 'SELECT VAULT ASSETS'}</p>
-                   <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Supported: .PDF, .TXT Files</p>
+                <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-100 border-slate-300 opacity-50' : 'border-indigo-300 hover:border-indigo-500 hover:bg-indigo-50/50 bg-white'}`}>
+                   <FileUp className={`mx-auto mb-3 text-indigo-600 text-4xl ${uploading ? '' : 'group-hover:scale-110 group-hover:-translate-y-2'} transition-all`} size={40} />
+                   <p className="text-sm font-bold text-slate-700 mb-1">{uploading ? '⏳ INGESTION IN PROGRESS' : '📤 SELECT VAULT ASSETS'}</p>
+                   <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Supported: .PDF, .TXT Files</p>
                    <input type="file" className="hidden" onChange={handleUpload} accept=".pdf,.txt" disabled={uploading} multiple />
                 </label>
               </div>
             </div>
 
             {uploading && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
+              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-200">
                 <div className="flex justify-between items-end">
                   <div className="space-y-1">
-                    <p className="text-xs font-black text-slate-900 uppercase tracking-tight">{uploadStatus}</p>
-                    <p className="text-[10px] text-slate-400 font-medium">Processing: <span className="text-indigo-600 font-bold">{currentFileName}</span></p>
+                    <p className="text-xs font-black text-slate-900 uppercase tracking-tight">✨ {uploadStatus}</p>
+                    <p className="text-[10px] text-slate-600 font-medium">Processing: <span className="text-indigo-700 font-bold">{currentFileName}</span></p>
                   </div>
-                  <span className="text-xl font-black text-indigo-600">{Math.round(uploadProgress)}%</span>
+                  <span className="text-2xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{Math.round(uploadProgress)}%</span>
                 </div>
-                <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                <div className="h-3 w-full bg-slate-200 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 transition-all duration-500 ease-out shadow-lg"
                     style={{ width: `${uploadProgress}%` }}
@@ -393,30 +393,30 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                 const style = getFileStyle(doc.file_name);
                 const Icon = style.icon;
                 return (
-                  <div key={doc.id} className="flex items-center justify-between p-8 hover:bg-slate-50 transition-all group">
+                  <div key={doc.id} className="flex items-center justify-between p-8 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 transition-all group border-b border-slate-100 last:border-0">
                     <div className="flex items-center gap-6">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${style.bg} ${style.color}`}>
-                        <Icon size={24} />
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${style.bg} ${style.color} shadow-lg group-hover:scale-110 transition-transform`}>
+                        <Icon size={28} />
                       </div>
                       <div>
-                        <div className="flex items-center gap-3">
-                          <p className="font-bold text-slate-800">{doc.file_name}</p>
-                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{doc.category}</span>
+                        <div className="flex items-center gap-3 mb-1">
+                          <p className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{doc.file_name}</p>
+                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">{doc.category}</span>
                         </div>
-                        <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">
-                          {new Date(doc.created_at).toLocaleDateString()}
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                          📅 {new Date(doc.created_at).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
                       {doc.url && (
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
+                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-indigo-200 transition-all">
                           <Download size={18} />
                         </a>
                       )}
                       {isAdmin && (
-                        <button onClick={() => handleDelete(doc)} className="p-3 text-slate-200 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
+                        <button onClick={() => handleDelete(doc)} className="p-3 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-rose-200 transition-all">
                           <Trash2 size={18} />
                         </button>
                       )}

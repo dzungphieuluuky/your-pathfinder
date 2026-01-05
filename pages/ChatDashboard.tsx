@@ -75,29 +75,31 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
 
   return (
     <div className="flex flex-col h-full bg-slate-50">
-      <header className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl text-white shadow-lg bg-indigo-600">
-            <Compass size={20} />
+// Replace the header section with:
+
+      <header className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-8 py-6 flex items-center justify-between sticky top-0 z-20 shadow-2xl">
+        <div className="flex items-center gap-4">
+          <div className="p-3 rounded-xl text-white shadow-lg bg-gradient-to-br from-indigo-500 to-purple-600">
+            <Compass size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">PathFinder Insights</h1>
-            <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{workspace.name}</p>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight">PathFinder Insights</h1>
+            <p className="text-[10px] text-indigo-300 font-black uppercase tracking-widest">{workspace.name}</p>
           </div>
         </div>
         <div className="relative" ref={dropdownRef}>
           <button 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-white transition-all"
+            className="flex items-center gap-3 bg-white/10 border border-white/20 backdrop-blur-sm rounded-xl px-4 py-2.5 text-xs font-bold text-white hover:bg-white/20 transition-all"
           >
-            <span>{category === 'All' ? 'Whole Vault' : category}</span>
-            <ChevronDown size={14} />
+            <span>🏷️ {category === 'All' ? 'Whole Vault' : category}</span>
+            <ChevronDown size={14} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
           </button>
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-100 rounded-2xl shadow-2xl py-2 z-50">
+            <div className="absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl py-2 z-50">
               {categories.map((cat) => (
-                <button key={cat} onClick={() => { setCategory(cat); setIsDropdownOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 text-xs font-bold hover:bg-indigo-50 transition-all">
-                  {cat} {category === cat && <Check size={14} className="text-indigo-600" />}
+                <button key={cat} onClick={() => { setCategory(cat); setIsDropdownOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 text-xs font-bold text-white hover:bg-indigo-600/30 transition-all">
+                  {cat} {category === cat && <Check size={14} className="text-indigo-400" />}
                 </button>
               ))}
             </div>
@@ -105,30 +107,33 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
         </div>
       </header>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-10">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-6 bg-gradient-to-b from-slate-50 to-white">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto py-20 opacity-40">
-            <HelpCircle size={48} className="mb-4" />
-            <p className="font-bold">Ask anything from the {category} library.</p>
+          <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto py-20">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mb-4">
+              <HelpCircle size={32} className="text-indigo-600" />
+            </div>
+            <p className="font-bold text-slate-700">Ask anything from the <span className="text-indigo-600">{category}</span> library.</p>
+            <p className="text-sm text-slate-400 mt-2">Get instant answers backed by your documents.</p>
           </div>
         ) : (
           messages.map(msg => (
-             <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className="max-w-2xl w-full space-y-4">
-                <div className={`p-6 rounded-[2rem] shadow-sm leading-relaxed font-medium ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 rounded-tl-none text-slate-800'}`}>
+             <div key={msg.id} className={`flex gap-4 animate-in slide-in-from-bottom-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className="max-w-2xl w-full space-y-3">
+                <div className={`p-6 rounded-[2rem] shadow-md leading-relaxed font-medium transition-all hover:shadow-lg ${msg.role === 'user' ? 'bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 rounded-tl-none text-slate-800'}`}>
                   {msg.content}
                 </div>
                 {msg.role === 'assistant' && (
-                  <div className="flex items-center gap-4 px-4">
+                  <div className="flex items-center gap-3 px-2">
                     <button 
                       onClick={() => handleFeedback(msg.id, msg.content, true)}
-                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-slate-300 hover:text-slate-500'}`}
+                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                     >
                       <ThumbsUp size={16} />
                     </button>
                     <button 
                       onClick={() => handleFeedback(msg.id, msg.content, false)}
-                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'down' ? 'text-rose-600 bg-rose-50' : 'text-slate-300 hover:text-slate-500'}`}
+                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'down' ? 'text-rose-600 bg-rose-50' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                     >
                       <ThumbsDown size={16} />
                     </button>
@@ -137,9 +142,9 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
                 {msg.citations && msg.citations.length > 0 && (
                    <div className="flex flex-wrap gap-2 px-2">
                      {msg.citations.map((cite, idx) => (
-                       <div key={idx} className="flex items-center gap-1.5 bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-400">
-                         <Bookmark size={10} /> {cite.file} (p.{cite.page})
-                       </div>
+                       <a key={idx} href={cite.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 hover:border-indigo-400 px-3 py-1.5 rounded-full text-[10px] font-bold text-indigo-700 hover:bg-indigo-100 transition-all">
+                         <Bookmark size={10} /> {cite.file}
+                       </a>
                      ))}
                    </div>
                 )}
@@ -148,26 +153,30 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
           ))
         )}
         {isTyping && (
-          <div className="flex justify-start">
-            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] rounded-tl-none flex items-center gap-3">
-              <Loader2 className="animate-spin text-indigo-600" size={18} />
-              <span className="text-sm font-bold text-slate-400">Consulting Vault...</span>
+          <div className="flex justify-start animate-in slide-in-from-bottom-4">
+            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] rounded-tl-none flex items-center gap-3 shadow-md">
+              <div className="flex gap-1.5">
+                <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
+                <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
+              </div>
+              <span className="text-sm font-bold text-slate-600">Consulting Vault...</span>
             </div>
           </div>
         )}
       </div>
 
-      <footer className="p-8 pt-0">
-        <form onSubmit={handleSend} className="max-w-4xl mx-auto relative">
+      <footer className="p-8 pt-4 bg-gradient-to-t from-white to-slate-50 border-t border-slate-200">
+        <form onSubmit={handleSend} className="max-w-4xl mx-auto relative group">
           <input 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isTyping}
-            placeholder="Search Intelligence Vault..."
-            className="w-full bg-white border border-slate-200 rounded-[2rem] pl-8 pr-20 py-6 text-slate-700 font-medium outline-none focus:ring-4 focus:ring-indigo-50 transition-all shadow-xl"
+            placeholder="🔍 Search Intelligence Vault..."
+            className="w-full bg-white border-2 border-slate-200 rounded-full pl-8 pr-20 py-4 text-slate-700 font-medium outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all shadow-lg group-hover:border-slate-300"
           />
-          <button type="submit" disabled={!input.trim() || isTyping} className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition-all shadow-lg">
-            <Send size={20} />
+          <button type="submit" disabled={!input.trim() || isTyping} className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full flex items-center justify-center hover:shadow-xl transition-all shadow-lg active:scale-95 disabled:opacity-50">
+            <Send size={18} />
           </button>
         </form>
       </footer>
