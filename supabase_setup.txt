@@ -1,0 +1,95 @@
+-- 1. ENABLE EXTENSIONS
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- 2. WORKSPACES TABLE
+CREATE TABLE IF NOT EXISTS public.workspaces (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    owner_id TEXT NOT NULL, -- For dev simplicity, using the UID from local storage / auth
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 3. DOCUMENTS TABLE
+CREATE TABLE IF NOT EXISTS public.documents (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    workspace_id UUID REFERENCES public.workspaces(id) ON DELETE CASCADE,
+    file_name TEXT NOT NULL,
+    category TEXT NOT NULL DEFAULT 'General',
+    url TEXT,
+    storage_path TEXT,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- 4. KNOWLEDGE EMBEDDINGS (THE RAG ENGINE)
+CREATE TABLE IF NOT EXISTS public.knowledge_embeddings (
+    id BIGSERIAL PRIMARY KEY,
+    document_id UUID REFERENCES public.documents(id) ON DELETE CASCADE,
+    workspace_id UUID REFERENCES public.workspaces(id) ON DELETE CASCADE,
+    content TEXT NOT NULL,
+    embedding VECTOR(768), -- Matches gemini-text-embedding-004 / text-embedding-004
+    category TEXT,
+    metadata JSONB DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Index for vector similarity search
+CREATE INDEX ON public.knowledge_embeddings USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+
+-- 5. MEMBERS & INVITATIONS
+CREATE TABLE IF NOT EXISTS public.workspace_members (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    workspace_id UUID REFERENCES public.workspaces(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL,
+    email TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'End-User',
+    joined_at TIMESTAMPTZ DEFAULT now(),
+    status TEXT DEFAULT 'active'
+);
+
+CREATE TABLE IF NOT EXISTS public.invitations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    workspace_id UUID REFERENCES public.workspaces(id) ON DELETE CASCADE,
+    email TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'End-User',
+    status TEXT DEFAULT 'Pending',
+    invited_at TIMESTAMPTZ DEFAULT now(),
+    accepted_at TIMESTAMPTZ
+);
+
+-- 6. MATCH EMBEDDINGS FUNCTION (THE SEARCH RPC)
+CREATE OR REPLACE FUNCTION match_embeddings (
+  query_embedding vector(768),
+  match_threshold float,
+  match_count int,
+  filter_category text default null,
+  filter_workspace_id uuid default null
+)
+returns table (
+  id bigint,
+  content text,
+  metadata jsonb,
+  category text,
+  similarity float
+)
+language plpgsql
+as $$
+begin
+  return query
+  select
+    knowledge_embeddings.id,
+    knowledge_embeddings.content,
+    knowledge_embeddings.metadata,
+    knowledge_embeddings.category,
+    1 - (knowledge_embeddings.embedding <=> query_embedding) as similarity
+  from knowledge_embeddings
+  where (filter_category is null or knowledge_embeddings.category = filter_category)
+    and (filter_workspace_id is null or knowledge_embeddings.workspace_id = filter_workspace_id)
+    and 1 - (knowledge_embeddings.embedding <=> query_embedding) > match_threshold
+  order by similarity desc
+  limit match_count;
+end;
+$$;
+
+-- 7. ENABLE REALTIME (OPTIONAL)
+alter publication supabase_realtime add table public.documents;
+alter publication supabase_realtime add table public.workspaces;
