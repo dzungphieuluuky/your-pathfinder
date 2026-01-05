@@ -363,8 +363,10 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCreatingCategory, setIsCreatingCategory] = useState(false);
+  const [newCategoryInput, setNewCategoryInput] = useState('');
+  const [categories, setCategories] = useState(['General', 'HR', 'IT', 'Sales']);
   
-  const categories = ['General', 'HR', 'IT', 'Sales'];
   const isAdmin = user.role === UserRole.ADMIN;
 
   const fetchDocs = useCallback(async () => {
@@ -552,7 +554,8 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                   <span>{uploadCategory}</span> <ChevronDown size={18} className={`transition-transform text-indigo-600 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute mt-2 w-full bg-white border-2 border-indigo-100 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95">
+                  <div className="absolute mt-2 w-full bg-white border-2 border-indigo-100 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95 max-h-96 overflow-y-auto">
+                    {/* Existing Categories */}
                     {categories.map(cat => (
                       <button 
                         key={cat} 
@@ -563,10 +566,76 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                         {uploadCategory === cat && <CheckCircle2 size={16} className="text-indigo-600 animate-pulse" />}
                       </button>
                     ))}
+
+                    {/* Divider */}
+                    <div className="h-px bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 my-2"></div>
+
+                    {/* Create New Category Section */}
+                    {!isCreatingCategory ? (
+                      <button 
+                        onClick={() => setIsCreatingCategory(true)}
+                        className="w-full px-6 py-4 text-left hover:bg-emerald-50 font-bold text-emerald-700 transition-colors flex items-center gap-2"
+                      >
+                        <span className="text-lg">✨</span> Create New Category
+                      </button>
+                    ) : (
+                      <div className="px-6 py-4 space-y-3 bg-gradient-to-r from-emerald-50 to-teal-50">
+                        <input
+                          type="text"
+                          placeholder="Category name..."
+                          value={newCategoryInput}
+                          onChange={(e) => setNewCategoryInput(e.target.value.slice(0, 20))}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter' && newCategoryInput.trim()) {
+                              const trimmed = newCategoryInput.trim();
+                              if (!categories.includes(trimmed)) {
+                                setCategories([...categories, trimmed]);
+                                setUploadCategory(trimmed);
+                                setNewCategoryInput('');
+                                setIsCreatingCategory(false);
+                                setIsDropdownOpen(false);
+                              } else {
+                                alert('Category already exists!');
+                              }
+                            }
+                          }}
+                          className="w-full px-3 py-2 bg-white border-2 border-emerald-300 rounded-lg font-bold text-slate-700 outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-slate-400"
+                          autoFocus
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => {
+                              const trimmed = newCategoryInput.trim();
+                              if (trimmed && !categories.includes(trimmed)) {
+                                setCategories([...categories, trimmed]);
+                                setUploadCategory(trimmed);
+                                setNewCategoryInput('');
+                                setIsCreatingCategory(false);
+                                setIsDropdownOpen(false);
+                              } else if (categories.includes(trimmed)) {
+                                alert('Category already exists!');
+                              }
+                            }}
+                            disabled={!newCategoryInput.trim()}
+                            className="flex-1 px-3 py-2 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                          >
+                            ✓ Create
+                          </button>
+                          <button
+                            onClick={() => {
+                              setIsCreatingCategory(false);
+                              setNewCategoryInput('');
+                            }}
+                            className="flex-1 px-3 py-2 bg-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-400 transition-all text-sm"
+                          >
+                            ✕ Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
-              
+              </div>              
               <div className="flex-[2] w-full">
                 <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-100 border-slate-300 opacity-50' : 'border-indigo-300 hover:border-indigo-500 hover:bg-indigo-50/50 bg-white'}`}>
                    <FileUp className={`mx-auto mb-3 text-indigo-600 text-4xl ${uploading ? '' : 'group-hover:scale-110 group-hover:-translate-y-2'} transition-all`} size={40} />
