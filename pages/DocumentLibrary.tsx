@@ -369,6 +369,10 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   
   const isAdmin = user.role === UserRole.ADMIN;
 
+  const [editingDocId, setEditingDocId] = useState<string | null>(null);
+  const [editCategory, setEditCategory] = useState('');
+  const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
+  
   const fetchDocs = useCallback(async () => {
     setIsLoading(true);
     setErrorMsg(null);
