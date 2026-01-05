@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// Added Loader2 to imports from lucide-react
-import { Compass, Mail, Lock, ArrowRight, ShieldCheck, MailOpen, Shield, Loader2 } from 'lucide-react';
+import { Compass, Mail, Lock, ArrowRight, ShieldCheck, MailOpen, Shield, Sparkles } from 'lucide-react';
 import { User, UserRole } from '../types';
 
 interface AuthScreenProps {
@@ -16,7 +15,6 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulating authentication logic
     setTimeout(() => {
       onLogin({
         id: `u-${Date.now()}`,
@@ -29,70 +27,58 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-8 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
-      </div>
-
-      <div className="max-w-md w-full z-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Animated gradient orbs */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+      
+      <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-indigo-600 text-white rounded-[2.8rem] shadow-2xl shadow-indigo-900/50 mb-8 transform -rotate-6 hover:rotate-0 transition-all duration-500 cursor-default border-4 border-indigo-500/30">
-            <Compass size={48} />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-[2.5rem] shadow-2xl shadow-indigo-500/50 mb-6 border-4 border-white/20 hover:scale-110 transition-transform duration-300">
+            <Compass size={40} />
           </div>
-          <h1 className="text-5xl font-black text-white tracking-tighter mb-3">PathFinder</h1>
-          <p className="text-indigo-400 font-black uppercase text-[11px] tracking-[0.4em] opacity-80">Knowledge Discovery Protocol</p>
+          <h1 className="text-4xl font-black text-white tracking-tight mb-2 bg-gradient-to-r from-indigo-200 to-purple-200 bg-clip-text text-transparent">PathFinder RAG</h1>
+          <p className="text-indigo-200 mt-2 font-medium tracking-wide flex items-center justify-center gap-2">
+            <Sparkles size={16} className="text-yellow-300" /> AI-Powered Knowledge Discovery
+          </p>
         </div>
 
-        <div className="bg-white rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] p-12 border border-white/10">
-          <form onSubmit={handleSubmit} className="space-y-10">
-            <div className="space-y-8">
-              <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.3em] ml-2">Digital Signature</label>
+        <div className="bg-white/10 backdrop-blur-xl rounded-[2.5rem] shadow-2xl border border-white/20 p-10 hover:border-white/40 transition-all duration-300">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase text-indigo-200 tracking-widest ml-1">Identity</label>
                 <div className="relative group">
-                  <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-indigo-600 transition-colors" size={22} />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300 group-focus-within:text-indigo-400 transition-colors" size={20} />
                   <input 
                     type="email" 
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="teammate@organization.com"
-                    className="w-full pl-16 pr-8 py-6 bg-slate-50 border-2 border-slate-50 rounded-[2rem] outline-none focus:ring-8 focus:ring-indigo-50 focus:border-indigo-500 focus:bg-white transition-all font-bold text-slate-800 placeholder:text-slate-300"
+                    placeholder="name@company.com"
+                    className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-2xl outline-none focus:ring-4 focus:ring-indigo-400/50 focus:border-indigo-300 transition-all font-medium text-white placeholder:text-white/40 backdrop-blur-sm"
                   />
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <label className="text-[10px] font-black uppercase text-slate-400 tracking-[0.3em] ml-2 text-center block">Operational Permission</label>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase text-indigo-200 tracking-widest ml-1">Workplace Role</label>
+                <div className="grid grid-cols-2 gap-3">
                   <button 
                     type="button"
                     onClick={() => setRole(UserRole.ADMIN)}
-                    className={`flex flex-col items-center gap-4 p-6 rounded-[2rem] border-4 transition-all duration-500 transform hover:scale-105 active:scale-95 ${
-                      role === UserRole.ADMIN 
-                      ? 'border-indigo-600 bg-indigo-50 shadow-xl shadow-indigo-100 translate-y-[-4px]' 
-                      : 'border-slate-50 bg-slate-50 hover:bg-white hover:border-slate-100 hover:shadow-lg'
-                    }`}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-200 ${role === UserRole.ADMIN ? 'border-indigo-400 bg-indigo-500/30 shadow-xl shadow-indigo-500/20' : 'border-white/20 hover:border-white/40 bg-white/5'}`}
                   >
-                    <div className={`p-3 rounded-2xl ${role === UserRole.ADMIN ? 'bg-indigo-600 text-white' : 'bg-white text-slate-400 border border-slate-100'}`}>
-                      <Shield size={20} />
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-widest leading-none">Admin</span>
+                    <Shield size={18} className={role === UserRole.ADMIN ? 'text-indigo-300' : 'text-white/50'} />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Admin</span>
                   </button>
                   <button 
                     type="button"
                     onClick={() => setRole(UserRole.USER)}
-                    className={`flex flex-col items-center gap-4 p-6 rounded-[2rem] border-4 transition-all duration-500 transform hover:scale-105 active:scale-95 ${
-                      role === UserRole.USER 
-                      ? 'border-indigo-600 bg-indigo-50 shadow-xl shadow-indigo-100 translate-y-[-4px]' 
-                      : 'border-slate-50 bg-slate-50 hover:bg-white hover:border-slate-100 hover:shadow-lg'
-                    }`}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-200 ${role === UserRole.USER ? 'border-indigo-400 bg-indigo-500/30 shadow-xl shadow-indigo-500/20' : 'border-white/20 hover:border-white/40 bg-white/5'}`}
                   >
-                    <div className={`p-3 rounded-2xl ${role === UserRole.USER ? 'bg-indigo-600 text-white' : 'bg-white text-slate-400 border border-slate-100'}`}>
-                      <Shield size={20} />
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-widest leading-none">End-User</span>
+                    <Shield size={18} className={role === UserRole.USER ? 'text-indigo-300' : 'text-white/50'} />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">User</span>
                   </button>
                 </div>
               </div>
@@ -101,20 +87,23 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full bg-slate-900 text-white py-7 rounded-[2.2rem] font-black shadow-2xl hover:bg-black transition-all active:scale-95 flex items-center justify-center gap-4 group disabled:opacity-50 uppercase text-[11px] tracking-[0.3em] overflow-hidden relative"
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-4 rounded-2xl font-bold shadow-xl shadow-indigo-500/50 transition-all active:scale-95 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
-                <Loader2 size={24} className="animate-spin text-indigo-400" />
+                <>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  Initializing...
+                </>
               ) : (
                 <>
-                  <span>Initialize Protocol</span>
-                  <ArrowRight size={20} className="group-hover:translate-x-3 transition-transform duration-500" />
+                  Enter PathFinder
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </>
               )}
             </button>
             
-            <p className="text-[9px] text-center text-slate-300 font-black uppercase tracking-[0.2em] px-4 leading-relaxed">
-              Elevated Admin access required for intelligence ingestion.
+            <p className="text-[10px] text-center text-indigo-200/60 font-bold uppercase tracking-[0.1em]">
+              ✨ Choose Admin role to enable document uploads.
             </p>
           </form>
         </div>

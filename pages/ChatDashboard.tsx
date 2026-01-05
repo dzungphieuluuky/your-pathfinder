@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Compass, HelpCircle, ChevronDown, Check, Loader2, ThumbsUp, ThumbsDown, Bookmark, AlertCircle } from 'lucide-react';
 import { Message, User, Workspace } from '../types';
@@ -9,23 +8,71 @@ interface ChatDashboardProps {
   workspace: Workspace;
 }
 
+const STORAGE_KEY = `chat_messages_${typeof window !== 'undefined' ? window.location.hostname : ''}`;
+const CATEGORY_STORAGE_KEY = `chat_category_${typeof window !== 'undefined' ? window.location.hostname : ''}`;
+
 const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [category, setCategory] = useState('All');
   const [isTyping, setIsTyping] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const categories = ['All', 'HR', 'IT', 'Sales', 'General'];
 
+  // Load messages from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedMessages = localStorage.getItem(STORAGE_KEY);
+      const savedCategory = localStorage.getItem(CATEGORY_STORAGE_KEY);
+      
+      if (savedMessages) {
+        const parsedMessages = JSON.parse(savedMessages);
+        setMessages(parsedMessages);
+      }
+      
+      if (savedCategory) {
+        setCategory(savedCategory);
+      }
+      
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Failed to load chat history:', error);
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    if (!isLoading) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      } catch (error) {
+        console.error('Failed to save chat history:', error);
+      }
+    }
+  }, [messages, isLoading]);
+
+  // Save category to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(CATEGORY_STORAGE_KEY, category);
+    } catch (error) {
+      console.error('Failed to save category:', error);
+    }
+  }, [category]);
+
+  // Auto-scroll to bottom
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        top: scrollRef.current.scrollHeight,
-        behavior: 'smooth'
-      });
+      setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+      }, 0);
     }
   }, [messages, isTyping]);
 
@@ -40,7 +87,12 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
 
-    const userMsg: Message = { id: `u-${Date.now()}`, role: 'user', content: input, timestamp: new Date() };
+    const userMsg: Message = { 
+      id: `u-${Date.now()}`, 
+      role: 'user', 
+      content: input, 
+      timestamp: new Date() 
+    };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
@@ -99,150 +151,183 @@ const ChatDashboard: React.FC<ChatDashboardProps> = ({ user, workspace }) => {
     }
   };
 
+  const clearChat = () => {
+    if (window.confirm('Clear all conversation history? This cannot be undone.')) {
+      setMessages([]);
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {
+        console.error('Failed to clear chat history:', error);
+      }
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col h-full bg-slate-50 items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin mx-auto mb-3"></div>
+          <p className="font-bold text-slate-600">Loading vault...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col h-full bg-slate-50/50">
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 px-10 py-5 flex items-center justify-between sticky top-0 z-20 shadow-sm">
+    <div className="flex flex-col h-full bg-slate-50">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700 px-8 py-6 flex items-center justify-between sticky top-0 z-20 shadow-2xl">
         <div className="flex items-center gap-4">
-          <div className="p-2.5 rounded-[1rem] text-white shadow-lg bg-indigo-600 transform -rotate-6">
+          <div className="p-3 rounded-xl text-white shadow-lg bg-gradient-to-br from-indigo-500 to-purple-600">
             <Compass size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-black text-slate-900 tracking-tight leading-none mb-1">Vault Insights</h1>
-            <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">{workspace.name}</p>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight">PathFinder Insights</h1>
+            <p className="text-[10px] text-indigo-300 font-black uppercase tracking-widest">{workspace.name}</p>
           </div>
         </div>
-        <div className="relative" ref={dropdownRef}>
-          <button 
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-4 bg-slate-100/80 border border-slate-200 rounded-2xl px-5 py-3 text-xs font-black text-slate-700 hover:bg-white hover:shadow-md transition-all active:scale-95 uppercase tracking-widest"
-          >
-            <span>{category === 'All' ? 'Entire Vault' : category}</span>
-            <ChevronDown size={14} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-          </button>
-          {isDropdownOpen && (
-            <div className="absolute right-0 mt-3 w-64 bg-white border border-slate-100 rounded-[2rem] shadow-2xl py-3 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-              <div className="px-5 py-2 mb-2">
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Filter Library Context</p>
+        <div className="flex items-center gap-4">
+          <div className="relative" ref={dropdownRef}>
+            <button 
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center gap-3 bg-white/10 border border-white/20 backdrop-blur-sm rounded-xl px-4 py-2.5 text-xs font-bold text-white hover:bg-white/20 transition-all"
+            >
+              <span>🏷️ {category === 'All' ? 'Whole Vault' : category}</span>
+              <ChevronDown size={14} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2">
+                {categories.map((cat) => (
+                  <button 
+                    key={cat} 
+                    onClick={() => { setCategory(cat); setIsDropdownOpen(false); }} 
+                    className="w-full flex items-center justify-between px-4 py-3 text-xs font-bold text-white hover:bg-indigo-600/30 transition-all group"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform">{cat}</span>
+                    {category === cat && <Check size={14} className="text-indigo-400 animate-pulse" />}
+                  </button>
+                ))}
               </div>
-              {categories.map((cat) => (
-                <button 
-                  key={cat} 
-                  onClick={() => { setCategory(cat); setIsDropdownOpen(false); }} 
-                  className="w-full flex items-center justify-between px-6 py-3.5 text-xs font-bold hover:bg-indigo-50 transition-all text-slate-700"
-                >
-                  {cat} {category === cat && <Check size={16} className="text-indigo-600" />}
-                </button>
-              ))}
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* Clear Chat Button */}
+          <button 
+            onClick={clearChat}
+            title="Clear conversation history"
+            className="p-2.5 rounded-lg bg-white/10 border border-white/20 text-white/60 hover:text-white/80 hover:bg-rose-500/20 transition-all hover:border-rose-400/50 font-bold text-xs"
+          >
+            🗑️ Clear
+          </button>
         </div>
       </header>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-10 space-y-12 scroll-smooth">
+      {/* Messages Area */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-6 bg-gradient-to-b from-slate-50 to-white">
         {messages.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto py-20 animate-in fade-in duration-1000">
-            <div className="w-24 h-24 bg-white rounded-[2.5rem] shadow-xl border border-slate-100 flex items-center justify-center mb-8 transform rotate-3">
-              <HelpCircle size={44} className="text-indigo-600/20" />
+          <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto py-20">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mb-4 animate-bounce">
+              <HelpCircle size={32} className="text-indigo-600" />
             </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-2">Awaiting Inquiry</h2>
-            <p className="font-bold text-slate-400 leading-relaxed uppercase text-[10px] tracking-widest">
-              Consult the knowledge stored in the {category} sector of your vault.
-            </p>
+            <p className="font-bold text-slate-700 text-lg">Ask anything from the <span className="text-indigo-600">{category}</span> library.</p>
+            <p className="text-sm text-slate-400 mt-2">Get instant answers backed by your documents.</p>
+            <div className="mt-6 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-2xl text-left text-[10px] text-indigo-700 font-bold space-y-1 max-w-xs">
+              <p>💡 Try asking:</p>
+              <ul className="list-disc list-inside space-y-0.5 text-indigo-600">
+                <li>What's our HR policy on remote work?</li>
+                <li>How do I reset my password?</li>
+                <li>What are the latest sales figures?</li>
+              </ul>
+            </div>
           </div>
         ) : (
-          messages.map((msg, index) => (
-             <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-6 duration-500`} style={{ animationDelay: `${index * 50}ms` }}>
-              <div className="max-w-[70%] w-full space-y-4">
-                <div className={`p-8 rounded-[2.5rem] shadow-sm leading-relaxed text-[15px] font-medium transition-all ${
-                  msg.role === 'user' 
-                  ? 'bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-tr-none shadow-indigo-200' 
-                  : 'bg-white border border-slate-200 rounded-tl-none text-slate-800 shadow-slate-100'
-                }`}>
+          messages.map(msg => (
+            <div key={msg.id} className={`flex gap-4 animate-in slide-in-from-bottom-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className="max-w-2xl w-full space-y-3">
+                <div className={`p-6 rounded-[2rem] shadow-md leading-relaxed font-medium transition-all hover:shadow-lg ${msg.role === 'user' ? 'bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 rounded-tl-none text-slate-800'}`}>
                   {msg.content}
                 </div>
-                
+
+                {/* Feedback Buttons */}
                 {msg.role === 'assistant' && (
-                  <div className="flex flex-col gap-4 pl-4 animate-in fade-in duration-1000">
-                    {/* Alerts/Clarifications */}
-                    {msg.alerts && msg.alerts.length > 0 && (
-                      <div className="space-y-2">
-                        {msg.alerts.map((alert, idx) => (
-                          <div key={idx} className="bg-amber-50 border border-amber-100 p-4 rounded-2xl flex items-start gap-3">
-                            <AlertCircle size={18} className="text-amber-500 shrink-0 mt-0.5" />
-                            <div>
-                              <p className="text-xs font-black text-amber-900 uppercase tracking-tight">{alert.title}</p>
-                              <p className="text-xs font-bold text-amber-800/80">{alert.content}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                  <div className="flex items-center gap-3 px-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button 
+                      onClick={() => handleFeedback(msg.id, msg.content, true)}
+                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                      title="Helpful"
+                    >
+                      <ThumbsUp size={16} />
+                    </button>
+                    <button 
+                      onClick={() => handleFeedback(msg.id, msg.content, false)}
+                      className={`p-2 rounded-lg transition-all ${msg.feedback === 'down' ? 'text-rose-600 bg-rose-50 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                      title="Not helpful"
+                    >
+                      <ThumbsDown size={16} />
+                    </button>
+                  </div>
+                )}
 
-                    {/* Citations */}
-                    {msg.citations && msg.citations.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {msg.citations.map((cite, idx) => (
-                          <div key={idx} className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-4 py-2 rounded-full text-[10px] font-black text-slate-500 uppercase tracking-tight transition-all cursor-default">
-                            <Bookmark size={12} className="text-indigo-500" /> {cite.file} <span className="text-slate-300">|</span> P.{cite.page}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Feedback */}
-                    <div className="flex items-center gap-3">
-                      <button 
-                        onClick={() => handleFeedback(msg.id, msg.content, true)}
-                        className={`p-2.5 rounded-xl transition-all duration-300 ${msg.feedback === 'up' ? 'text-emerald-600 bg-emerald-50 scale-110' : 'text-slate-300 hover:text-slate-500 hover:bg-slate-100'}`}
+                {/* Citations */}
+                {msg.citations && msg.citations.length > 0 && (
+                  <div className="flex flex-wrap gap-2 px-2">
+                    {msg.citations.map((cite, idx) => (
+                      <a 
+                        key={idx} 
+                        href={cite.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 hover:border-indigo-400 hover:shadow-md px-3 py-1.5 rounded-full text-[10px] font-bold text-indigo-700 hover:bg-indigo-100 transition-all group"
                       >
-                        <ThumbsUp size={16} />
-                      </button>
-                      <button 
-                        onClick={() => handleFeedback(msg.id, msg.content, false)}
-                        className={`p-2.5 rounded-xl transition-all duration-300 ${msg.feedback === 'down' ? 'text-rose-600 bg-rose-50 scale-110' : 'text-slate-300 hover:text-slate-500 hover:bg-slate-100'}`}
-                      >
-                        <ThumbsDown size={16} />
-                      </button>
-                    </div>
+                        <Bookmark size={10} className="group-hover:scale-110 transition-transform" /> {cite.file}
+                      </a>
+                    ))}
                   </div>
                 )}
               </div>
             </div>
           ))
         )}
+
+        {/* Typing Indicator */}
         {isTyping && (
-          <div className="flex justify-start animate-in slide-in-from-left-4 duration-300">
-            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] rounded-tl-none flex items-center gap-4 shadow-sm">
+          <div className="flex justify-start animate-in slide-in-from-bottom-4">
+            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] rounded-tl-none flex items-center gap-3 shadow-md">
               <div className="flex gap-1.5">
-                <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-bounce"></div>
-                <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-bounce delay-100"></div>
-                <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-bounce delay-200"></div>
+                <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
+                <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="w-2 h-2 bg-indigo-600 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
               </div>
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Scanning Intelligence Vault</span>
+              <span className="text-sm font-bold text-slate-600">Consulting Vault...</span>
             </div>
           </div>
         )}
       </div>
 
-      <footer className="p-10 pt-0">
+      {/* Input Footer */}
+      <footer className="p-8 pt-4 bg-gradient-to-t from-white to-slate-50 border-t border-slate-200">
         <form onSubmit={handleSend} className="max-w-4xl mx-auto relative group">
           <input 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isTyping}
-            placeholder={`Ask about ${category === 'All' ? 'the entire vault' : category}...`}
-            className="w-full bg-white border-2 border-slate-100 rounded-[2.5rem] pl-10 pr-24 py-8 text-slate-700 text-lg font-bold outline-none focus:ring-[10px] focus:ring-indigo-50 focus:border-indigo-400 transition-all duration-500 shadow-2xl shadow-indigo-900/5 group-hover:shadow-indigo-900/10"
+            placeholder="🔍 Search Intelligence Vault..."
+            className="w-full bg-white border-2 border-slate-200 rounded-full pl-8 pr-20 py-4 text-slate-700 font-medium outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all shadow-lg group-hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <button 
             type="submit" 
             disabled={!input.trim() || isTyping} 
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 active:scale-90 disabled:opacity-20 disabled:grayscale"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full flex items-center justify-center hover:shadow-xl transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group-hover:scale-110"
           >
-            <Send size={24} />
+            <Send size={18} />
           </button>
         </form>
+        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center mt-3">
+          💾 Conversations are auto-saved to your device
+        </p>
       </footer>
     </div>
   );
 };
+
 export default ChatDashboard;

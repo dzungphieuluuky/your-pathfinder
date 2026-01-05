@@ -14,7 +14,9 @@ import {
   Info,
   CheckCircle2,
   HardDrive,
-  ShieldAlert
+  ShieldAlert,
+  Code2,
+  Globe
 } from 'lucide-react';
 import { Document, User, Workspace, UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
@@ -26,38 +28,63 @@ interface DocumentLibraryProps {
   workspace: Workspace;
 }
 
-const getFileStyle = (fileName: string) => {
-  const ext = fileName.split('.').pop()?.toLowerCase();
-  switch (ext) {
-    case 'pdf': return { icon: FileText, color: 'text-rose-500', bg: 'bg-rose-50', label: 'PDF Document' };
-    case 'xls':
-    case 'xlsx': return { icon: FileSpreadsheet, color: 'text-emerald-500', bg: 'bg-emerald-50', label: 'Spreadsheet' };
-    case 'txt': return { icon: FileText, color: 'text-indigo-500', bg: 'bg-indigo-50', label: 'Text File' };
-    default: return { icon: FileIcon, color: 'text-slate-400', bg: 'bg-slate-50', label: 'Raw Asset' };
-  }
+// ============================================
+// FILE TYPE CONFIGURATION
+// ============================================
+const SUPPORTED_FILE_TYPES = {
+  documents: ['.pdf', '.docx', '.doc', '.txt', '.md', '.markdown', '.html', '.htm', '.rtf'],
+  spreadsheets: ['.xlsx', '.xls', '.csv'],
+  data: ['.json'],
+  all: ['.pdf', '.docx', '.doc', '.txt', '.md', '.markdown', '.html', '.htm', '.rtf', '.xlsx', '.xls', '.csv', '.json']
 };
 
-/**
- * Smart text chunking that respects sentence boundaries
- */
+// ============================================
+// ENHANCED FILE STYLE WITH MORE TYPES
+// ============================================
+const getFileStyle = (fileName: string) => {
+  const ext = fileName.split('.').pop()?.toLowerCase();
+  
+  const styles: Record<string, any> = {
+    // Documents
+    pdf: { icon: FileText, color: 'text-rose-500', bg: 'bg-rose-50', label: 'PDF Document' },
+    docx: { icon: FileText, color: 'text-blue-500', bg: 'bg-blue-50', label: 'Word Document' },
+    doc: { icon: FileText, color: 'text-blue-500', bg: 'bg-blue-50', label: 'Word Document' },
+    txt: { icon: FileText, color: 'text-slate-500', bg: 'bg-slate-50', label: 'Text File' },
+    md: { icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50', label: 'Markdown' },
+    markdown: { icon: FileText, color: 'text-amber-500', bg: 'bg-amber-50', label: 'Markdown' },
+    rtf: { icon: FileText, color: 'text-indigo-500', bg: 'bg-indigo-50', label: 'Rich Text' },
+    
+    // Spreadsheets
+    xlsx: { icon: FileSpreadsheet, color: 'text-emerald-500', bg: 'bg-emerald-50', label: 'Excel Sheet' },
+    xls: { icon: FileSpreadsheet, color: 'text-emerald-500', bg: 'bg-emerald-50', label: 'Excel Sheet' },
+    csv: { icon: FileSpreadsheet, color: 'text-teal-500', bg: 'bg-teal-50', label: 'CSV Data' },
+    
+    // Web & Data
+    html: { icon: Globe, color: 'text-orange-500', bg: 'bg-orange-50', label: 'Web Page' },
+    htm: { icon: Globe, color: 'text-orange-500', bg: 'bg-orange-50', label: 'Web Page' },
+    json: { icon: Code2, color: 'text-purple-500', bg: 'bg-purple-50', label: 'JSON Data' }
+  };
+  
+  return styles[ext] || { icon: FileIcon, color: 'text-slate-400', bg: 'bg-slate-50', label: 'File' };
+};
+
+// ============================================
+// SMART TEXT CHUNKING
+// ============================================
 const chunkText = (text: string, chunkSize: number = 500, overlapSize: number = 50): string[] => {
-  // Clean up whitespace
   const cleanText = text.trim();
   
   if (cleanText.length === 0) {
     return [];
   }
 
-  // Try to split by sentences first
   const sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [];
   
-  // If no sentences found, fall back to paragraph splitting
   if (sentences.length === 0) {
     const paragraphs = cleanText.split('\n\n').filter(p => p.trim().length > 0);
     if (paragraphs.length > 0) {
       return paragraphs.map(p => p.trim()).filter(p => p.length > 20);
     }
-    // Last resort: split into arbitrary chunks
     const chunks: string[] = [];
     for (let i = 0; i < cleanText.length; i += chunkSize) {
       chunks.push(cleanText.substring(i, i + chunkSize).trim());
@@ -81,10 +108,246 @@ const chunkText = (text: string, chunkSize: number = 500, overlapSize: number = 
     chunks.push(currentChunk.trim());
   }
 
-  // Filter out very small chunks (minimum 20 chars instead of 50)
   return chunks.filter(chunk => chunk.trim().length > 20);
 };
 
+// ============================================
+// UNIVERSAL FILE PARSER
+// ============================================
+const parseFileContent = async (file: File): Promise<string> => {
+  const ext = file.name.split('.').pop()?.toLowerCase() || '';
+  
+  try {
+    switch (ext) {
+      case 'pdf':
+        return await parsePDF(file);
+      case 'docx':
+        return await parseDOCX(file);
+      case 'doc':
+        return await parseDOC(file);
+      case 'xlsx':
+      case 'xls':
+        return await parseExcel(file);
+      case 'csv':
+        return await parseCSV(file);
+      case 'json':
+        return await parseJSON(file);
+      case 'html':
+      case 'htm':
+        return await parseHTML(file);
+      case 'txt':
+      case 'md':
+      case 'markdown':
+        return await parseTextFile(file);
+      case 'rtf':
+        return await parseRTF(file);
+      default:
+        throw new Error(`Unsupported file type: .${ext}`);
+    }
+  } catch (error) {
+    throw new Error(`Failed to parse ${ext.toUpperCase()}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+};
+
+// ============================================
+// PDF PARSER
+// ============================================
+async function parsePDF(file: File): Promise<string> {
+  try {
+    return await extractTextFromPDF(file);
+  } catch (error) {
+    throw new Error(`PDF parsing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// DOCX PARSER (Word Documents)
+// ============================================
+async function parseDOCX(file: File): Promise<string> {
+  try {
+    const { default: DocxParser } = await import('docx-parser');
+    const docxParser = new DocxParser();
+    const doc = await docxParser.parseBuffer(await file.arrayBuffer());
+    
+    const paragraphs = doc.body?.paragraphs || [];
+    const text = paragraphs
+      .map((para: any) => para.text || '')
+      .filter((t: string) => t.trim().length > 0)
+      .join('\n');
+    
+    return text || '';
+  } catch (error) {
+    throw new Error(`DOCX parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// DOC PARSER (Legacy Word Documents)
+// ============================================
+async function parseDOC(file: File): Promise<string> {
+  try {
+    const mammoth = await import('mammoth');
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    return result.value || '';
+  } catch (error) {
+    throw new Error(`DOC parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// EXCEL PARSER (XLSX/XLS)
+// ============================================
+async function parseExcel(file: File): Promise<string> {
+  try {
+    const XLSX = await import('xlsx');
+    const arrayBuffer = await file.arrayBuffer();
+    const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+    
+    let fullText = '';
+    
+    workbook.SheetNames.forEach((sheetName) => {
+      const worksheet = workbook.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(worksheet);
+      
+      fullText += `\n### Sheet: ${sheetName}\n`;
+      fullText += JSON.stringify(json, null, 2);
+    });
+    
+    return fullText;
+  } catch (error) {
+    throw new Error(`Excel parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// CSV PARSER
+// ============================================
+async function parseCSV(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const Papa = await import('papaparse');
+    
+    return new Promise((resolve, reject) => {
+      Papa.parse(text, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results: any) => {
+          const formatted = results.data
+            .map((row: any) => 
+              Object.entries(row)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join(' | ')
+            )
+            .join('\n');
+          resolve(formatted);
+        },
+        error: (error: any) => reject(new Error(`CSV parsing failed: ${error.message}`))
+      });
+    });
+  } catch (error) {
+    throw new Error(`CSV parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// JSON PARSER
+// ============================================
+async function parseJSON(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    return JSON.stringify(data, null, 2);
+  } catch (error) {
+    throw new Error(`JSON parsing: Invalid JSON format`);
+  }
+}
+
+// ============================================
+// HTML PARSER
+// ============================================
+async function parseHTML(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const cheerio = await import('cheerio');
+    const $ = cheerio.load(text);
+    
+    $('script').remove();
+    $('style').remove();
+    
+    const content = $('body').text() || $('html').text() || '';
+    
+    return content
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .join('\n');
+  } catch (error) {
+    throw new Error(`HTML parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// RTF PARSER
+// ============================================
+async function parseRTF(file: File): Promise<string> {
+  try {
+    const text = await file.text();
+    const rtfParser = await import('rtf-parser');
+    
+    return new Promise((resolve, reject) => {
+      rtfParser.default.parseString(text, (err: any, doc: any) => {
+        if (err) reject(new Error(`RTF parsing: ${err.message}`));
+        else {
+          const content = doc.content
+            .map((item: any) => item.text || '')
+            .filter((t: string) => t.trim().length > 0)
+            .join('\n');
+          resolve(content);
+        }
+      });
+    });
+  } catch (error) {
+    throw new Error(`RTF parsing: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+// ============================================
+// PLAIN TEXT PARSER
+// ============================================
+async function parseTextFile(file: File): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === 'string' ? reader.result : '';
+      resolve(result);
+    };
+    reader.onerror = () => reject(new Error('Failed to read text file'));
+    reader.readAsText(file);
+  });
+}
+
+// ============================================
+// INTELLIGENT CHUNKING BY FILE TYPE
+// ============================================
+const chunkContentByType = (
+  content: string, 
+  fileName: string, 
+  chunkSize: number = 500, 
+  overlapSize: number = 50
+): string[] => {
+  const ext = fileName.split('.').pop()?.toLowerCase() || '';
+  
+  if (ext === 'json' || ext === 'csv') {
+    return chunkText(content, 300, 30);
+  }
+  
+  return chunkText(content, chunkSize, overlapSize);
+};
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
 const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -100,8 +363,10 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCreatingCategory, setIsCreatingCategory] = useState(false);
+  const [newCategoryInput, setNewCategoryInput] = useState('');
+  const [categories, setCategories] = useState(['General', 'HR', 'IT', 'Sales']);
   
-  const categories = ['General', 'HR', 'IT', 'Sales'];
   const isAdmin = user.role === UserRole.ADMIN;
 
   const fetchDocs = useCallback(async () => {
@@ -123,33 +388,6 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   }, [workspace.id]);
 
   useEffect(() => { fetchDocs(); }, [fetchDocs]);
-
-  /**
-   * Extract text based on file type
-   */
-  const extractTextFromFile = async (file: File): Promise<string> => {
-    const ext = file.name.split('.').pop()?.toLowerCase();
-
-    if (ext === 'pdf') {
-      try {
-        return await extractTextFromPDF(file);
-      } catch (error) {
-        console.error('PDF extraction failed:', error);
-        throw new Error(`Failed to extract PDF text: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      }
-    } else {
-      // Plain text file handling
-      return new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const result = typeof reader.result === 'string' ? reader.result : '';
-          resolve(result);
-        };
-        reader.onerror = () => reject(new Error('Failed to read text file'));
-        reader.readAsText(file);
-      });
-    }
-  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isAdmin) return;
@@ -173,17 +411,14 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         setUploadProgress(40);
         
         setUploadStatus('Extracting text content...');
-        const content = await extractTextFromFile(file);
+        const content = await parseFileContent(file);
         
-        // Debug logging
         console.log(`📄 ${file.name}: Extracted ${content.length} characters`);
         
         setUploadProgress(55);
 
-        // Intelligent chunking with fallback
-        let finalChunks = chunkText(content, 500, 50);
+        let finalChunks = chunkContentByType(content, file.name, 500, 50);
         
-        // If chunking fails, create a default chunk
         if (finalChunks.length === 0) {
           console.warn(`⚠️ Chunking failed for ${file.name}, using fallback chunk`);
           finalChunks = [
@@ -261,23 +496,23 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     <div className="p-10 max-w-6xl mx-auto w-full h-full flex flex-col">
       <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-1">Intelligence Vault</h1>
-          <p className="text-slate-500 font-bold flex items-center gap-2">
-            <HardDrive size={16} /> Cloud-Managed Knowledge Asset Management
+          <h1 className="text-5xl font-black text-transparent bg-gradient-to-r from-slate-900 to-indigo-600 bg-clip-text tracking-tight mb-2">Intelligence Vault</h1>
+          <p className="text-slate-600 font-bold flex items-center gap-2">
+            <HardDrive size={18} className="text-indigo-600" /> Cloud-Managed Knowledge Asset Management
           </p>
         </div>
         {isAdmin ? (
           <button 
             onClick={() => setShowUpload(!showUpload)} 
             disabled={uploading}
-            className={`px-8 py-4 rounded-2xl font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-indigo-600 text-white shadow-indigo-100 hover:bg-indigo-700 active:scale-95'}`}
+            className={`px-8 py-4 rounded-full font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-indigo-200 hover:shadow-2xl active:scale-95'}`}
           >
             {uploading ? <Loader2 className="animate-spin" size={20} /> : (showUpload ? <X size={20} /> : <Plus size={20} className="group-hover:rotate-90 transition-transform" />)} 
-            {uploading ? 'Processing Assets...' : (showUpload ? 'Close Dashboard' : 'Ingest Document')}
+            {uploading ? 'Processing Assets...' : (showUpload ? 'Close' : 'Ingest Document')}
           </button>
         ) : (
-          <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-white border border-slate-100 px-4 py-2 rounded-xl shadow-sm">
-             <Info size={14} className="text-indigo-400" /> READ-ONLY VAULT ACCESS
+          <div className="flex items-center gap-2 text-[10px] font-black text-indigo-600 bg-indigo-50 border border-indigo-200 px-4 py-3 rounded-full shadow-md">
+             <Info size={14} /> READ-ONLY VAULT
           </div>
         )}
       </header>
@@ -306,54 +541,121 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       )}
 
       {showUpload && isAdmin && (
-        <div className="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-2xl mb-10 animate-in slide-in-from-top-4 duration-500">
+        <div className="bg-gradient-to-br from-white to-slate-50 p-10 rounded-[2.5rem] border-2 border-indigo-100 shadow-2xl mb-10 animate-in slide-in-from-top-4 duration-500">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="flex-1 w-full relative">
-                <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-3 px-1">Classification Category</label>
+                <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest block mb-3 px-1">📁 Classification Category</label>
                 <button 
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
                   disabled={uploading}
-                  className="w-full flex justify-between items-center px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="w-full flex justify-between items-center px-6 py-4 bg-white border-2 border-slate-200 rounded-2xl font-bold text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 transition-all"
                 >
-                  <span>{uploadCategory}</span> <ChevronDown size={18} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <span>{uploadCategory}</span> <ChevronDown size={18} className={`transition-transform text-indigo-600 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95">
+                  <div className="absolute mt-2 w-full bg-white border-2 border-indigo-100 rounded-2xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95 max-h-96 overflow-y-auto">
+                    {/* Existing Categories */}
                     {categories.map(cat => (
                       <button 
                         key={cat} 
                         onClick={() => {setUploadCategory(cat); setIsDropdownOpen(false);}} 
-                        className="w-full px-6 py-4 text-left hover:bg-indigo-50 font-bold transition-colors flex items-center justify-between"
+                        className="w-full px-6 py-4 text-left hover:bg-indigo-50 font-bold transition-colors flex items-center justify-between group"
                       >
-                        {cat}
-                        {uploadCategory === cat && <CheckCircle2 size={16} className="text-indigo-600" />}
+                        <span>{cat}</span>
+                        {uploadCategory === cat && <CheckCircle2 size={16} className="text-indigo-600 animate-pulse" />}
                       </button>
                     ))}
+
+                    {/* Divider */}
+                    <div className="h-px bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 my-2"></div>
+
+                    {/* Create New Category Section */}
+                    {!isCreatingCategory ? (
+                      <button 
+                        onClick={() => setIsCreatingCategory(true)}
+                        className="w-full px-6 py-4 text-left hover:bg-emerald-50 font-bold text-emerald-700 transition-colors flex items-center gap-2"
+                      >
+                        <span className="text-lg">✨</span> Create New Category
+                      </button>
+                    ) : (
+                      <div className="px-6 py-4 space-y-3 bg-gradient-to-r from-emerald-50 to-teal-50">
+                        <input
+                          type="text"
+                          placeholder="Category name..."
+                          value={newCategoryInput}
+                          onChange={(e) => setNewCategoryInput(e.target.value.slice(0, 20))}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter' && newCategoryInput.trim()) {
+                              const trimmed = newCategoryInput.trim();
+                              if (!categories.includes(trimmed)) {
+                                setCategories([...categories, trimmed]);
+                                setUploadCategory(trimmed);
+                                setNewCategoryInput('');
+                                setIsCreatingCategory(false);
+                                setIsDropdownOpen(false);
+                              } else {
+                                alert('Category already exists!');
+                              }
+                            }
+                          }}
+                          className="w-full px-3 py-2 bg-white border-2 border-emerald-300 rounded-lg font-bold text-slate-700 outline-none focus:ring-2 focus:ring-emerald-500 placeholder:text-slate-400"
+                          autoFocus
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => {
+                              const trimmed = newCategoryInput.trim();
+                              if (trimmed && !categories.includes(trimmed)) {
+                                setCategories([...categories, trimmed]);
+                                setUploadCategory(trimmed);
+                                setNewCategoryInput('');
+                                setIsCreatingCategory(false);
+                                setIsDropdownOpen(false);
+                              } else if (categories.includes(trimmed)) {
+                                alert('Category already exists!');
+                              }
+                            }}
+                            disabled={!newCategoryInput.trim()}
+                            className="flex-1 px-3 py-2 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                          >
+                            ✓ Create
+                          </button>
+                          <button
+                            onClick={() => {
+                              setIsCreatingCategory(false);
+                              setNewCategoryInput('');
+                            }}
+                            className="flex-1 px-3 py-2 bg-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-400 transition-all text-sm"
+                          >
+                            ✕ Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
-              
+              </div>              
               <div className="flex-[2] w-full">
-                <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-50 border-slate-200 opacity-50' : 'border-indigo-100 hover:border-indigo-400 hover:bg-indigo-50/30'}`}>
-                   <FileUp className={`mx-auto mb-3 text-indigo-600 ${uploading ? '' : 'group-hover:-translate-y-1'} transition-transform`} size={32} />
-                   <p className="text-sm font-bold text-slate-600 mb-1">{uploading ? 'INGESTION IN PROGRESS' : 'SELECT VAULT ASSETS'}</p>
-                   <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Supported: .PDF, .TXT Files</p>
-                   <input type="file" className="hidden" onChange={handleUpload} accept=".pdf,.txt" disabled={uploading} multiple />
+                <label className={`block w-full border-2 border-dashed rounded-[2.5rem] p-10 cursor-pointer transition-all text-center group ${uploading ? 'bg-slate-100 border-slate-300 opacity-50' : 'border-indigo-300 hover:border-indigo-500 hover:bg-indigo-50/50 bg-white'}`}>
+                   <FileUp className={`mx-auto mb-3 text-indigo-600 text-4xl ${uploading ? '' : 'group-hover:scale-110 group-hover:-translate-y-2'} transition-all`} size={40} />
+                   <p className="text-sm font-bold text-slate-700 mb-1">{uploading ? '⏳ INGESTION IN PROGRESS' : '📤 SELECT VAULT ASSETS'}</p>
+                   <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Supported: PDF, DOCX, XLSX, CSV, JSON, HTML, TXT, MD, RTF</p>
+                   <input type="file" className="hidden" onChange={handleUpload} accept={SUPPORTED_FILE_TYPES.all.join(',')} disabled={uploading} multiple />
                 </label>
               </div>
             </div>
 
             {uploading && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
+              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-200">
                 <div className="flex justify-between items-end">
                   <div className="space-y-1">
-                    <p className="text-xs font-black text-slate-900 uppercase tracking-tight">{uploadStatus}</p>
-                    <p className="text-[10px] text-slate-400 font-medium">Processing: <span className="text-indigo-600 font-bold">{currentFileName}</span></p>
+                    <p className="text-xs font-black text-slate-900 uppercase tracking-tight">✨ {uploadStatus}</p>
+                    <p className="text-[10px] text-slate-600 font-medium">Processing: <span className="text-indigo-700 font-bold">{currentFileName}</span></p>
                   </div>
-                  <span className="text-xl font-black text-indigo-600">{Math.round(uploadProgress)}%</span>
+                  <span className="text-2xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{Math.round(uploadProgress)}%</span>
                 </div>
-                <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                <div className="h-3 w-full bg-slate-200 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 transition-all duration-500 ease-out shadow-lg"
                     style={{ width: `${uploadProgress}%` }}
@@ -393,30 +695,30 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
                 const style = getFileStyle(doc.file_name);
                 const Icon = style.icon;
                 return (
-                  <div key={doc.id} className="flex items-center justify-between p-8 hover:bg-slate-50 transition-all group">
+                  <div key={doc.id} className="flex items-center justify-between p-8 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 transition-all group border-b border-slate-100 last:border-0">
                     <div className="flex items-center gap-6">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${style.bg} ${style.color}`}>
-                        <Icon size={24} />
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${style.bg} ${style.color} shadow-lg group-hover:scale-110 transition-transform`}>
+                        <Icon size={28} />
                       </div>
                       <div>
-                        <div className="flex items-center gap-3">
-                          <p className="font-bold text-slate-800">{doc.file_name}</p>
-                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{doc.category}</span>
+                        <div className="flex items-center gap-3 mb-1">
+                          <p className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{doc.file_name}</p>
+                          <span className="text-[8px] font-black uppercase text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">{doc.category}</span>
                         </div>
-                        <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">
-                          {new Date(doc.created_at).toLocaleDateString()}
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                          📅 {new Date(doc.created_at).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
                       {doc.url && (
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
+                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl border border-transparent hover:border-indigo-200 transition-all">
                           <Download size={18} />
                         </a>
                       )}
                       {isAdmin && (
-                        <button onClick={() => handleDelete(doc)} className="p-3 text-slate-200 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-slate-100">
+                        <button onClick={() => handleDelete(doc)} className="p-3 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl border border-transparent hover:border-rose-200 transition-all">
                           <Trash2 size={18} />
                         </button>
                       )}
