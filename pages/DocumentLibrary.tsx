@@ -420,6 +420,32 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     onCancel: () => {}
   });
 
+  const [deleteAllConfirmModal, setDeleteAllConfirmModal] = useState<{
+    isOpen: boolean;
+    onConfirm: () => void;
+    onCancel: () => void;
+  }>({
+    isOpen: false,
+    onConfirm: () => {},
+    onCancel: () => {}
+  });
+
+  const [deleteCategoryConfirmModal, setDeleteCategoryConfirmModal] = useState<{
+    isOpen: boolean;
+    categoryName: string;
+    docCount: number;
+    onConfirm: () => void;
+    onCancel: () => void;
+  }>({
+    isOpen: false,
+    categoryName: '',
+    docCount: 0,
+    onConfirm: () => {},
+    onCancel: () => {}
+  });
+
+
+
   const fetchDocs = useCallback(async () => {
     setIsLoading(true);
     setErrorMsg(null);
@@ -559,6 +585,82 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
     });
   };
 
+  const handleDeleteAll = async () => {
+    if (!isAdmin) return;
+    
+    setDeleteAllConfirmModal({
+      isOpen: true,
+      onConfirm: async () => {
+        try {
+          setUploading(true);
+          setUploadStatus('Removing all assets from vault...');
+          
+          for (const doc of documents) {
+            await supabaseService.deleteDocument(doc.id, doc.storage_path || '', doc.file_name);
+          }
+          
+          setUploadStatus('Vault cleared successfully.');
+          await new Promise(r => setTimeout(r, 1000));
+          
+          fetchDocs();
+          setDeleteAllConfirmModal({ isOpen: false, onConfirm: () => {}, onCancel: () => {} });
+          setUploading(false);
+          setUploadStatus('');
+        } catch (e: any) {
+          setErrorMsg(`Bulk delete failed: ${e.message}`);
+          setDeleteAllConfirmModal({ isOpen: false, onConfirm: () => {}, onCancel: () => {} });
+          setUploading(false);
+          setUploadStatus('');
+        }
+      },
+      onCancel: () => {
+        setDeleteAllConfirmModal({ isOpen: false, onConfirm: () => {}, onCancel: () => {} });
+      }
+    });
+  };
+
+  const handleDeleteCategory = async () => {
+    if (!isAdmin || !selectedCategory) return;
+    
+    const docsInCategory = documents.filter(d => d.category === selectedCategory);
+    
+    setDeleteCategoryConfirmModal({
+      isOpen: true,
+      categoryName: selectedCategory,
+      docCount: docsInCategory.length,
+      onConfirm: async () => {
+        try {
+          setUploading(true);
+          setUploadStatus(`Removing all assets from ${selectedCategory}...`);
+          
+          for (const doc of docsInCategory) {
+            await supabaseService.deleteDocument(doc.id, doc.storage_path || '', doc.file_name);
+          }
+          
+          setUploadStatus(`${selectedCategory} category cleared.`);
+          await new Promise(r => setTimeout(r, 1000));
+          
+          fetchDocs();
+          setSelectedCategory(null);
+          setIsCategoryFilterOpen(false);
+          setDeleteCategoryConfirmModal({ isOpen: false, categoryName: '', docCount: 0, onConfirm: () => {}, onCancel: () => {} });
+          setUploading(false);
+          setUploadStatus('');
+        } catch (e: any) {
+          setErrorMsg(`Category delete failed: ${e.message}`);
+          setDeleteCategoryConfirmModal({ isOpen: false, categoryName: '', docCount: 0, onConfirm: () => {}, onCancel: () => {} });
+          setUploading(false);
+          setUploadStatus('');
+        }
+      },
+      onCancel: () => {
+        setDeleteCategoryConfirmModal({ isOpen: false, categoryName: '', docCount: 0, onConfirm: () => {}, onCancel: () => {} });
+      }
+    });
+  };
+
+
+
 
   const handleEditCategory = async (docId: string, newCategory: string) => {
     if (!isAdmin) return;
@@ -600,20 +702,33 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
             <HardDrive size={18} className="text-indigo-600" /> Cloud-Managed Knowledge Asset Management
           </p>
         </div>
-        {isAdmin ? (
-          <button 
-            onClick={() => setShowUpload(!showUpload)} 
-            disabled={uploading}
-            className={`px-8 py-4 rounded-full font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-indigo-200 hover:shadow-2xl active:scale-95'}`}
-          >
-            {uploading ? <Loader2 className="animate-spin" size={20} /> : (showUpload ? <X size={20} /> : <Plus size={20} className="group-hover:rotate-90 transition-transform" />)} 
-            {uploading ? 'Processing Assets...' : (showUpload ? 'Close' : 'Ingest Document')}
-          </button>
-        ) : (
-          <div className="flex items-center gap-2 text-[10px] font-black text-indigo-600 bg-indigo-50 border border-indigo-200 px-4 py-3 rounded-full shadow-md">
-             <Info size={14} /> READ-ONLY VAULT
-          </div>
-        )}
+        <div className="flex gap-3">
+          {isAdmin && documents.length > 0 && (
+            <button 
+              onClick={handleDeleteAll} 
+              disabled={uploading}
+              className={`px-6 py-4 rounded-full font-black flex items-center gap-2 transition-all shadow-lg ${uploading ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-rose-50 border-2 border-rose-200 text-rose-600 hover:bg-rose-100 hover:border-rose-300 active:scale-95'}`}
+              title="Delete all documents in vault"
+            >
+              <Trash2 size={18} />
+              Clear Vault
+            </button>
+          )}
+          {isAdmin ? (
+            <button 
+              onClick={() => setShowUpload(!showUpload)} 
+              disabled={uploading}
+              className={`px-8 py-4 rounded-full font-black flex items-center gap-3 transition-all shadow-xl group ${showUpload ? 'bg-slate-100 text-slate-500' : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-indigo-200 hover:shadow-2xl active:scale-95'}`}
+            >
+              {uploading ? <Loader2 className="animate-spin" size={20} /> : (showUpload ? <X size={20} /> : <Plus size={20} className="group-hover:rotate-90 transition-transform" />)} 
+              {uploading ? 'Processing Assets...' : (showUpload ? 'Close' : 'Ingest Document')}
+            </button>
+          ) : (
+            <div className="flex items-center gap-2 text-[10px] font-black text-indigo-600 bg-indigo-50 border border-indigo-200 px-4 py-3 rounded-full shadow-md">
+               <Info size={14} /> READ-ONLY VAULT
+            </div>
+          )}
+        </div>
       </header>
 
       {errorMsg && (
@@ -777,7 +892,25 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
           />
           
           {/* NEW: Category Filter Button */}
-          <div className="relative ml-auto">
+          <div className="relative ml-auto flex items-center gap-2">
+            {/* Delete Category Button - appears when category is selected */}
+            {selectedCategory && isAdmin && (
+              <button
+                onClick={handleDeleteCategory}
+                disabled={uploading}
+                className={`px-3 py-2 rounded-lg font-bold text-xs uppercase transition-all flex items-center gap-1.5 ${
+                  uploading 
+                    ? 'bg-slate-100 text-slate-400 cursor-not-allowed' 
+                    : 'bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 hover:border-rose-300 active:scale-95'
+                }`}
+                title={`Delete all ${documents.filter(d => d.category === selectedCategory).length} documents in ${selectedCategory}`}
+              >
+                <Trash2 size={14} />
+                Clear
+              </button>
+            )}
+            
+            {/* Main Category Filter Button */}
             <button
               onClick={() => setIsCategoryFilterOpen(!isCategoryFilterOpen)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs uppercase transition-all whitespace-nowrap ${
@@ -793,7 +926,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
 
             {/* Filter Dropdown */}
             {isCategoryFilterOpen && (
-              <div className="absolute right-0 mt-2 bg-white border-2 border-indigo-100 rounded-xl shadow-2xl z-50 py-2 min-w-max animate-in fade-in zoom-in-95">
+              <div className="absolute right-0 mt-2 bg-white border-2 border-indigo-100 rounded-xl shadow-2xl z-50 py-2 min-w-max animate-in fade-in zoom-in-95 top-full">
                 {/* Show All */}
                 <button
                   onClick={() => {
@@ -948,6 +1081,68 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
           )}
         </div>
       </div>
+    
+      {/* Delete All Confirmation Modal */}
+      {deleteAllConfirmModal.isOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full animate-in scale-in-95 zoom-in-95 duration-300">
+            {/* Header */}
+            <div className="px-8 py-6 border-b border-slate-100 flex items-center gap-4">
+              <div className="p-3 bg-rose-100 rounded-2xl">
+                <ShieldAlert className="text-rose-600" size={24} />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-lg font-black text-slate-900 leading-tight">Clear Entire Vault</h2>
+                <p className="text-xs text-slate-500 font-bold uppercase tracking-wide mt-1">⚠️ Irreversible action</p>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="px-8 py-6 space-y-4">
+              <p className="text-sm text-slate-700 font-semibold leading-relaxed">
+                Are you absolutely certain you want to permanently remove <span className="font-black text-rose-600">ALL {documents.length} documents</span> from the Intelligence Vault?
+              </p>
+              
+              <div className="bg-rose-50 border-2 border-rose-300 rounded-2xl p-4">
+                <p className="text-xs font-bold text-rose-800 flex items-start gap-2 mb-3">
+                  <span className="text-lg mt-0.5">🚨</span>
+                  <span className="leading-relaxed">This action <span className="underline">CANNOT be undone</span>. All documents and their knowledge embeddings will be permanently deleted from the vault.</span>
+                </p>
+                <ul className="text-[10px] font-bold text-rose-700 space-y-1 ml-6 list-disc">
+                  <li>All {documents.length} document(s) will be removed</li>
+                  <li>All associated embeddings will be deleted</li>
+                  <li>This cannot be reversed</li>
+                </ul>
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3">
+                <p className="text-[10px] font-bold text-amber-800">
+                  💡 Consider downloading your documents before clearing the vault.
+                </p>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="px-8 py-6 border-t border-slate-100 space-y-3">
+              <button
+                onClick={deleteAllConfirmModal.onCancel}
+                className="w-full px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-all active:scale-95 text-sm"
+              >
+                No, Keep Documents
+              </button>
+              <button
+                onClick={deleteAllConfirmModal.onConfirm}
+                className="w-full px-4 py-3 bg-gradient-to-r from-rose-600 to-rose-700 text-white font-black rounded-xl hover:shadow-lg hover:shadow-rose-300 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
+              >
+                <Trash2 size={16} />
+                Yes, Delete All {documents.length} Documents
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       {/* Delete Confirmation Modal */}
       {deleteConfirmModal.isOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
@@ -996,6 +1191,59 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
           </div>
         </div>
       )}
+
+      {/* Delete Category Confirmation Modal */}
+      {deleteCategoryConfirmModal.isOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full animate-in scale-in-95 zoom-in-95 duration-300">
+            {/* Header */}
+            <div className="px-8 py-6 border-b border-slate-100 flex items-center gap-4">
+              <div className="p-3 bg-rose-100 rounded-2xl">
+                <Trash2 className="text-rose-600" size={24} />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-lg font-black text-slate-900 leading-tight">Clear Category</h2>
+                <p className="text-xs text-slate-500 font-bold uppercase tracking-wide mt-1">⚠️ Irreversible action</p>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="px-8 py-6 space-y-4">
+              <p className="text-sm text-slate-700 font-semibold leading-relaxed">
+                Are you sure you want to permanently remove <span className="font-black text-rose-600">ALL {deleteCategoryConfirmModal.docCount} documents</span> in the <span className="font-black text-slate-900">"{deleteCategoryConfirmModal.categoryName}"</span> category?
+              </p>
+              
+              <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4">
+                <p className="text-xs font-bold text-rose-700 flex items-start gap-2">
+                  <span className="text-sm mt-0.5">⚠️</span>
+                  <span>This action cannot be undone. All associated knowledge embeddings will be deleted.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="px-8 py-6 border-t border-slate-100 flex gap-3">
+              <button
+                onClick={deleteCategoryConfirmModal.onCancel}
+                className="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-all active:scale-95 text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={deleteCategoryConfirmModal.onConfirm}
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-rose-200 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm"
+              >
+                <Trash2 size={16} />
+                Clear All
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
+
     </div>
   );
 };
