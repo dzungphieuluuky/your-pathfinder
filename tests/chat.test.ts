@@ -2,7 +2,7 @@ import { test, expect, Page } from '@playwright/test';
 
 // Helper function for login
 const login = async (page: Page, role: 'Admin' | 'User') => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('http://localhost:3000/#/login');
   await page.getByPlaceholder('name@company.com').fill(`${role.toLowerCase()}@test.com`);
   await page.getByRole('button', { name: role }).click();
   await page.getByRole('button', { name: 'Enter PathFinder' }).click();
@@ -40,7 +40,6 @@ test.describe('Smart Chat Functionality', () => {
     
     // Submit form - either by clicking button or pressing Enter
     await inputField.press('Enter');
-
 
     // Verify user message appears in chat
     await expect(page.getByText(question)).toBeVisible({ timeout: 10000 });
@@ -89,7 +88,7 @@ test.describe('Smart Chat Functionality', () => {
   });
 
   // TC03: Clear chat history functionality
-  test('TC03: Clear chat history removes all messages', async ({ page }) => {
+  test('TC03: Clear conversation history removes all messages', async ({ page }) => {
     await login(page, 'User');
     await navigateToConversation(page);
 
@@ -110,8 +109,8 @@ test.describe('Smart Chat Functionality', () => {
       dialog.accept();
     });
 
-    // Click clear button (trash icon)
-    const clearButton = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first();
+    // Click clear button using title attribute selector
+    const clearButton = page.locator('button[title="Clear conversation history"]');
     await clearButton.waitFor({ state: 'visible', timeout: 5000 });
     await clearButton.click();
 
@@ -121,7 +120,7 @@ test.describe('Smart Chat Functionality', () => {
     // Verify test message is gone
     await expect(page.getByText(testMsg)).not.toBeVisible();
   });
-
+  
   // TC04: Display citations when documents are referenced
   test('TC04: Display citations when documents are referenced', async ({ page }) => {
     await login(page, 'User');
@@ -246,8 +245,8 @@ test.describe('Smart Chat Functionality', () => {
     // Hover over message to reveal feedback buttons
     await aiMessage.hover();
 
-    // Click thumbs up button
-    const thumbsUpButton = aiMessage.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="thumbs-up"]') }) }).first();
+    // Click thumbs up button - using lucide class
+    const thumbsUpButton = aiMessage.locator('button:has(svg.lucide-thumbs-up)').first();
     await expect(thumbsUpButton).toBeVisible({ timeout: 5000 });
     await thumbsUpButton.click();
 

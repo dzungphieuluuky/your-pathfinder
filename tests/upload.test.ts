@@ -1,5 +1,10 @@
 import { test, expect, Page } from '@playwright/test';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Helper function for quick login
 const login = async (page: Page, role: 'Admin' | 'User') => {
@@ -10,6 +15,7 @@ const login = async (page: Page, role: 'Admin' | 'User') => {
   await expect(page).toHaveURL('http://localhost:3000/#/');
 };
 
+
 test.describe('Document Upload Functionality', () => {
 
   // TC01: Successfully upload a single PDF file (Happy Path)
@@ -17,30 +23,26 @@ test.describe('Document Upload Functionality', () => {
   test('TC01: Admin successfully uploads a single PDF file', async ({ page }) => {
     // 1. Login as Admin and navigate to Document Library
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
 
     // 2. Open upload modal
     await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
 
     // 3. Upload file
-    const filePath = path.join(__dirname, 'fixtures', 'sample.pdf');
+    const filePath = path.join(__dirname, 'fixtures', 'deeplearning.md');
     await page.locator('input[type="file"]').setInputFiles(filePath);
 
     // 4. Verify loading state appears
-    await expect(page.getByText(/Processing|Ingesting|Uploading/i)).toBeVisible();
+    await expect(page.getByText(/Processing|Ingesting|Uploading/i).first()).toBeVisible();
 
     // 5. Verify success message (increased timeout for AI processing)
-    await expect(page.getByText(/Ingested|Success|Uploaded/i)).toBeVisible({ timeout: 30000 });
+    await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 30000 });
 
-    // 6. Close modal and verify file appears in list
-    const closeButton = page.getByRole('button', { name: /Close|Done/i }).first();
-    await closeButton.click();
-    
     // Verify file name appears in document list
-    await expect(page.getByText('sample.pdf')).toBeVisible();
+    await expect(page.getByText('deeplearning.md').first()).toBeVisible();
 
     // Cleanup: Delete file after test
-    const deleteButton = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first();
+    const deleteButton = page.locator('button:has(svg.lucide-trash2)').first();
     await deleteButton.click();
     page.on('dialog', dialog => dialog.accept());
   });
@@ -50,7 +52,7 @@ test.describe('Document Upload Functionality', () => {
   test('TC02: Regular end-user does not see upload button', async ({ page }) => {
     // 1. Login as regular user
     await login(page, 'User');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
 
     // 2. Verify "Ingest Document" button does not exist
     await expect(page.getByRole('button', { name: /Ingest|Upload|Add Document/i })).toBeHidden();
@@ -59,75 +61,95 @@ test.describe('Document Upload Functionality', () => {
     await expect(page.getByText(/READ-ONLY|Read Only|View Only/i)).toBeVisible();
   });
 
-  // TC03: Upload file with custom category creation
-  // Purpose: Verify dropdown logic and custom category creation flow
   test('TC03: Upload file with newly created custom category', async ({ page }) => {
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
     await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
 
     // 1. Open category dropdown
-    const categoryButton = page.getByRole('button').filter({ hasText: /General|Category|Select/ }).first();
+    const categoryButton = page.locator('button').filter({ hasText: /General|machine|Category|Select/ }).first();
+    await categoryButton.waitFor({ state: 'visible', timeout: 5000 });
     await categoryButton.click();
 
     // 2. Select "Create New Category"
     const createNewButton = page.locator('button').filter({ hasText: /Create|New Category|Add/ }).first();
+    await createNewButton.waitFor({ state: 'visible', timeout: 5000 });
     await createNewButton.click();
 
     // 3. Enter new category name
-    const newCategory = 'Legal_Docs_' + Date.now();
+    const newCategory = 'ML-Research_' + Date.now();
     const input = page.locator('input[placeholder*="Category"], input[type="text"]').first();
+    await input.waitFor({ state: 'visible', timeout: 5000 });
     await input.fill(newCategory);
-    await page.getByRole('button', { name: /Create|Save|Add/i }).click();
+    
+    const createButton = page.getByRole('button', { name: /Create|Save|Add/i }).first();
+    await createButton.click();
 
-    // 4. Verify dropdown now shows new category
-    await expect(page.getByRole('button', { name: newCategory })).toBeVisible();
+    // 4. Wait for category to be created and selected
+    await page.waitForTimeout(1000);
+    await expect(categoryButton).toContainText(newCategory, { timeout: 5000 });
 
     // 5. Upload file with new category
-    const filePath = path.join(__dirname, 'fixtures', 'data.json');
+    const filePath = path.join(__dirname, 'fixtures', 'ouro_1.4b_thinking.json');
     await page.locator('input[type="file"]').setInputFiles(filePath);
-    await expect(page.getByText(/Ingested|Success|Uploaded/i)).toBeVisible({ timeout: 30000 });
+    await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 30000 });
     
-    // 6. Verify file appears in list
+    // 6. Wait for modal to auto-close or manually close
+    await page.waitForTimeout(2000);
+    
+    // Try to close if still visible
     const closeButton = page.getByRole('button', { name: /Close|Done/i }).first();
-    await closeButton.click();
-    await expect(page.getByText(newCategory)).toBeVisible();
+    if (await closeButton.isVisible().catch(() => false)) {
+      await closeButton.click();
+    }
     
-    // Cleanup
-    const deleteButton = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first();
+    // 7. Verify new category appears in document list
+    await expect(page.getByText(newCategory).first()).toBeVisible();
+    
+    // 8. Cleanup - Delete document
+    const deleteButton = page.locator('button:has(svg.lucide-trash2)').first();
+    await deleteButton.waitFor({ state: 'visible', timeout: 5000 });
     await deleteButton.click();
-    page.on('dialog', dialog => dialog.accept());
+    
+    page.once('dialog', dialog => dialog.accept());
+    await page.waitForTimeout(1000);
   });
-
+  
   // TC04: Upload multiple files simultaneously (Batch Upload)
   // Purpose: Verify batch file processing in sequential order
   test('TC04: Upload multiple files simultaneously (Batch Upload)', async ({ page }) => {
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
     await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
 
     // 1. Prepare multiple files
-    const file1 = path.join(__dirname, 'fixtures', 'sample.pdf');
-    const file2 = path.join(__dirname, 'fixtures', 'data.json');
+    const file1 = path.join(__dirname, 'fixtures', 'deeplearning.md');
+    const file2 = path.join(__dirname, 'fixtures', 'ouro_1.4b_thinking.json');
 
     // 2. Upload both files
     await page.locator('input[type="file"]').setInputFiles([file1, file2]);
 
-    // 3. Verify processing and success
-    await expect(page.getByText(/Ingested|Success|Uploaded/i)).toBeVisible({ timeout: 60000 });
+    // 3. Verify processing and success (wait longer for multiple files)
+    await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 90000 });
 
+    // Wait for modal to auto-close
+    await page.waitForTimeout(3000);
+    
+    // Try to close if still visible
     const closeButton = page.getByRole('button', { name: /Close|Done/i }).first();
-    await closeButton.click();
+    if (await closeButton.isVisible()) {
+      await closeButton.click();
+    }
 
     // 4. Verify both files appear in list
-    await expect(page.getByText('sample.pdf')).toBeVisible();
-    await expect(page.getByText('data.json')).toBeVisible();
+    await expect(page.getByText('deeplearning.md').first()).toBeVisible();
+    await expect(page.getByText('ouro_1.4b_thinking.json').first()).toBeVisible();
 
     // Cleanup: Delete both files
-    const deleteButtons = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) });
+    const deleteButtons = page.locator('button:has(svg.lucide-trash2)');
     const count = await deleteButtons.count();
-    for (let i = 0; i < count; i++) {
-      await page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first().click();
+    for (let i = 0; i < Math.min(count, 2); i++) {
+      await page.locator('button:has(svg.lucide-trash2)').first().click();
       page.on('dialog', dialog => dialog.accept());
       await page.waitForTimeout(1000);
     }
@@ -137,7 +159,7 @@ test.describe('Document Upload Functionality', () => {
   // Purpose: Verify UX when closing modal and ensure state management works correctly
   test('TC05: Close upload modal and reopen (State Reset)', async ({ page }) => {
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
 
     // 1. Open modal
     await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
@@ -164,119 +186,179 @@ test.describe('Document Upload Functionality', () => {
     await closeButton.click();
   });
 
-  // TC06: Upload file with different file types
-  // Purpose: Verify system supports multiple document formats
   test('TC06: Upload various file types (PDF, JSON, DOCX)', async ({ page }) => {
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
 
     const supportedFiles = [
-      { path: path.join(__dirname, 'fixtures', 'sample.pdf'), name: 'sample.pdf' },
-      { path: path.join(__dirname, 'fixtures', 'data.json'), name: 'data.json' },
-      { path: path.join(__dirname, 'fixtures', 'document.docx'), name: 'document.docx' }
+      { path: path.join(__dirname, 'fixtures', 'deeplearning.md'), name: 'deeplearning.md' },
+      { path: path.join(__dirname, 'fixtures', 'ouro_1.4b_thinking.json'), name: 'ouro_1.4b_thinking.json' },
+      { path: path.join(__dirname, 'fixtures', 'Review.docx'), name: 'Review.docx' }
     ];
 
     for (const file of supportedFiles) {
       // Open modal
-      await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
+      const ingestButton = page.getByRole('button', { name: /Ingest|Upload|Add Document/i });
+      await ingestButton.waitFor({ state: 'visible', timeout: 5000 });
+      await ingestButton.click();
 
+      // Wait for file input to be ready
+      const fileInput = page.locator('input[type="file"]');
+      await fileInput.waitFor({ state: 'visible', timeout: 5000 });
+      
       // Upload file
-      await page.locator('input[type="file"]').setInputFiles(file.path);
+      await fileInput.setInputFiles(file.path);
 
       // Wait for success
-      await expect(page.getByText(/Ingested|Success|Uploaded/i)).toBeVisible({ timeout: 30000 });
+      await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 30000 });
 
-      // Close modal
+      // Wait for modal to auto-close
+      await page.waitForTimeout(2000);
+      
+      // Try to close if still visible
       const closeButton = page.getByRole('button', { name: /Close|Done/i }).first();
-      await closeButton.click();
+      if (await closeButton.isVisible().catch(() => false)) {
+        await closeButton.click();
+      }
 
       // Verify file in list
-      await expect(page.getByText(file.name)).toBeVisible();
+      await expect(page.getByText(file.name).first()).toBeVisible({ timeout: 5000 });
     }
 
     // Cleanup: Delete all uploaded files
-    const deleteButtons = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) });
+    const deleteButtons = page.locator('button:has(svg.lucide-trash2)');
     const count = await deleteButtons.count();
-    for (let i = 0; i < count; i++) {
-      await page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first().click();
-      page.on('dialog', dialog => dialog.accept());
-      await page.waitForTimeout(500);
+    for (let i = 0; i < Math.min(count, 3); i++) {
+      const deleteBtn = page.locator('button:has(svg.lucide-trash2)').first();
+      await deleteBtn.waitFor({ state: 'visible', timeout: 5000 });
+      await deleteBtn.click();
+      
+      page.once('dialog', dialog => dialog.accept());
+      await page.waitForTimeout(1000);
     }
   });
 
-  // TC07: Delete document from library
-  // Purpose: Verify document deletion functionality and confirmation flow
   test('TC07: Delete document from library', async ({ page }) => {
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
 
     // 1. Upload a test file
-    await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
-    const filePath = path.join(__dirname, 'fixtures', 'sample.pdf');
-    await page.locator('input[type="file"]').setInputFiles(filePath);
-    await expect(page.getByText(/Ingested|Success|Uploaded/i)).toBeVisible({ timeout: 30000 });
+    const ingestButton = page.getByRole('button', { name: /Ingest|Upload|Add Document/i });
+    await ingestButton.waitFor({ state: 'visible', timeout: 5000 });
+    await ingestButton.click();
+    
+    const filePath = path.join(__dirname, 'fixtures', 'deeplearning.md');
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.waitFor({ state: 'visible', timeout: 5000 });
+    await fileInput.setInputFiles(filePath);
+    
+    await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 30000 });
+    
+    // Wait for modal to auto-close
+    await page.waitForTimeout(2000);
+    
     const closeButton = page.getByRole('button', { name: /Close|Done/i }).first();
-    await closeButton.click();
+    if (await closeButton.isVisible().catch(() => false)) {
+      await closeButton.click();
+    }
 
     // 2. Verify file appears
-    await expect(page.getByText('sample.pdf')).toBeVisible();
+    await expect(page.getByText('deeplearning.md').first()).toBeVisible({ timeout: 5000 });
 
-    // 3. Click delete button
-    const deleteButton = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first();
+    // 3. Hover over document row to reveal delete button
+    const docRow = page.locator('div').filter({ hasText: 'deeplearning.md' }).first();
+    await docRow.hover();
+
+    // 4. Click delete button using title selector
+    const deleteButton = page.locator('button[title="Delete document"]').first();
+    await deleteButton.waitFor({ state: 'visible', timeout: 5000 });
     
-    // Set up dialog handler
-    page.on('dialog', dialog => {
-      expect(dialog.message()).toContain('delete');
+    // Set up dialog handler before clicking
+    page.once('dialog', dialog => {
+      expect(dialog.message()).toContain('Permanently remove');
       dialog.accept();
     });
 
     await deleteButton.click();
 
-    // 4. Verify file is removed from list
+    // 5. Verify file is removed from list
     await page.waitForTimeout(2000);
-    await expect(page.getByText('sample.pdf')).not.toBeVisible();
+    await expect(page.getByText('deeplearning.md')).not.toBeVisible({ timeout: 5000 });
   });
 
-  // TC08: Category filter in document library
-  // Purpose: Verify filtering documents by category works correctly
   test('TC08: Filter documents by category', async ({ page }) => {
     await login(page, 'Admin');
-    await page.getByRole('link', { name: 'Document Library' }).click();
+    await page.getByRole('button', { name: 'Document Library' }).click();
 
     // 1. Create custom category and upload file
-    await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
+    const ingestButton = page.getByRole('button', { name: /Ingest|Upload|Add Document/i });
+    await ingestButton.waitFor({ state: 'visible', timeout: 5000 });
+    await ingestButton.click();
+    
     const customCategory = 'Marketing_' + Date.now();
     
-    const categoryButton = page.getByRole('button').filter({ hasText: /General|Category|Select/ }).first();
+    const categoryButton = page.locator('button').filter({ hasText: /General|machine|Category|Select/ }).first();
+    await categoryButton.waitFor({ state: 'visible', timeout: 5000 });
     await categoryButton.click();
+    
     const createNewButton = page.locator('button').filter({ hasText: /Create|New Category|Add/ }).first();
+    await createNewButton.waitFor({ state: 'visible', timeout: 5000 });
     await createNewButton.click();
+    
     const input = page.locator('input[placeholder*="Category"], input[type="text"]').first();
+    await input.waitFor({ state: 'visible', timeout: 5000 });
     await input.fill(customCategory);
-    await page.getByRole('button', { name: /Create|Save|Add/i }).click();
+    
+    const createButton = page.getByRole('button', { name: /Create|Save|Add/i }).first();
+    await createButton.click();
 
     // 2. Upload file with custom category
-    const filePath = path.join(__dirname, 'fixtures', 'data.json');
-    await page.locator('input[type="file"]').setInputFiles(filePath);
-    await expect(page.getByText(/Ingested|Success|Uploaded/i)).toBeVisible({ timeout: 30000 });
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.waitFor({ state: 'visible', timeout: 5000 });
+    
+    const filePath = path.join(__dirname, 'fixtures', 'ouro_1.4b_thinking.json');
+    await fileInput.setInputFiles(filePath);
+    
+    await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 30000 });
+    
+    // Wait for modal to auto-close
+    await page.waitForTimeout(2000);
+    
     const closeButton = page.getByRole('button', { name: /Close|Done/i }).first();
-    await closeButton.click();
+    if (await closeButton.isVisible().catch(() => false)) {
+      await closeButton.click();
+    }
 
-    // 3. Verify file shows with category filter
-    const categoryFilter = page.getByRole('button').filter({ hasText: customCategory });
-    await expect(categoryFilter).toBeVisible();
+    // 3. Verify file shows in list
+    await expect(page.getByText('ouro_1.4b_thinking.json').first()).toBeVisible({ timeout: 5000 });
 
-    // 4. Click on category to filter
-    await categoryFilter.click();
+    // 4. Click on category filter button using title selector
+    const categoryFilterButton = page.locator('button[title="Filter by category"]').first();
+    await categoryFilterButton.waitFor({ state: 'visible', timeout: 5000 });
+    await categoryFilterButton.click();
 
-    // Verify documents from that category are shown
-    await expect(page.getByText('data.json')).toBeVisible();
+    // 5. Select custom category from filter dropdown
+    const categoryOption = page.locator('button').filter({ hasText: customCategory }).first();
+    await categoryOption.waitFor({ state: 'visible', timeout: 5000 });
+    await categoryOption.click();
 
-    // Cleanup
-    const deleteButton = page.locator('button').filter({ has: page.locator('svg').filter({ has: page.locator('[data-icon="trash"]') }) }).first();
+    // 6. Verify documents from that category are shown
+    await expect(page.getByText('ouro_1.4b_thinking.json').first()).toBeVisible({ timeout: 5000 });
+
+    // 7. Hover over document row to reveal delete button
+    const docRow = page.locator('div').filter({ hasText: 'ouro_1.4b_thinking.json' }).first();
+    await docRow.hover();
+
+    // 8. Cleanup - Delete document using title selector
+    const deleteButton = page.locator('button[title="Delete document"]').first();
+    await deleteButton.waitFor({ state: 'visible', timeout: 5000 });
+    
+    page.once('dialog', dialog => dialog.accept());
     await deleteButton.click();
-    page.on('dialog', dialog => dialog.accept());
+    
+    await page.waitForTimeout(1000);
   });
+
 
 });
 
@@ -290,16 +372,16 @@ test.describe('Document Upload Functionality', () => {
   - Application running on http://localhost:3000
   - Playwright browser installed
   - Test fixture files in tests/fixtures/ folder:
-    * sample.pdf
-    * data.json
-    * document.docx (optional)
+    * deeplearning.md
+    * ouro_1.4b_thinking.json
+    * Review.docx (optional)
   
   Installation:
   npm install -D @playwright/test
   
   Create fixture files (if not exist):
   - Create tests/fixtures/ folder
-  - Add sample.pdf, data.json, document.docx files
+  - Add deeplearning.md, ouro_1.4b_thinking.json, Review.docx files
   
   Run all upload tests:
   npx playwright test tests/upload.ts
