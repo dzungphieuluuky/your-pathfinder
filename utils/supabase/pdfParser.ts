@@ -1,47 +1,35 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Use the correct worker source
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-}
+// Set worker source to the actual worker file from node_modules
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url
+).href;
 
-export async function extractTextFromPDF(file: File): Promise<string> {
+export const extractTextFromPDF = async (file: File): Promise<string> => {
   try {
     const arrayBuffer = await file.arrayBuffer();
-    
-    // Ensure worker is set before loading document
-    if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-    }
-
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     
     let fullText = '';
-    for (let i = 1; i <= pdf.numPages; i++) {
+    
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       try {
-        const page = await pdf.getPage(i);
+        const page = await pdf.getPage(pageNum);
         const textContent = await page.getTextContent();
         const pageText = textContent.items
           .map((item: any) => item.str || '')
-          .join(' ')
-          .trim();
-        
-        if (pageText) {
-          fullText += pageText + '\n\n';
-        }
+          .join(' ');
+        fullText += pageText + '\n';
       } catch (pageError) {
-        console.warn(`Failed to extract page ${i}:`, pageError);
-        fullText += `[Page ${i} - extraction failed]\n\n`;
+        console.warn(`Failed to extract page ${pageNum}:`, pageError);
+        continue;
       }
     }
     
-    if (!fullText.trim()) {
-      throw new Error('No text extracted from PDF - document may be image-based or corrupted');
-    }
-    
-    return fullText;
+    return fullText.trim() || 'PDF extracted but content is empty';
   } catch (error) {
     console.error('PDF extraction error:', error);
-    throw error;
+    throw new Error(`PDF extraction failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
+};
