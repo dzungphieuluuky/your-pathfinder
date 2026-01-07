@@ -408,6 +408,18 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCategoryFilterOpen, setIsCategoryFilterOpen] = useState(false);
 
+  const [deleteConfirmModal, setDeleteConfirmModal] = useState<{
+    isOpen: boolean;
+    fileName: string;
+    onConfirm: () => void;
+    onCancel: () => void;
+  }>({
+    isOpen: false,
+    fileName: '',
+    onConfirm: () => {},
+    onCancel: () => {}
+  });
+
   const fetchDocs = useCallback(async () => {
     setIsLoading(true);
     setErrorMsg(null);
@@ -519,15 +531,32 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       setCurrentFileName('');
     }
   };
-  
+
   const handleDelete = async (doc: Document) => {
-    if (!isAdmin || !window.confirm(`Permanently remove ${doc.file_name}?`)) return;
-    try {
-      await supabaseService.deleteDocument(doc.id, doc.storage_path || '', doc.file_name);
-      fetchDocs();
-    } catch (e: any) { 
-      alert(`Delete failed: ${e.message}`); 
-    }
+    if (!isAdmin) return;
+    
+    // Create a modern confirmation modal instead of window.confirm
+    const confirmDelete = await new Promise<boolean>((resolve) => {
+      setDeleteConfirmModal({
+        isOpen: true,
+        fileName: doc.file_name,
+        onConfirm: async () => {
+          try {
+            await supabaseService.deleteDocument(doc.id, doc.storage_path || '', doc.file_name);
+            fetchDocs();
+            setDeleteConfirmModal({ isOpen: false, fileName: '', onConfirm: () => {} });
+          } catch (e: any) {
+            setErrorMsg(`Delete failed: ${e.message}`);
+            setDeleteConfirmModal({ isOpen: false, fileName: '', onConfirm: () => {} });
+          }
+          resolve(true);
+        },
+        onCancel: () => {
+          setDeleteConfirmModal({ isOpen: false, fileName: '', onConfirm: () => {} });
+          resolve(false);
+        }
+      });
+    });
   };
 
 
@@ -919,6 +948,54 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
           )}
         </div>
       </div>
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmModal.isOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full animate-in scale-in-95 zoom-in-95 duration-300">
+            {/* Header */}
+            <div className="px-8 py-6 border-b border-slate-100 flex items-center gap-4">
+              <div className="p-3 bg-rose-100 rounded-2xl">
+                <Trash2 className="text-rose-600" size={24} />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-lg font-black text-slate-900 leading-tight">Remove Asset</h2>
+                <p className="text-xs text-slate-500 font-bold uppercase tracking-wide mt-1">Permanent action</p>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="px-8 py-6 space-y-4">
+              <p className="text-sm text-slate-700 font-semibold leading-relaxed">
+                Are you sure you want to permanently remove <span className="font-black text-slate-900 break-words">"{deleteConfirmModal.fileName}"</span> from the Intelligence Vault?
+              </p>
+              
+              <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4">
+                <p className="text-xs font-bold text-rose-700 flex items-start gap-2">
+                  <span className="text-sm mt-0.5">⚠️</span>
+                  <span>This action cannot be undone. All associated knowledge embeddings will be deleted.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="px-8 py-6 border-t border-slate-100 flex gap-3">
+              <button
+                onClick={deleteConfirmModal.onCancel}
+                className="flex-1 px-4 py-3 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-all active:scale-95 text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={deleteConfirmModal.onConfirm}
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-rose-200 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm"
+              >
+                <Trash2 size={16} />
+                Remove Permanently
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

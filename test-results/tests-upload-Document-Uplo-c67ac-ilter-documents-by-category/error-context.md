@@ -44,8 +44,8 @@
       - generic [ref=e55]:
         - generic [ref=e56]:
           - generic [ref=e57]: 📁 Classification Category
-          - button "Marketing_1767762016" [ref=e58] [cursor=pointer]:
-            - generic [ref=e59]: Marketing_1767762016
+          - button "General" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]: General
             - img [ref=e60]
         - generic [ref=e63] [cursor=pointer]:
           - img [ref=e64]
@@ -66,2078 +66,2154 @@
               - generic [ref=e89]:
                 - generic [ref=e90]:
                   - paragraph [ref=e91]: deeplearning.md
-                  - button "✏️ General" [ref=e92] [cursor=pointer]:
-                    - generic [ref=e93]: ✏️
+                  - button "General" [ref=e93] [cursor=pointer]:
                     - text: General
-                - paragraph [ref=e94]: 📅 1/7/2026
-            - generic [ref=e95]:
-              - link [ref=e96] [cursor=pointer]:
+                    - img [ref=e94]
+                - paragraph [ref=e96]: 📅 1/7/2026
+            - button "Cancel edit" [ref=e98] [cursor=pointer]:
+              - img [ref=e99]
+          - generic [ref=e102]:
+            - generic [ref=e103]:
+              - img [ref=e105]
+              - generic [ref=e108]:
+                - generic [ref=e109]:
+                  - paragraph [ref=e110]: deeplearning.md
+                  - button "✏️ General" [ref=e111] [cursor=pointer]:
+                    - generic [ref=e112]: ✏️
+                    - text: General
+                - paragraph [ref=e113]: 📅 1/7/2026
+            - generic [ref=e114]:
+              - link [ref=e115] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767770759328_deeplearning.md
+                - img [ref=e116]
+              - button "Delete document" [ref=e119] [cursor=pointer]:
+                - img [ref=e120]
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - img [ref=e126]
+              - generic [ref=e130]:
+                - generic [ref=e131]:
+                  - paragraph [ref=e132]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e133] [cursor=pointer]:
+                    - generic [ref=e134]: ✏️
+                    - text: General
+                - paragraph [ref=e135]: 📅 1/7/2026
+            - generic [ref=e136]:
+              - link [ref=e137] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767762023505_ouro_1.4b_thinking.json
+                - img [ref=e138]
+              - button "Delete document" [ref=e141] [cursor=pointer]:
+                - img [ref=e142]
+          - generic [ref=e145]:
+            - generic [ref=e146]:
+              - img [ref=e148]
+              - generic [ref=e151]:
+                - generic [ref=e152]:
+                  - paragraph [ref=e153]: deeplearning.md
+                  - button "✏️ General" [ref=e154] [cursor=pointer]:
+                    - generic [ref=e155]: ✏️
+                    - text: General
+                - paragraph [ref=e156]: 📅 1/7/2026
+            - generic [ref=e157]:
+              - link [ref=e158] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767762017862_deeplearning.md
+                - img [ref=e159]
+              - button "Delete document" [ref=e162] [cursor=pointer]:
+                - img [ref=e163]
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - img [ref=e169]
+              - generic [ref=e172]:
+                - generic [ref=e173]:
+                  - paragraph [ref=e174]: deeplearning.md
+                  - button "✏️ General" [ref=e175] [cursor=pointer]:
+                    - generic [ref=e176]: ✏️
+                    - text: General
+                - paragraph [ref=e177]: 📅 1/7/2026
+            - generic [ref=e178]:
+              - link [ref=e179] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767762016876_deeplearning.md
+                - img [ref=e180]
+              - button "Delete document" [ref=e183] [cursor=pointer]:
+                - img [ref=e184]
+          - generic [ref=e187]:
+            - generic [ref=e188]:
+              - img [ref=e190]
+              - generic [ref=e193]:
+                - generic [ref=e194]:
+                  - paragraph [ref=e195]: deeplearning.md
+                  - button "✏️ General" [ref=e196] [cursor=pointer]:
+                    - generic [ref=e197]: ✏️
+                    - text: General
+                - paragraph [ref=e198]: 📅 1/7/2026
+            - generic [ref=e199]:
+              - link [ref=e200] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761689189_deeplearning.md
-                - img [ref=e97]
-              - button "Delete document" [ref=e100] [cursor=pointer]:
-                - img [ref=e101]
-          - generic [ref=e104]:
-            - generic [ref=e105]:
-              - img [ref=e107]
-              - generic [ref=e110]:
-                - generic [ref=e111]:
-                  - paragraph [ref=e112]: deeplearning.md
-                  - button "✏️ General" [ref=e113] [cursor=pointer]:
-                    - generic [ref=e114]: ✏️
+                - img [ref=e201]
+              - button "Delete document" [ref=e204] [cursor=pointer]:
+                - img [ref=e205]
+          - generic [ref=e208]:
+            - generic [ref=e209]:
+              - img [ref=e211]
+              - generic [ref=e214]:
+                - generic [ref=e215]:
+                  - paragraph [ref=e216]: deeplearning.md
+                  - button "✏️ General" [ref=e217] [cursor=pointer]:
+                    - generic [ref=e218]: ✏️
                     - text: General
-                - paragraph [ref=e115]: 📅 1/7/2026
-            - generic [ref=e116]:
-              - link [ref=e117] [cursor=pointer]:
+                - paragraph [ref=e219]: 📅 1/7/2026
+            - generic [ref=e220]:
+              - link [ref=e221] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761689182_deeplearning.md
-                - img [ref=e118]
-              - button "Delete document" [ref=e121] [cursor=pointer]:
-                - img [ref=e122]
-          - generic [ref=e125]:
-            - generic [ref=e126]:
-              - img [ref=e128]
-              - generic [ref=e131]:
-                - generic [ref=e132]:
-                  - paragraph [ref=e133]: Review.docx
-                  - button "✏️ General" [ref=e134] [cursor=pointer]:
-                    - generic [ref=e135]: ✏️
+                - img [ref=e222]
+              - button "Delete document" [ref=e225] [cursor=pointer]:
+                - img [ref=e226]
+          - generic [ref=e229]:
+            - generic [ref=e230]:
+              - img [ref=e232]
+              - generic [ref=e235]:
+                - generic [ref=e236]:
+                  - paragraph [ref=e237]: Review.docx
+                  - button "✏️ General" [ref=e238] [cursor=pointer]:
+                    - generic [ref=e239]: ✏️
                     - text: General
-                - paragraph [ref=e136]: 📅 1/7/2026
-            - generic [ref=e137]:
-              - link [ref=e138] [cursor=pointer]:
+                - paragraph [ref=e240]: 📅 1/7/2026
+            - generic [ref=e241]:
+              - link [ref=e242] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761553643_Review.docx
-                - img [ref=e139]
-              - button "Delete document" [ref=e142] [cursor=pointer]:
-                - img [ref=e143]
-          - generic [ref=e146]:
-            - generic [ref=e147]:
-              - img [ref=e149]
-              - generic [ref=e153]:
-                - generic [ref=e154]:
-                  - paragraph [ref=e155]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e156] [cursor=pointer]:
-                    - generic [ref=e157]: ✏️
+                - img [ref=e243]
+              - button "Delete document" [ref=e246] [cursor=pointer]:
+                - img [ref=e247]
+          - generic [ref=e250]:
+            - generic [ref=e251]:
+              - img [ref=e253]
+              - generic [ref=e257]:
+                - generic [ref=e258]:
+                  - paragraph [ref=e259]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e260] [cursor=pointer]:
+                    - generic [ref=e261]: ✏️
                     - text: General
-                - paragraph [ref=e158]: 📅 1/7/2026
-            - generic [ref=e159]:
-              - link [ref=e160] [cursor=pointer]:
+                - paragraph [ref=e262]: 📅 1/7/2026
+            - generic [ref=e263]:
+              - link [ref=e264] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761548341_ouro_1.4b_thinking.json
-                - img [ref=e161]
-              - button "Delete document" [ref=e164] [cursor=pointer]:
-                - img [ref=e165]
-          - generic [ref=e168]:
-            - generic [ref=e169]:
-              - img [ref=e171]
-              - generic [ref=e175]:
-                - generic [ref=e176]:
-                  - paragraph [ref=e177]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767761539" [ref=e178] [cursor=pointer]:
-                    - generic [ref=e179]: ✏️
+                - img [ref=e265]
+              - button "Delete document" [ref=e268] [cursor=pointer]:
+                - img [ref=e269]
+          - generic [ref=e272]:
+            - generic [ref=e273]:
+              - img [ref=e275]
+              - generic [ref=e279]:
+                - generic [ref=e280]:
+                  - paragraph [ref=e281]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767761539" [ref=e282] [cursor=pointer]:
+                    - generic [ref=e283]: ✏️
                     - text: Marketing_1767761539
-                - paragraph [ref=e180]: 📅 1/7/2026
-            - generic [ref=e181]:
-              - link [ref=e182] [cursor=pointer]:
+                - paragraph [ref=e284]: 📅 1/7/2026
+            - generic [ref=e285]:
+              - link [ref=e286] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761540323_ouro_1.4b_thinking.json
-                - img [ref=e183]
-              - button "Delete document" [ref=e186] [cursor=pointer]:
-                - img [ref=e187]
-          - generic [ref=e190]:
-            - generic [ref=e191]:
-              - img [ref=e193]
-              - generic [ref=e196]:
-                - generic [ref=e197]:
-                  - paragraph [ref=e198]: deeplearning.md
-                  - button "✏️ General" [ref=e199] [cursor=pointer]:
-                    - generic [ref=e200]: ✏️
+                - img [ref=e287]
+              - button "Delete document" [ref=e290] [cursor=pointer]:
+                - img [ref=e291]
+          - generic [ref=e294]:
+            - generic [ref=e295]:
+              - img [ref=e297]
+              - generic [ref=e300]:
+                - generic [ref=e301]:
+                  - paragraph [ref=e302]: deeplearning.md
+                  - button "✏️ General" [ref=e303] [cursor=pointer]:
+                    - generic [ref=e304]: ✏️
                     - text: General
-                - paragraph [ref=e201]: 📅 1/7/2026
-            - generic [ref=e202]:
-              - link [ref=e203] [cursor=pointer]:
+                - paragraph [ref=e305]: 📅 1/7/2026
+            - generic [ref=e306]:
+              - link [ref=e307] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761539952_deeplearning.md
-                - img [ref=e204]
-              - button "Delete document" [ref=e207] [cursor=pointer]:
-                - img [ref=e208]
-          - generic [ref=e211]:
-            - generic [ref=e212]:
-              - img [ref=e214]
-              - generic [ref=e217]:
-                - generic [ref=e218]:
-                  - paragraph [ref=e219]: deeplearning.md
-                  - button "✏️ General" [ref=e220] [cursor=pointer]:
-                    - generic [ref=e221]: ✏️
+                - img [ref=e308]
+              - button "Delete document" [ref=e311] [cursor=pointer]:
+                - img [ref=e312]
+          - generic [ref=e315]:
+            - generic [ref=e316]:
+              - img [ref=e318]
+              - generic [ref=e321]:
+                - generic [ref=e322]:
+                  - paragraph [ref=e323]: deeplearning.md
+                  - button "✏️ General" [ref=e324] [cursor=pointer]:
+                    - generic [ref=e325]: ✏️
                     - text: General
-                - paragraph [ref=e222]: 📅 1/7/2026
-            - generic [ref=e223]:
-              - link [ref=e224] [cursor=pointer]:
+                - paragraph [ref=e326]: 📅 1/7/2026
+            - generic [ref=e327]:
+              - link [ref=e328] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761539231_deeplearning.md
-                - img [ref=e225]
-              - button "Delete document" [ref=e228] [cursor=pointer]:
-                - img [ref=e229]
-          - generic [ref=e232]:
-            - generic [ref=e233]:
-              - img [ref=e235]
-              - generic [ref=e238]:
-                - generic [ref=e239]:
-                  - paragraph [ref=e240]: deeplearning.md
-                  - button "✏️ General" [ref=e241] [cursor=pointer]:
-                    - generic [ref=e242]: ✏️
+                - img [ref=e329]
+              - button "Delete document" [ref=e332] [cursor=pointer]:
+                - img [ref=e333]
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - img [ref=e339]
+              - generic [ref=e342]:
+                - generic [ref=e343]:
+                  - paragraph [ref=e344]: deeplearning.md
+                  - button "✏️ General" [ref=e345] [cursor=pointer]:
+                    - generic [ref=e346]: ✏️
                     - text: General
-                - paragraph [ref=e243]: 📅 1/7/2026
-            - generic [ref=e244]:
-              - link [ref=e245] [cursor=pointer]:
+                - paragraph [ref=e347]: 📅 1/7/2026
+            - generic [ref=e348]:
+              - link [ref=e349] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761538963_deeplearning.md
-                - img [ref=e246]
-              - button "Delete document" [ref=e249] [cursor=pointer]:
-                - img [ref=e250]
-          - generic [ref=e253]:
-            - generic [ref=e254]:
-              - img [ref=e256]
-              - generic [ref=e259]:
-                - generic [ref=e260]:
-                  - paragraph [ref=e261]: deeplearning.md
-                  - button "✏️ General" [ref=e262] [cursor=pointer]:
-                    - generic [ref=e263]: ✏️
+                - img [ref=e350]
+              - button "Delete document" [ref=e353] [cursor=pointer]:
+                - img [ref=e354]
+          - generic [ref=e357]:
+            - generic [ref=e358]:
+              - img [ref=e360]
+              - generic [ref=e363]:
+                - generic [ref=e364]:
+                  - paragraph [ref=e365]: deeplearning.md
+                  - button "✏️ General" [ref=e366] [cursor=pointer]:
+                    - generic [ref=e367]: ✏️
                     - text: General
-                - paragraph [ref=e264]: 📅 1/7/2026
-            - generic [ref=e265]:
-              - link [ref=e266] [cursor=pointer]:
+                - paragraph [ref=e368]: 📅 1/7/2026
+            - generic [ref=e369]:
+              - link [ref=e370] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761539043_deeplearning.md
-                - img [ref=e267]
-              - button "Delete document" [ref=e270] [cursor=pointer]:
-                - img [ref=e271]
-          - generic [ref=e274]:
-            - generic [ref=e275]:
-              - img [ref=e277]
-              - generic [ref=e281]:
-                - generic [ref=e282]:
-                  - paragraph [ref=e283]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e284] [cursor=pointer]:
-                    - generic [ref=e285]: ✏️
+                - img [ref=e371]
+              - button "Delete document" [ref=e374] [cursor=pointer]:
+                - img [ref=e375]
+          - generic [ref=e378]:
+            - generic [ref=e379]:
+              - img [ref=e381]
+              - generic [ref=e385]:
+                - generic [ref=e386]:
+                  - paragraph [ref=e387]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e388] [cursor=pointer]:
+                    - generic [ref=e389]: ✏️
                     - text: General
-                - paragraph [ref=e286]: 📅 1/7/2026
-            - generic [ref=e287]:
-              - link [ref=e288] [cursor=pointer]:
+                - paragraph [ref=e390]: 📅 1/7/2026
+            - generic [ref=e391]:
+              - link [ref=e392] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761445541_ouro_1.4b_thinking.json
-                - img [ref=e289]
-              - button "Delete document" [ref=e292] [cursor=pointer]:
-                - img [ref=e293]
-          - generic [ref=e296]:
-            - generic [ref=e297]:
-              - img [ref=e299]
-              - generic [ref=e302]:
-                - generic [ref=e303]:
-                  - paragraph [ref=e304]: Sales_Process.pdf
-                  - button "✏️ tech" [ref=e305] [cursor=pointer]:
-                    - generic [ref=e306]: ✏️
+                - img [ref=e393]
+              - button "Delete document" [ref=e396] [cursor=pointer]:
+                - img [ref=e397]
+          - generic [ref=e400]:
+            - generic [ref=e401]:
+              - img [ref=e403]
+              - generic [ref=e406]:
+                - generic [ref=e407]:
+                  - paragraph [ref=e408]: Sales_Process.pdf
+                  - button "✏️ tech" [ref=e409] [cursor=pointer]:
+                    - generic [ref=e410]: ✏️
                     - text: tech
-                - paragraph [ref=e307]: 📅 1/7/2026
-            - generic [ref=e308]:
-              - link [ref=e309] [cursor=pointer]:
+                - paragraph [ref=e411]: 📅 1/7/2026
+            - generic [ref=e412]:
+              - link [ref=e413] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761250075_Sales_Process.pdf
-                - img [ref=e310]
-              - button "Delete document" [ref=e313] [cursor=pointer]:
-                - img [ref=e314]
-          - generic [ref=e317]:
-            - generic [ref=e318]:
-              - img [ref=e320]
-              - generic [ref=e323]:
-                - generic [ref=e324]:
-                  - paragraph [ref=e325]: HR_Policy_2025.pdf
-                  - button "✏️ HR" [ref=e326] [cursor=pointer]:
-                    - generic [ref=e327]: ✏️
+                - img [ref=e414]
+              - button "Delete document" [ref=e417] [cursor=pointer]:
+                - img [ref=e418]
+          - generic [ref=e421]:
+            - generic [ref=e422]:
+              - img [ref=e424]
+              - generic [ref=e427]:
+                - generic [ref=e428]:
+                  - paragraph [ref=e429]: HR_Policy_2025.pdf
+                  - button "✏️ HR" [ref=e430] [cursor=pointer]:
+                    - generic [ref=e431]: ✏️
                     - text: HR
-                - paragraph [ref=e328]: 📅 1/7/2026
-            - generic [ref=e329]:
-              - link [ref=e330] [cursor=pointer]:
+                - paragraph [ref=e432]: 📅 1/7/2026
+            - generic [ref=e433]:
+              - link [ref=e434] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761148961_HR_Policy_2025.pdf
-                - img [ref=e331]
-              - button "Delete document" [ref=e334] [cursor=pointer]:
-                - img [ref=e335]
-          - generic [ref=e338]:
-            - generic [ref=e339]:
-              - img [ref=e341]
-              - generic [ref=e344]:
-                - generic [ref=e345]:
-                  - paragraph [ref=e346]: IT_Security_Guide.pdf
-                  - button "✏️ IT" [ref=e347] [cursor=pointer]:
-                    - generic [ref=e348]: ✏️
+                - img [ref=e435]
+              - button "Delete document" [ref=e438] [cursor=pointer]:
+                - img [ref=e439]
+          - generic [ref=e442]:
+            - generic [ref=e443]:
+              - img [ref=e445]
+              - generic [ref=e448]:
+                - generic [ref=e449]:
+                  - paragraph [ref=e450]: IT_Security_Guide.pdf
+                  - button "✏️ IT" [ref=e451] [cursor=pointer]:
+                    - generic [ref=e452]: ✏️
                     - text: IT
-                - paragraph [ref=e349]: 📅 1/7/2026
-            - generic [ref=e350]:
-              - link [ref=e351] [cursor=pointer]:
+                - paragraph [ref=e453]: 📅 1/7/2026
+            - generic [ref=e454]:
+              - link [ref=e455] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767761101377_IT_Security_Guide.pdf
-                - img [ref=e352]
-              - button "Delete document" [ref=e355] [cursor=pointer]:
-                - img [ref=e356]
-          - generic [ref=e359]:
-            - generic [ref=e360]:
-              - img [ref=e362]
-              - generic [ref=e365]:
-                - generic [ref=e366]:
-                  - paragraph [ref=e367]: HR_Policy_2025.pdf
-                  - button "✏️ HR" [ref=e368] [cursor=pointer]:
-                    - generic [ref=e369]: ✏️
+                - img [ref=e456]
+              - button "Delete document" [ref=e459] [cursor=pointer]:
+                - img [ref=e460]
+          - generic [ref=e463]:
+            - generic [ref=e464]:
+              - img [ref=e466]
+              - generic [ref=e469]:
+                - generic [ref=e470]:
+                  - paragraph [ref=e471]: HR_Policy_2025.pdf
+                  - button "✏️ HR" [ref=e472] [cursor=pointer]:
+                    - generic [ref=e473]: ✏️
                     - text: HR
-                - paragraph [ref=e370]: 📅 1/7/2026
-            - generic [ref=e371]:
-              - link [ref=e372] [cursor=pointer]:
+                - paragraph [ref=e474]: 📅 1/7/2026
+            - generic [ref=e475]:
+              - link [ref=e476] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760833214_HR_Policy_2025.pdf
-                - img [ref=e373]
-              - button "Delete document" [ref=e376] [cursor=pointer]:
-                - img [ref=e377]
-          - generic [ref=e380]:
-            - generic [ref=e381]:
-              - img [ref=e383]
-              - generic [ref=e386]:
-                - generic [ref=e387]:
-                  - paragraph [ref=e388]: hollowknight.txt
-                  - button "✏️ Sales" [ref=e389] [cursor=pointer]:
-                    - generic [ref=e390]: ✏️
+                - img [ref=e477]
+              - button "Delete document" [ref=e480] [cursor=pointer]:
+                - img [ref=e481]
+          - generic [ref=e484]:
+            - generic [ref=e485]:
+              - img [ref=e487]
+              - generic [ref=e490]:
+                - generic [ref=e491]:
+                  - paragraph [ref=e492]: hollowknight.txt
+                  - button "✏️ Sales" [ref=e493] [cursor=pointer]:
+                    - generic [ref=e494]: ✏️
                     - text: Sales
-                - paragraph [ref=e391]: 📅 1/7/2026
-            - generic [ref=e392]:
-              - link [ref=e393] [cursor=pointer]:
+                - paragraph [ref=e495]: 📅 1/7/2026
+            - generic [ref=e496]:
+              - link [ref=e497] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760819489_hollowknight.txt
-                - img [ref=e394]
-              - button "Delete document" [ref=e397] [cursor=pointer]:
-                - img [ref=e398]
-          - generic [ref=e401]:
-            - generic [ref=e402]:
-              - img [ref=e404]
-              - generic [ref=e407]:
-                - generic [ref=e408]:
-                  - paragraph [ref=e409]: Sales_Process.pdf
-                  - button "✏️ Sales" [ref=e410] [cursor=pointer]:
-                    - generic [ref=e411]: ✏️
+                - img [ref=e498]
+              - button "Delete document" [ref=e501] [cursor=pointer]:
+                - img [ref=e502]
+          - generic [ref=e505]:
+            - generic [ref=e506]:
+              - img [ref=e508]
+              - generic [ref=e511]:
+                - generic [ref=e512]:
+                  - paragraph [ref=e513]: Sales_Process.pdf
+                  - button "✏️ Sales" [ref=e514] [cursor=pointer]:
+                    - generic [ref=e515]: ✏️
                     - text: Sales
-                - paragraph [ref=e412]: 📅 1/7/2026
-            - generic [ref=e413]:
-              - link [ref=e414] [cursor=pointer]:
+                - paragraph [ref=e516]: 📅 1/7/2026
+            - generic [ref=e517]:
+              - link [ref=e518] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760614443_Sales_Process.pdf
-                - img [ref=e415]
-              - button "Delete document" [ref=e418] [cursor=pointer]:
-                - img [ref=e419]
-          - generic [ref=e422]:
-            - generic [ref=e423]:
-              - img [ref=e425]
-              - generic [ref=e428]:
-                - generic [ref=e429]:
-                  - paragraph [ref=e430]: Review.docx
-                  - button "✏️ General" [ref=e431] [cursor=pointer]:
-                    - generic [ref=e432]: ✏️
+                - img [ref=e519]
+              - button "Delete document" [ref=e522] [cursor=pointer]:
+                - img [ref=e523]
+          - generic [ref=e526]:
+            - generic [ref=e527]:
+              - img [ref=e529]
+              - generic [ref=e532]:
+                - generic [ref=e533]:
+                  - paragraph [ref=e534]: Review.docx
+                  - button "✏️ General" [ref=e535] [cursor=pointer]:
+                    - generic [ref=e536]: ✏️
                     - text: General
-                - paragraph [ref=e433]: 📅 1/7/2026
-            - generic [ref=e434]:
-              - link [ref=e435] [cursor=pointer]:
+                - paragraph [ref=e537]: 📅 1/7/2026
+            - generic [ref=e538]:
+              - link [ref=e539] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760097374_Review.docx
-                - img [ref=e436]
-              - button "Delete document" [ref=e439] [cursor=pointer]:
-                - img [ref=e440]
-          - generic [ref=e443]:
-            - generic [ref=e444]:
-              - img [ref=e446]
-              - generic [ref=e450]:
-                - generic [ref=e451]:
-                  - paragraph [ref=e452]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e453] [cursor=pointer]:
-                    - generic [ref=e454]: ✏️
+                - img [ref=e540]
+              - button "Delete document" [ref=e543] [cursor=pointer]:
+                - img [ref=e544]
+          - generic [ref=e547]:
+            - generic [ref=e548]:
+              - img [ref=e550]
+              - generic [ref=e554]:
+                - generic [ref=e555]:
+                  - paragraph [ref=e556]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e557] [cursor=pointer]:
+                    - generic [ref=e558]: ✏️
                     - text: General
-                - paragraph [ref=e455]: 📅 1/7/2026
-            - generic [ref=e456]:
-              - link [ref=e457] [cursor=pointer]:
+                - paragraph [ref=e559]: 📅 1/7/2026
+            - generic [ref=e560]:
+              - link [ref=e561] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760091925_ouro_1.4b_thinking.json
-                - img [ref=e458]
-              - button "Delete document" [ref=e461] [cursor=pointer]:
-                - img [ref=e462]
-          - generic [ref=e465]:
-            - generic [ref=e466]:
-              - img [ref=e468]
-              - generic [ref=e472]:
-                - generic [ref=e473]:
-                  - paragraph [ref=e474]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767760083" [ref=e475] [cursor=pointer]:
-                    - generic [ref=e476]: ✏️
+                - img [ref=e562]
+              - button "Delete document" [ref=e565] [cursor=pointer]:
+                - img [ref=e566]
+          - generic [ref=e569]:
+            - generic [ref=e570]:
+              - img [ref=e572]
+              - generic [ref=e576]:
+                - generic [ref=e577]:
+                  - paragraph [ref=e578]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767760083" [ref=e579] [cursor=pointer]:
+                    - generic [ref=e580]: ✏️
                     - text: Marketing_1767760083
-                - paragraph [ref=e477]: 📅 1/7/2026
-            - generic [ref=e478]:
-              - link [ref=e479] [cursor=pointer]:
+                - paragraph [ref=e581]: 📅 1/7/2026
+            - generic [ref=e582]:
+              - link [ref=e583] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760084457_ouro_1.4b_thinking.json
-                - img [ref=e480]
-              - button "Delete document" [ref=e483] [cursor=pointer]:
-                - img [ref=e484]
-          - generic [ref=e487]:
-            - generic [ref=e488]:
-              - img [ref=e490]
-              - generic [ref=e493]:
-                - generic [ref=e494]:
-                  - paragraph [ref=e495]: deeplearning.md
-                  - button "✏️ General" [ref=e496] [cursor=pointer]:
-                    - generic [ref=e497]: ✏️
+                - img [ref=e584]
+              - button "Delete document" [ref=e587] [cursor=pointer]:
+                - img [ref=e588]
+          - generic [ref=e591]:
+            - generic [ref=e592]:
+              - img [ref=e594]
+              - generic [ref=e597]:
+                - generic [ref=e598]:
+                  - paragraph [ref=e599]: deeplearning.md
+                  - button "✏️ General" [ref=e600] [cursor=pointer]:
+                    - generic [ref=e601]: ✏️
                     - text: General
-                - paragraph [ref=e498]: 📅 1/7/2026
-            - generic [ref=e499]:
-              - link [ref=e500] [cursor=pointer]:
+                - paragraph [ref=e602]: 📅 1/7/2026
+            - generic [ref=e603]:
+              - link [ref=e604] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760084353_deeplearning.md
-                - img [ref=e501]
-              - button "Delete document" [ref=e504] [cursor=pointer]:
-                - img [ref=e505]
-          - generic [ref=e508]:
-            - generic [ref=e509]:
-              - img [ref=e511]
-              - generic [ref=e514]:
-                - generic [ref=e515]:
-                  - paragraph [ref=e516]: deeplearning.md
-                  - button "✏️ General" [ref=e517] [cursor=pointer]:
-                    - generic [ref=e518]: ✏️
+                - img [ref=e605]
+              - button "Delete document" [ref=e608] [cursor=pointer]:
+                - img [ref=e609]
+          - generic [ref=e612]:
+            - generic [ref=e613]:
+              - img [ref=e615]
+              - generic [ref=e618]:
+                - generic [ref=e619]:
+                  - paragraph [ref=e620]: deeplearning.md
+                  - button "✏️ General" [ref=e621] [cursor=pointer]:
+                    - generic [ref=e622]: ✏️
                     - text: General
-                - paragraph [ref=e519]: 📅 1/7/2026
-            - generic [ref=e520]:
-              - link [ref=e521] [cursor=pointer]:
+                - paragraph [ref=e623]: 📅 1/7/2026
+            - generic [ref=e624]:
+              - link [ref=e625] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760083229_deeplearning.md
-                - img [ref=e522]
-              - button "Delete document" [ref=e525] [cursor=pointer]:
-                - img [ref=e526]
-          - generic [ref=e529]:
-            - generic [ref=e530]:
-              - img [ref=e532]
-              - generic [ref=e535]:
-                - generic [ref=e536]:
-                  - paragraph [ref=e537]: deeplearning.md
-                  - button "✏️ General" [ref=e538] [cursor=pointer]:
-                    - generic [ref=e539]: ✏️
+                - img [ref=e626]
+              - button "Delete document" [ref=e629] [cursor=pointer]:
+                - img [ref=e630]
+          - generic [ref=e633]:
+            - generic [ref=e634]:
+              - img [ref=e636]
+              - generic [ref=e639]:
+                - generic [ref=e640]:
+                  - paragraph [ref=e641]: deeplearning.md
+                  - button "✏️ General" [ref=e642] [cursor=pointer]:
+                    - generic [ref=e643]: ✏️
                     - text: General
-                - paragraph [ref=e540]: 📅 1/7/2026
-            - generic [ref=e541]:
-              - link [ref=e542] [cursor=pointer]:
+                - paragraph [ref=e644]: 📅 1/7/2026
+            - generic [ref=e645]:
+              - link [ref=e646] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760083129_deeplearning.md
-                - img [ref=e543]
-              - button "Delete document" [ref=e546] [cursor=pointer]:
-                - img [ref=e547]
-          - generic [ref=e550]:
-            - generic [ref=e551]:
-              - img [ref=e553]
-              - generic [ref=e556]:
-                - generic [ref=e557]:
-                  - paragraph [ref=e558]: deeplearning.md
-                  - button "✏️ General" [ref=e559] [cursor=pointer]:
-                    - generic [ref=e560]: ✏️
+                - img [ref=e647]
+              - button "Delete document" [ref=e650] [cursor=pointer]:
+                - img [ref=e651]
+          - generic [ref=e654]:
+            - generic [ref=e655]:
+              - img [ref=e657]
+              - generic [ref=e660]:
+                - generic [ref=e661]:
+                  - paragraph [ref=e662]: deeplearning.md
+                  - button "✏️ General" [ref=e663] [cursor=pointer]:
+                    - generic [ref=e664]: ✏️
                     - text: General
-                - paragraph [ref=e561]: 📅 1/7/2026
-            - generic [ref=e562]:
-              - link [ref=e563] [cursor=pointer]:
+                - paragraph [ref=e665]: 📅 1/7/2026
+            - generic [ref=e666]:
+              - link [ref=e667] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767760083063_deeplearning.md
-                - img [ref=e564]
-              - button "Delete document" [ref=e567] [cursor=pointer]:
-                - img [ref=e568]
-          - generic [ref=e571]:
-            - generic [ref=e572]:
-              - img [ref=e574]
-              - generic [ref=e577]:
-                - generic [ref=e578]:
-                  - paragraph [ref=e579]: Review.docx
-                  - button "✏️ General" [ref=e580] [cursor=pointer]:
-                    - generic [ref=e581]: ✏️
+                - img [ref=e668]
+              - button "Delete document" [ref=e671] [cursor=pointer]:
+                - img [ref=e672]
+          - generic [ref=e675]:
+            - generic [ref=e676]:
+              - img [ref=e678]
+              - generic [ref=e681]:
+                - generic [ref=e682]:
+                  - paragraph [ref=e683]: Review.docx
+                  - button "✏️ General" [ref=e684] [cursor=pointer]:
+                    - generic [ref=e685]: ✏️
                     - text: General
-                - paragraph [ref=e582]: 📅 1/7/2026
-            - generic [ref=e583]:
-              - link [ref=e584] [cursor=pointer]:
+                - paragraph [ref=e686]: 📅 1/7/2026
+            - generic [ref=e687]:
+              - link [ref=e688] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759512582_Review.docx
-                - img [ref=e585]
-              - button "Delete document" [ref=e588] [cursor=pointer]:
-                - img [ref=e589]
-          - generic [ref=e592]:
-            - generic [ref=e593]:
-              - img [ref=e595]
-              - generic [ref=e599]:
-                - generic [ref=e600]:
-                  - paragraph [ref=e601]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e602] [cursor=pointer]:
-                    - generic [ref=e603]: ✏️
+                - img [ref=e689]
+              - button "Delete document" [ref=e692] [cursor=pointer]:
+                - img [ref=e693]
+          - generic [ref=e696]:
+            - generic [ref=e697]:
+              - img [ref=e699]
+              - generic [ref=e703]:
+                - generic [ref=e704]:
+                  - paragraph [ref=e705]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e706] [cursor=pointer]:
+                    - generic [ref=e707]: ✏️
                     - text: General
-                - paragraph [ref=e604]: 📅 1/7/2026
-            - generic [ref=e605]:
-              - link [ref=e606] [cursor=pointer]:
+                - paragraph [ref=e708]: 📅 1/7/2026
+            - generic [ref=e709]:
+              - link [ref=e710] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759507163_ouro_1.4b_thinking.json
-                - img [ref=e607]
-              - button "Delete document" [ref=e610] [cursor=pointer]:
-                - img [ref=e611]
-          - generic [ref=e614]:
-            - generic [ref=e615]:
-              - img [ref=e617]
-              - generic [ref=e621]:
-                - generic [ref=e622]:
-                  - paragraph [ref=e623]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767759499" [ref=e624] [cursor=pointer]:
-                    - generic [ref=e625]: ✏️
+                - img [ref=e711]
+              - button "Delete document" [ref=e714] [cursor=pointer]:
+                - img [ref=e715]
+          - generic [ref=e718]:
+            - generic [ref=e719]:
+              - img [ref=e721]
+              - generic [ref=e725]:
+                - generic [ref=e726]:
+                  - paragraph [ref=e727]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767759499" [ref=e728] [cursor=pointer]:
+                    - generic [ref=e729]: ✏️
                     - text: Marketing_1767759499
-                - paragraph [ref=e626]: 📅 1/7/2026
-            - generic [ref=e627]:
-              - link [ref=e628] [cursor=pointer]:
+                - paragraph [ref=e730]: 📅 1/7/2026
+            - generic [ref=e731]:
+              - link [ref=e732] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759499711_ouro_1.4b_thinking.json
-                - img [ref=e629]
-              - button "Delete document" [ref=e632] [cursor=pointer]:
-                - img [ref=e633]
-          - generic [ref=e636]:
-            - generic [ref=e637]:
-              - img [ref=e639]
-              - generic [ref=e642]:
-                - generic [ref=e643]:
-                  - paragraph [ref=e644]: deeplearning.md
-                  - button "✏️ General" [ref=e645] [cursor=pointer]:
-                    - generic [ref=e646]: ✏️
+                - img [ref=e733]
+              - button "Delete document" [ref=e736] [cursor=pointer]:
+                - img [ref=e737]
+          - generic [ref=e740]:
+            - generic [ref=e741]:
+              - img [ref=e743]
+              - generic [ref=e746]:
+                - generic [ref=e747]:
+                  - paragraph [ref=e748]: deeplearning.md
+                  - button "✏️ General" [ref=e749] [cursor=pointer]:
+                    - generic [ref=e750]: ✏️
                     - text: General
-                - paragraph [ref=e647]: 📅 1/7/2026
-            - generic [ref=e648]:
-              - link [ref=e649] [cursor=pointer]:
+                - paragraph [ref=e751]: 📅 1/7/2026
+            - generic [ref=e752]:
+              - link [ref=e753] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759498915_deeplearning.md
-                - img [ref=e650]
-              - button "Delete document" [ref=e653] [cursor=pointer]:
-                - img [ref=e654]
-          - generic [ref=e657]:
-            - generic [ref=e658]:
-              - img [ref=e660]
-              - generic [ref=e663]:
-                - generic [ref=e664]:
-                  - paragraph [ref=e665]: deeplearning.md
-                  - button "✏️ General" [ref=e666] [cursor=pointer]:
-                    - generic [ref=e667]: ✏️
+                - img [ref=e754]
+              - button "Delete document" [ref=e757] [cursor=pointer]:
+                - img [ref=e758]
+          - generic [ref=e761]:
+            - generic [ref=e762]:
+              - img [ref=e764]
+              - generic [ref=e767]:
+                - generic [ref=e768]:
+                  - paragraph [ref=e769]: deeplearning.md
+                  - button "✏️ General" [ref=e770] [cursor=pointer]:
+                    - generic [ref=e771]: ✏️
                     - text: General
-                - paragraph [ref=e668]: 📅 1/7/2026
-            - generic [ref=e669]:
-              - link [ref=e670] [cursor=pointer]:
+                - paragraph [ref=e772]: 📅 1/7/2026
+            - generic [ref=e773]:
+              - link [ref=e774] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759498643_deeplearning.md
-                - img [ref=e671]
-              - button "Delete document" [ref=e674] [cursor=pointer]:
-                - img [ref=e675]
-          - generic [ref=e678]:
-            - generic [ref=e679]:
-              - img [ref=e681]
-              - generic [ref=e684]:
-                - generic [ref=e685]:
-                  - paragraph [ref=e686]: deeplearning.md
-                  - button "✏️ General" [ref=e687] [cursor=pointer]:
-                    - generic [ref=e688]: ✏️
+                - img [ref=e775]
+              - button "Delete document" [ref=e778] [cursor=pointer]:
+                - img [ref=e779]
+          - generic [ref=e782]:
+            - generic [ref=e783]:
+              - img [ref=e785]
+              - generic [ref=e788]:
+                - generic [ref=e789]:
+                  - paragraph [ref=e790]: deeplearning.md
+                  - button "✏️ General" [ref=e791] [cursor=pointer]:
+                    - generic [ref=e792]: ✏️
                     - text: General
-                - paragraph [ref=e689]: 📅 1/7/2026
-            - generic [ref=e690]:
-              - link [ref=e691] [cursor=pointer]:
+                - paragraph [ref=e793]: 📅 1/7/2026
+            - generic [ref=e794]:
+              - link [ref=e795] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759498665_deeplearning.md
-                - img [ref=e692]
-              - button "Delete document" [ref=e695] [cursor=pointer]:
-                - img [ref=e696]
-          - generic [ref=e699]:
-            - generic [ref=e700]:
-              - img [ref=e702]
-              - generic [ref=e705]:
-                - generic [ref=e706]:
-                  - paragraph [ref=e707]: deeplearning.md
-                  - button "✏️ General" [ref=e708] [cursor=pointer]:
-                    - generic [ref=e709]: ✏️
+                - img [ref=e796]
+              - button "Delete document" [ref=e799] [cursor=pointer]:
+                - img [ref=e800]
+          - generic [ref=e803]:
+            - generic [ref=e804]:
+              - img [ref=e806]
+              - generic [ref=e809]:
+                - generic [ref=e810]:
+                  - paragraph [ref=e811]: deeplearning.md
+                  - button "✏️ General" [ref=e812] [cursor=pointer]:
+                    - generic [ref=e813]: ✏️
                     - text: General
-                - paragraph [ref=e710]: 📅 1/7/2026
-            - generic [ref=e711]:
-              - link [ref=e712] [cursor=pointer]:
+                - paragraph [ref=e814]: 📅 1/7/2026
+            - generic [ref=e815]:
+              - link [ref=e816] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767759498432_deeplearning.md
-                - img [ref=e713]
-              - button "Delete document" [ref=e716] [cursor=pointer]:
-                - img [ref=e717]
-          - generic [ref=e720]:
-            - generic [ref=e721]:
-              - img [ref=e723]
-              - generic [ref=e726]:
-                - generic [ref=e727]:
-                  - paragraph [ref=e728]: Review.docx
-                  - button "✏️ General" [ref=e729] [cursor=pointer]:
-                    - generic [ref=e730]: ✏️
+                - img [ref=e817]
+              - button "Delete document" [ref=e820] [cursor=pointer]:
+                - img [ref=e821]
+          - generic [ref=e824]:
+            - generic [ref=e825]:
+              - img [ref=e827]
+              - generic [ref=e830]:
+                - generic [ref=e831]:
+                  - paragraph [ref=e832]: Review.docx
+                  - button "✏️ General" [ref=e833] [cursor=pointer]:
+                    - generic [ref=e834]: ✏️
                     - text: General
-                - paragraph [ref=e731]: 📅 1/7/2026
-            - generic [ref=e732]:
-              - link [ref=e733] [cursor=pointer]:
+                - paragraph [ref=e835]: 📅 1/7/2026
+            - generic [ref=e836]:
+              - link [ref=e837] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758912240_Review.docx
-                - img [ref=e734]
-              - button "Delete document" [ref=e737] [cursor=pointer]:
-                - img [ref=e738]
-          - generic [ref=e741]:
-            - generic [ref=e742]:
-              - img [ref=e744]
-              - generic [ref=e748]:
-                - generic [ref=e749]:
-                  - paragraph [ref=e750]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e751] [cursor=pointer]:
-                    - generic [ref=e752]: ✏️
+                - img [ref=e838]
+              - button "Delete document" [ref=e841] [cursor=pointer]:
+                - img [ref=e842]
+          - generic [ref=e845]:
+            - generic [ref=e846]:
+              - img [ref=e848]
+              - generic [ref=e852]:
+                - generic [ref=e853]:
+                  - paragraph [ref=e854]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e855] [cursor=pointer]:
+                    - generic [ref=e856]: ✏️
                     - text: General
-                - paragraph [ref=e753]: 📅 1/7/2026
-            - generic [ref=e754]:
-              - link [ref=e755] [cursor=pointer]:
+                - paragraph [ref=e857]: 📅 1/7/2026
+            - generic [ref=e858]:
+              - link [ref=e859] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758906801_ouro_1.4b_thinking.json
-                - img [ref=e756]
-              - button "Delete document" [ref=e759] [cursor=pointer]:
-                - img [ref=e760]
-          - generic [ref=e763]:
-            - generic [ref=e764]:
-              - img [ref=e766]
-              - generic [ref=e770]:
-                - generic [ref=e771]:
-                  - paragraph [ref=e772]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767758898" [ref=e773] [cursor=pointer]:
-                    - generic [ref=e774]: ✏️
+                - img [ref=e860]
+              - button "Delete document" [ref=e863] [cursor=pointer]:
+                - img [ref=e864]
+          - generic [ref=e867]:
+            - generic [ref=e868]:
+              - img [ref=e870]
+              - generic [ref=e874]:
+                - generic [ref=e875]:
+                  - paragraph [ref=e876]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767758898" [ref=e877] [cursor=pointer]:
+                    - generic [ref=e878]: ✏️
                     - text: Marketing_1767758898
-                - paragraph [ref=e775]: 📅 1/7/2026
-            - generic [ref=e776]:
-              - link [ref=e777] [cursor=pointer]:
+                - paragraph [ref=e879]: 📅 1/7/2026
+            - generic [ref=e880]:
+              - link [ref=e881] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758900066_ouro_1.4b_thinking.json
-                - img [ref=e778]
-              - button "Delete document" [ref=e781] [cursor=pointer]:
-                - img [ref=e782]
-          - generic [ref=e785]:
-            - generic [ref=e786]:
-              - img [ref=e788]
-              - generic [ref=e791]:
-                - generic [ref=e792]:
-                  - paragraph [ref=e793]: deeplearning.md
-                  - button "✏️ General" [ref=e794] [cursor=pointer]:
-                    - generic [ref=e795]: ✏️
+                - img [ref=e882]
+              - button "Delete document" [ref=e885] [cursor=pointer]:
+                - img [ref=e886]
+          - generic [ref=e889]:
+            - generic [ref=e890]:
+              - img [ref=e892]
+              - generic [ref=e895]:
+                - generic [ref=e896]:
+                  - paragraph [ref=e897]: deeplearning.md
+                  - button "✏️ General" [ref=e898] [cursor=pointer]:
+                    - generic [ref=e899]: ✏️
                     - text: General
-                - paragraph [ref=e796]: 📅 1/7/2026
-            - generic [ref=e797]:
-              - link [ref=e798] [cursor=pointer]:
+                - paragraph [ref=e900]: 📅 1/7/2026
+            - generic [ref=e901]:
+              - link [ref=e902] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758899068_deeplearning.md
-                - img [ref=e799]
-              - button "Delete document" [ref=e802] [cursor=pointer]:
-                - img [ref=e803]
-          - generic [ref=e806]:
-            - generic [ref=e807]:
-              - img [ref=e809]
-              - generic [ref=e812]:
-                - generic [ref=e813]:
-                  - paragraph [ref=e814]: deeplearning.md
-                  - button "✏️ General" [ref=e815] [cursor=pointer]:
-                    - generic [ref=e816]: ✏️
+                - img [ref=e903]
+              - button "Delete document" [ref=e906] [cursor=pointer]:
+                - img [ref=e907]
+          - generic [ref=e910]:
+            - generic [ref=e911]:
+              - img [ref=e913]
+              - generic [ref=e916]:
+                - generic [ref=e917]:
+                  - paragraph [ref=e918]: deeplearning.md
+                  - button "✏️ General" [ref=e919] [cursor=pointer]:
+                    - generic [ref=e920]: ✏️
                     - text: General
-                - paragraph [ref=e817]: 📅 1/7/2026
-            - generic [ref=e818]:
-              - link [ref=e819] [cursor=pointer]:
+                - paragraph [ref=e921]: 📅 1/7/2026
+            - generic [ref=e922]:
+              - link [ref=e923] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758897901_deeplearning.md
-                - img [ref=e820]
-              - button "Delete document" [ref=e823] [cursor=pointer]:
-                - img [ref=e824]
-          - generic [ref=e827]:
-            - generic [ref=e828]:
-              - img [ref=e830]
-              - generic [ref=e833]:
-                - generic [ref=e834]:
-                  - paragraph [ref=e835]: deeplearning.md
-                  - button "✏️ General" [ref=e836] [cursor=pointer]:
-                    - generic [ref=e837]: ✏️
+                - img [ref=e924]
+              - button "Delete document" [ref=e927] [cursor=pointer]:
+                - img [ref=e928]
+          - generic [ref=e931]:
+            - generic [ref=e932]:
+              - img [ref=e934]
+              - generic [ref=e937]:
+                - generic [ref=e938]:
+                  - paragraph [ref=e939]: deeplearning.md
+                  - button "✏️ General" [ref=e940] [cursor=pointer]:
+                    - generic [ref=e941]: ✏️
                     - text: General
-                - paragraph [ref=e838]: 📅 1/7/2026
-            - generic [ref=e839]:
-              - link [ref=e840] [cursor=pointer]:
+                - paragraph [ref=e942]: 📅 1/7/2026
+            - generic [ref=e943]:
+              - link [ref=e944] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758897677_deeplearning.md
-                - img [ref=e841]
-              - button "Delete document" [ref=e844] [cursor=pointer]:
-                - img [ref=e845]
-          - generic [ref=e848]:
-            - generic [ref=e849]:
-              - img [ref=e851]
-              - generic [ref=e854]:
-                - generic [ref=e855]:
-                  - paragraph [ref=e856]: deeplearning.md
-                  - button "✏️ General" [ref=e857] [cursor=pointer]:
-                    - generic [ref=e858]: ✏️
+                - img [ref=e945]
+              - button "Delete document" [ref=e948] [cursor=pointer]:
+                - img [ref=e949]
+          - generic [ref=e952]:
+            - generic [ref=e953]:
+              - img [ref=e955]
+              - generic [ref=e958]:
+                - generic [ref=e959]:
+                  - paragraph [ref=e960]: deeplearning.md
+                  - button "✏️ General" [ref=e961] [cursor=pointer]:
+                    - generic [ref=e962]: ✏️
                     - text: General
-                - paragraph [ref=e859]: 📅 1/7/2026
-            - generic [ref=e860]:
-              - link [ref=e861] [cursor=pointer]:
+                - paragraph [ref=e963]: 📅 1/7/2026
+            - generic [ref=e964]:
+              - link [ref=e965] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758897456_deeplearning.md
-                - img [ref=e862]
-              - button "Delete document" [ref=e865] [cursor=pointer]:
-                - img [ref=e866]
-          - generic [ref=e869]:
-            - generic [ref=e870]:
-              - img [ref=e872]
-              - generic [ref=e875]:
-                - generic [ref=e876]:
-                  - paragraph [ref=e877]: Review.docx
-                  - button "✏️ General" [ref=e878] [cursor=pointer]:
-                    - generic [ref=e879]: ✏️
+                - img [ref=e966]
+              - button "Delete document" [ref=e969] [cursor=pointer]:
+                - img [ref=e970]
+          - generic [ref=e973]:
+            - generic [ref=e974]:
+              - img [ref=e976]
+              - generic [ref=e979]:
+                - generic [ref=e980]:
+                  - paragraph [ref=e981]: Review.docx
+                  - button "✏️ General" [ref=e982] [cursor=pointer]:
+                    - generic [ref=e983]: ✏️
                     - text: General
-                - paragraph [ref=e880]: 📅 1/7/2026
-            - generic [ref=e881]:
-              - link [ref=e882] [cursor=pointer]:
+                - paragraph [ref=e984]: 📅 1/7/2026
+            - generic [ref=e985]:
+              - link [ref=e986] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758841694_Review.docx
-                - img [ref=e883]
-              - button "Delete document" [ref=e886] [cursor=pointer]:
-                - img [ref=e887]
-          - generic [ref=e890]:
-            - generic [ref=e891]:
-              - img [ref=e893]
-              - generic [ref=e897]:
-                - generic [ref=e898]:
-                  - paragraph [ref=e899]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e900] [cursor=pointer]:
-                    - generic [ref=e901]: ✏️
+                - img [ref=e987]
+              - button "Delete document" [ref=e990] [cursor=pointer]:
+                - img [ref=e991]
+          - generic [ref=e994]:
+            - generic [ref=e995]:
+              - img [ref=e997]
+              - generic [ref=e1001]:
+                - generic [ref=e1002]:
+                  - paragraph [ref=e1003]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e1004] [cursor=pointer]:
+                    - generic [ref=e1005]: ✏️
                     - text: General
-                - paragraph [ref=e902]: 📅 1/7/2026
-            - generic [ref=e903]:
-              - link [ref=e904] [cursor=pointer]:
+                - paragraph [ref=e1006]: 📅 1/7/2026
+            - generic [ref=e1007]:
+              - link [ref=e1008] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758836239_ouro_1.4b_thinking.json
-                - img [ref=e905]
-              - button "Delete document" [ref=e908] [cursor=pointer]:
-                - img [ref=e909]
-          - generic [ref=e912]:
-            - generic [ref=e913]:
-              - img [ref=e915]
-              - generic [ref=e919]:
-                - generic [ref=e920]:
-                  - paragraph [ref=e921]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767758833" [ref=e922] [cursor=pointer]:
-                    - generic [ref=e923]: ✏️
+                - img [ref=e1009]
+              - button "Delete document" [ref=e1012] [cursor=pointer]:
+                - img [ref=e1013]
+          - generic [ref=e1016]:
+            - generic [ref=e1017]:
+              - img [ref=e1019]
+              - generic [ref=e1023]:
+                - generic [ref=e1024]:
+                  - paragraph [ref=e1025]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767758833" [ref=e1026] [cursor=pointer]:
+                    - generic [ref=e1027]: ✏️
                     - text: Marketing_1767758833
-                - paragraph [ref=e924]: 📅 1/7/2026
-            - generic [ref=e925]:
-              - link [ref=e926] [cursor=pointer]:
+                - paragraph [ref=e1028]: 📅 1/7/2026
+            - generic [ref=e1029]:
+              - link [ref=e1030] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758835339_ouro_1.4b_thinking.json
-                - img [ref=e927]
-              - button "Delete document" [ref=e930] [cursor=pointer]:
-                - img [ref=e931]
-          - generic [ref=e934]:
-            - generic [ref=e935]:
-              - img [ref=e937]
-              - generic [ref=e940]:
-                - generic [ref=e941]:
-                  - paragraph [ref=e942]: deeplearning.md
-                  - button "✏️ General" [ref=e943] [cursor=pointer]:
-                    - generic [ref=e944]: ✏️
+                - img [ref=e1031]
+              - button "Delete document" [ref=e1034] [cursor=pointer]:
+                - img [ref=e1035]
+          - generic [ref=e1038]:
+            - generic [ref=e1039]:
+              - img [ref=e1041]
+              - generic [ref=e1044]:
+                - generic [ref=e1045]:
+                  - paragraph [ref=e1046]: deeplearning.md
+                  - button "✏️ General" [ref=e1047] [cursor=pointer]:
+                    - generic [ref=e1048]: ✏️
                     - text: General
-                - paragraph [ref=e945]: 📅 1/7/2026
-            - generic [ref=e946]:
-              - link [ref=e947] [cursor=pointer]:
+                - paragraph [ref=e1049]: 📅 1/7/2026
+            - generic [ref=e1050]:
+              - link [ref=e1051] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758825947_deeplearning.md
-                - img [ref=e948]
-              - button "Delete document" [ref=e951] [cursor=pointer]:
-                - img [ref=e952]
-          - generic [ref=e955]:
-            - generic [ref=e956]:
-              - img [ref=e958]
-              - generic [ref=e961]:
-                - generic [ref=e962]:
-                  - paragraph [ref=e963]: deeplearning.md
-                  - button "✏️ General" [ref=e964] [cursor=pointer]:
-                    - generic [ref=e965]: ✏️
+                - img [ref=e1052]
+              - button "Delete document" [ref=e1055] [cursor=pointer]:
+                - img [ref=e1056]
+          - generic [ref=e1059]:
+            - generic [ref=e1060]:
+              - img [ref=e1062]
+              - generic [ref=e1065]:
+                - generic [ref=e1066]:
+                  - paragraph [ref=e1067]: deeplearning.md
+                  - button "✏️ General" [ref=e1068] [cursor=pointer]:
+                    - generic [ref=e1069]: ✏️
                     - text: General
-                - paragraph [ref=e966]: 📅 1/7/2026
-            - generic [ref=e967]:
-              - link [ref=e968] [cursor=pointer]:
+                - paragraph [ref=e1070]: 📅 1/7/2026
+            - generic [ref=e1071]:
+              - link [ref=e1072] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758825459_deeplearning.md
-                - img [ref=e969]
-              - button "Delete document" [ref=e972] [cursor=pointer]:
-                - img [ref=e973]
-          - generic [ref=e976]:
-            - generic [ref=e977]:
-              - img [ref=e979]
-              - generic [ref=e982]:
-                - generic [ref=e983]:
-                  - paragraph [ref=e984]: deeplearning.md
-                  - button "✏️ General" [ref=e985] [cursor=pointer]:
-                    - generic [ref=e986]: ✏️
+                - img [ref=e1073]
+              - button "Delete document" [ref=e1076] [cursor=pointer]:
+                - img [ref=e1077]
+          - generic [ref=e1080]:
+            - generic [ref=e1081]:
+              - img [ref=e1083]
+              - generic [ref=e1086]:
+                - generic [ref=e1087]:
+                  - paragraph [ref=e1088]: deeplearning.md
+                  - button "✏️ General" [ref=e1089] [cursor=pointer]:
+                    - generic [ref=e1090]: ✏️
                     - text: General
-                - paragraph [ref=e987]: 📅 1/7/2026
-            - generic [ref=e988]:
-              - link [ref=e989] [cursor=pointer]:
+                - paragraph [ref=e1091]: 📅 1/7/2026
+            - generic [ref=e1092]:
+              - link [ref=e1093] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758815429_deeplearning.md
-                - img [ref=e990]
-              - button "Delete document" [ref=e993] [cursor=pointer]:
-                - img [ref=e994]
-          - generic [ref=e997]:
-            - generic [ref=e998]:
-              - img [ref=e1000]
-              - generic [ref=e1003]:
-                - generic [ref=e1004]:
-                  - paragraph [ref=e1005]: deeplearning.md
-                  - button "✏️ General" [ref=e1006] [cursor=pointer]:
-                    - generic [ref=e1007]: ✏️
+                - img [ref=e1094]
+              - button "Delete document" [ref=e1097] [cursor=pointer]:
+                - img [ref=e1098]
+          - generic [ref=e1101]:
+            - generic [ref=e1102]:
+              - img [ref=e1104]
+              - generic [ref=e1107]:
+                - generic [ref=e1108]:
+                  - paragraph [ref=e1109]: deeplearning.md
+                  - button "✏️ General" [ref=e1110] [cursor=pointer]:
+                    - generic [ref=e1111]: ✏️
                     - text: General
-                - paragraph [ref=e1008]: 📅 1/7/2026
-            - generic [ref=e1009]:
-              - link [ref=e1010] [cursor=pointer]:
+                - paragraph [ref=e1112]: 📅 1/7/2026
+            - generic [ref=e1113]:
+              - link [ref=e1114] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767758809495_deeplearning.md
-                - img [ref=e1011]
-              - button "Delete document" [ref=e1014] [cursor=pointer]:
-                - img [ref=e1015]
-          - generic [ref=e1018]:
-            - generic [ref=e1019]:
-              - img [ref=e1021]
-              - generic [ref=e1024]:
-                - generic [ref=e1025]:
-                  - paragraph [ref=e1026]: RL.txt
-                  - button "✏️ tech" [ref=e1027] [cursor=pointer]:
-                    - generic [ref=e1028]: ✏️
+                - img [ref=e1115]
+              - button "Delete document" [ref=e1118] [cursor=pointer]:
+                - img [ref=e1119]
+          - generic [ref=e1122]:
+            - generic [ref=e1123]:
+              - img [ref=e1125]
+              - generic [ref=e1128]:
+                - generic [ref=e1129]:
+                  - paragraph [ref=e1130]: RL.txt
+                  - button "✏️ tech" [ref=e1131] [cursor=pointer]:
+                    - generic [ref=e1132]: ✏️
                     - text: tech
-                - paragraph [ref=e1029]: 📅 1/6/2026
-            - generic [ref=e1030]:
-              - link [ref=e1031] [cursor=pointer]:
+                - paragraph [ref=e1133]: 📅 1/6/2026
+            - generic [ref=e1134]:
+              - link [ref=e1135] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714739499_RL.txt
-                - img [ref=e1032]
-              - button "Delete document" [ref=e1035] [cursor=pointer]:
-                - img [ref=e1036]
-          - generic [ref=e1039]:
-            - generic [ref=e1040]:
-              - img [ref=e1042]
-              - generic [ref=e1045]:
-                - generic [ref=e1046]:
-                  - paragraph [ref=e1047]: Review.docx
-                  - button "✏️ General" [ref=e1048] [cursor=pointer]:
-                    - generic [ref=e1049]: ✏️
+                - img [ref=e1136]
+              - button "Delete document" [ref=e1139] [cursor=pointer]:
+                - img [ref=e1140]
+          - generic [ref=e1143]:
+            - generic [ref=e1144]:
+              - img [ref=e1146]
+              - generic [ref=e1149]:
+                - generic [ref=e1150]:
+                  - paragraph [ref=e1151]: Review.docx
+                  - button "✏️ General" [ref=e1152] [cursor=pointer]:
+                    - generic [ref=e1153]: ✏️
                     - text: General
-                - paragraph [ref=e1050]: 📅 1/6/2026
-            - generic [ref=e1051]:
-              - link [ref=e1052] [cursor=pointer]:
+                - paragraph [ref=e1154]: 📅 1/6/2026
+            - generic [ref=e1155]:
+              - link [ref=e1156] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714413137_Review.docx
-                - img [ref=e1053]
-              - button "Delete document" [ref=e1056] [cursor=pointer]:
-                - img [ref=e1057]
-          - generic [ref=e1060]:
-            - generic [ref=e1061]:
-              - img [ref=e1063]
-              - generic [ref=e1067]:
-                - generic [ref=e1068]:
-                  - paragraph [ref=e1069]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e1070] [cursor=pointer]:
-                    - generic [ref=e1071]: ✏️
+                - img [ref=e1157]
+              - button "Delete document" [ref=e1160] [cursor=pointer]:
+                - img [ref=e1161]
+          - generic [ref=e1164]:
+            - generic [ref=e1165]:
+              - img [ref=e1167]
+              - generic [ref=e1171]:
+                - generic [ref=e1172]:
+                  - paragraph [ref=e1173]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e1174] [cursor=pointer]:
+                    - generic [ref=e1175]: ✏️
                     - text: General
-                - paragraph [ref=e1072]: 📅 1/6/2026
-            - generic [ref=e1073]:
-              - link [ref=e1074] [cursor=pointer]:
+                - paragraph [ref=e1176]: 📅 1/6/2026
+            - generic [ref=e1177]:
+              - link [ref=e1178] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714407702_ouro_1.4b_thinking.json
-                - img [ref=e1075]
-              - button "Delete document" [ref=e1078] [cursor=pointer]:
-                - img [ref=e1079]
-          - generic [ref=e1082]:
-            - generic [ref=e1083]:
-              - img [ref=e1085]
-              - generic [ref=e1089]:
-                - generic [ref=e1090]:
-                  - paragraph [ref=e1091]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767714402" [ref=e1092] [cursor=pointer]:
-                    - generic [ref=e1093]: ✏️
+                - img [ref=e1179]
+              - button "Delete document" [ref=e1182] [cursor=pointer]:
+                - img [ref=e1183]
+          - generic [ref=e1186]:
+            - generic [ref=e1187]:
+              - img [ref=e1189]
+              - generic [ref=e1193]:
+                - generic [ref=e1194]:
+                  - paragraph [ref=e1195]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767714402" [ref=e1196] [cursor=pointer]:
+                    - generic [ref=e1197]: ✏️
                     - text: Marketing_1767714402
-                - paragraph [ref=e1094]: 📅 1/6/2026
-            - generic [ref=e1095]:
-              - link [ref=e1096] [cursor=pointer]:
+                - paragraph [ref=e1198]: 📅 1/6/2026
+            - generic [ref=e1199]:
+              - link [ref=e1200] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714403881_ouro_1.4b_thinking.json
-                - img [ref=e1097]
-              - button "Delete document" [ref=e1100] [cursor=pointer]:
-                - img [ref=e1101]
-          - generic [ref=e1104]:
-            - generic [ref=e1105]:
-              - img [ref=e1107]
-              - generic [ref=e1110]:
-                - generic [ref=e1111]:
-                  - paragraph [ref=e1112]: deeplearning.md
-                  - button "✏️ General" [ref=e1113] [cursor=pointer]:
-                    - generic [ref=e1114]: ✏️
+                - img [ref=e1201]
+              - button "Delete document" [ref=e1204] [cursor=pointer]:
+                - img [ref=e1205]
+          - generic [ref=e1208]:
+            - generic [ref=e1209]:
+              - img [ref=e1211]
+              - generic [ref=e1214]:
+                - generic [ref=e1215]:
+                  - paragraph [ref=e1216]: deeplearning.md
+                  - button "✏️ General" [ref=e1217] [cursor=pointer]:
+                    - generic [ref=e1218]: ✏️
                     - text: General
-                - paragraph [ref=e1115]: 📅 1/6/2026
-            - generic [ref=e1116]:
-              - link [ref=e1117] [cursor=pointer]:
+                - paragraph [ref=e1219]: 📅 1/6/2026
+            - generic [ref=e1220]:
+              - link [ref=e1221] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714399662_deeplearning.md
-                - img [ref=e1118]
-              - button "Delete document" [ref=e1121] [cursor=pointer]:
-                - img [ref=e1122]
-          - generic [ref=e1125]:
-            - generic [ref=e1126]:
-              - img [ref=e1128]
-              - generic [ref=e1131]:
-                - generic [ref=e1132]:
-                  - paragraph [ref=e1133]: deeplearning.md
-                  - button "✏️ General" [ref=e1134] [cursor=pointer]:
-                    - generic [ref=e1135]: ✏️
+                - img [ref=e1222]
+              - button "Delete document" [ref=e1225] [cursor=pointer]:
+                - img [ref=e1226]
+          - generic [ref=e1229]:
+            - generic [ref=e1230]:
+              - img [ref=e1232]
+              - generic [ref=e1235]:
+                - generic [ref=e1236]:
+                  - paragraph [ref=e1237]: deeplearning.md
+                  - button "✏️ General" [ref=e1238] [cursor=pointer]:
+                    - generic [ref=e1239]: ✏️
                     - text: General
-                - paragraph [ref=e1136]: 📅 1/6/2026
-            - generic [ref=e1137]:
-              - link [ref=e1138] [cursor=pointer]:
+                - paragraph [ref=e1240]: 📅 1/6/2026
+            - generic [ref=e1241]:
+              - link [ref=e1242] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714398424_deeplearning.md
-                - img [ref=e1139]
-              - button "Delete document" [ref=e1142] [cursor=pointer]:
-                - img [ref=e1143]
-          - generic [ref=e1146]:
-            - generic [ref=e1147]:
-              - img [ref=e1149]
-              - generic [ref=e1152]:
-                - generic [ref=e1153]:
-                  - paragraph [ref=e1154]: deeplearning.md
-                  - button "✏️ General" [ref=e1155] [cursor=pointer]:
-                    - generic [ref=e1156]: ✏️
+                - img [ref=e1243]
+              - button "Delete document" [ref=e1246] [cursor=pointer]:
+                - img [ref=e1247]
+          - generic [ref=e1250]:
+            - generic [ref=e1251]:
+              - img [ref=e1253]
+              - generic [ref=e1256]:
+                - generic [ref=e1257]:
+                  - paragraph [ref=e1258]: deeplearning.md
+                  - button "✏️ General" [ref=e1259] [cursor=pointer]:
+                    - generic [ref=e1260]: ✏️
                     - text: General
-                - paragraph [ref=e1157]: 📅 1/6/2026
-            - generic [ref=e1158]:
-              - link [ref=e1159] [cursor=pointer]:
+                - paragraph [ref=e1261]: 📅 1/6/2026
+            - generic [ref=e1262]:
+              - link [ref=e1263] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714388895_deeplearning.md
-                - img [ref=e1160]
-              - button "Delete document" [ref=e1163] [cursor=pointer]:
-                - img [ref=e1164]
-          - generic [ref=e1167]:
-            - generic [ref=e1168]:
-              - img [ref=e1170]
-              - generic [ref=e1173]:
-                - generic [ref=e1174]:
-                  - paragraph [ref=e1175]: deeplearning.md
-                  - button "✏️ General" [ref=e1176] [cursor=pointer]:
-                    - generic [ref=e1177]: ✏️
+                - img [ref=e1264]
+              - button "Delete document" [ref=e1267] [cursor=pointer]:
+                - img [ref=e1268]
+          - generic [ref=e1271]:
+            - generic [ref=e1272]:
+              - img [ref=e1274]
+              - generic [ref=e1277]:
+                - generic [ref=e1278]:
+                  - paragraph [ref=e1279]: deeplearning.md
+                  - button "✏️ General" [ref=e1280] [cursor=pointer]:
+                    - generic [ref=e1281]: ✏️
                     - text: General
-                - paragraph [ref=e1178]: 📅 1/6/2026
-            - generic [ref=e1179]:
-              - link [ref=e1180] [cursor=pointer]:
+                - paragraph [ref=e1282]: 📅 1/6/2026
+            - generic [ref=e1283]:
+              - link [ref=e1284] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714384342_deeplearning.md
-                - img [ref=e1181]
-              - button "Delete document" [ref=e1184] [cursor=pointer]:
-                - img [ref=e1185]
-          - generic [ref=e1188]:
-            - generic [ref=e1189]:
-              - img [ref=e1191]
-              - generic [ref=e1194]:
-                - generic [ref=e1195]:
-                  - paragraph [ref=e1196]: Review.docx
-                  - button "✏️ General" [ref=e1197] [cursor=pointer]:
-                    - generic [ref=e1198]: ✏️
+                - img [ref=e1285]
+              - button "Delete document" [ref=e1288] [cursor=pointer]:
+                - img [ref=e1289]
+          - generic [ref=e1292]:
+            - generic [ref=e1293]:
+              - img [ref=e1295]
+              - generic [ref=e1298]:
+                - generic [ref=e1299]:
+                  - paragraph [ref=e1300]: Review.docx
+                  - button "✏️ General" [ref=e1301] [cursor=pointer]:
+                    - generic [ref=e1302]: ✏️
                     - text: General
-                - paragraph [ref=e1199]: 📅 1/6/2026
-            - generic [ref=e1200]:
-              - link [ref=e1201] [cursor=pointer]:
+                - paragraph [ref=e1303]: 📅 1/6/2026
+            - generic [ref=e1304]:
+              - link [ref=e1305] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714091350_Review.docx
-                - img [ref=e1202]
-              - button "Delete document" [ref=e1205] [cursor=pointer]:
-                - img [ref=e1206]
-          - generic [ref=e1209]:
-            - generic [ref=e1210]:
-              - img [ref=e1212]
-              - generic [ref=e1216]:
-                - generic [ref=e1217]:
-                  - paragraph [ref=e1218]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e1219] [cursor=pointer]:
-                    - generic [ref=e1220]: ✏️
+                - img [ref=e1306]
+              - button "Delete document" [ref=e1309] [cursor=pointer]:
+                - img [ref=e1310]
+          - generic [ref=e1313]:
+            - generic [ref=e1314]:
+              - img [ref=e1316]
+              - generic [ref=e1320]:
+                - generic [ref=e1321]:
+                  - paragraph [ref=e1322]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e1323] [cursor=pointer]:
+                    - generic [ref=e1324]: ✏️
                     - text: General
-                - paragraph [ref=e1221]: 📅 1/6/2026
-            - generic [ref=e1222]:
-              - link [ref=e1223] [cursor=pointer]:
+                - paragraph [ref=e1325]: 📅 1/6/2026
+            - generic [ref=e1326]:
+              - link [ref=e1327] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714086017_ouro_1.4b_thinking.json
-                - img [ref=e1224]
-              - button "Delete document" [ref=e1227] [cursor=pointer]:
-                - img [ref=e1228]
-          - generic [ref=e1231]:
-            - generic [ref=e1232]:
-              - img [ref=e1234]
-              - generic [ref=e1238]:
-                - generic [ref=e1239]:
-                  - paragraph [ref=e1240]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767714076" [ref=e1241] [cursor=pointer]:
-                    - generic [ref=e1242]: ✏️
+                - img [ref=e1328]
+              - button "Delete document" [ref=e1331] [cursor=pointer]:
+                - img [ref=e1332]
+          - generic [ref=e1335]:
+            - generic [ref=e1336]:
+              - img [ref=e1338]
+              - generic [ref=e1342]:
+                - generic [ref=e1343]:
+                  - paragraph [ref=e1344]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767714076" [ref=e1345] [cursor=pointer]:
+                    - generic [ref=e1346]: ✏️
                     - text: Marketing_1767714076
-                - paragraph [ref=e1243]: 📅 1/6/2026
-            - generic [ref=e1244]:
-              - link [ref=e1245] [cursor=pointer]:
+                - paragraph [ref=e1347]: 📅 1/6/2026
+            - generic [ref=e1348]:
+              - link [ref=e1349] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714078334_ouro_1.4b_thinking.json
-                - img [ref=e1246]
-              - button "Delete document" [ref=e1249] [cursor=pointer]:
-                - img [ref=e1250]
-          - generic [ref=e1253]:
-            - generic [ref=e1254]:
-              - img [ref=e1256]
-              - generic [ref=e1259]:
-                - generic [ref=e1260]:
-                  - paragraph [ref=e1261]: deeplearning.md
-                  - button "✏️ General" [ref=e1262] [cursor=pointer]:
-                    - generic [ref=e1263]: ✏️
+                - img [ref=e1350]
+              - button "Delete document" [ref=e1353] [cursor=pointer]:
+                - img [ref=e1354]
+          - generic [ref=e1357]:
+            - generic [ref=e1358]:
+              - img [ref=e1360]
+              - generic [ref=e1363]:
+                - generic [ref=e1364]:
+                  - paragraph [ref=e1365]: deeplearning.md
+                  - button "✏️ General" [ref=e1366] [cursor=pointer]:
+                    - generic [ref=e1367]: ✏️
                     - text: General
-                - paragraph [ref=e1264]: 📅 1/6/2026
-            - generic [ref=e1265]:
-              - link [ref=e1266] [cursor=pointer]:
+                - paragraph [ref=e1368]: 📅 1/6/2026
+            - generic [ref=e1369]:
+              - link [ref=e1370] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714077295_deeplearning.md
-                - img [ref=e1267]
-              - button "Delete document" [ref=e1270] [cursor=pointer]:
-                - img [ref=e1271]
-          - generic [ref=e1274]:
-            - generic [ref=e1275]:
-              - img [ref=e1277]
-              - generic [ref=e1280]:
-                - generic [ref=e1281]:
-                  - paragraph [ref=e1282]: deeplearning.md
-                  - button "✏️ General" [ref=e1283] [cursor=pointer]:
-                    - generic [ref=e1284]: ✏️
+                - img [ref=e1371]
+              - button "Delete document" [ref=e1374] [cursor=pointer]:
+                - img [ref=e1375]
+          - generic [ref=e1378]:
+            - generic [ref=e1379]:
+              - img [ref=e1381]
+              - generic [ref=e1384]:
+                - generic [ref=e1385]:
+                  - paragraph [ref=e1386]: deeplearning.md
+                  - button "✏️ General" [ref=e1387] [cursor=pointer]:
+                    - generic [ref=e1388]: ✏️
                     - text: General
-                - paragraph [ref=e1285]: 📅 1/6/2026
-            - generic [ref=e1286]:
-              - link [ref=e1287] [cursor=pointer]:
+                - paragraph [ref=e1389]: 📅 1/6/2026
+            - generic [ref=e1390]:
+              - link [ref=e1391] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714077304_deeplearning.md
-                - img [ref=e1288]
-              - button "Delete document" [ref=e1291] [cursor=pointer]:
-                - img [ref=e1292]
-          - generic [ref=e1295]:
-            - generic [ref=e1296]:
-              - img [ref=e1298]
-              - generic [ref=e1301]:
-                - generic [ref=e1302]:
-                  - paragraph [ref=e1303]: deeplearning.md
-                  - button "✏️ General" [ref=e1304] [cursor=pointer]:
-                    - generic [ref=e1305]: ✏️
+                - img [ref=e1392]
+              - button "Delete document" [ref=e1395] [cursor=pointer]:
+                - img [ref=e1396]
+          - generic [ref=e1399]:
+            - generic [ref=e1400]:
+              - img [ref=e1402]
+              - generic [ref=e1405]:
+                - generic [ref=e1406]:
+                  - paragraph [ref=e1407]: deeplearning.md
+                  - button "✏️ General" [ref=e1408] [cursor=pointer]:
+                    - generic [ref=e1409]: ✏️
                     - text: General
-                - paragraph [ref=e1306]: 📅 1/6/2026
-            - generic [ref=e1307]:
-              - link [ref=e1308] [cursor=pointer]:
+                - paragraph [ref=e1410]: 📅 1/6/2026
+            - generic [ref=e1411]:
+              - link [ref=e1412] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714076736_deeplearning.md
-                - img [ref=e1309]
-              - button "Delete document" [ref=e1312] [cursor=pointer]:
-                - img [ref=e1313]
-          - generic [ref=e1316]:
-            - generic [ref=e1317]:
-              - img [ref=e1319]
-              - generic [ref=e1322]:
-                - generic [ref=e1323]:
-                  - paragraph [ref=e1324]: deeplearning.md
-                  - button "✏️ General" [ref=e1325] [cursor=pointer]:
-                    - generic [ref=e1326]: ✏️
+                - img [ref=e1413]
+              - button "Delete document" [ref=e1416] [cursor=pointer]:
+                - img [ref=e1417]
+          - generic [ref=e1420]:
+            - generic [ref=e1421]:
+              - img [ref=e1423]
+              - generic [ref=e1426]:
+                - generic [ref=e1427]:
+                  - paragraph [ref=e1428]: deeplearning.md
+                  - button "✏️ General" [ref=e1429] [cursor=pointer]:
+                    - generic [ref=e1430]: ✏️
                     - text: General
-                - paragraph [ref=e1327]: 📅 1/6/2026
-            - generic [ref=e1328]:
-              - link [ref=e1329] [cursor=pointer]:
+                - paragraph [ref=e1431]: 📅 1/6/2026
+            - generic [ref=e1432]:
+              - link [ref=e1433] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767714076353_deeplearning.md
-                - img [ref=e1330]
-              - button "Delete document" [ref=e1333] [cursor=pointer]:
-                - img [ref=e1334]
-          - generic [ref=e1337]:
-            - generic [ref=e1338]:
-              - img [ref=e1340]
-              - generic [ref=e1343]:
-                - generic [ref=e1344]:
-                  - paragraph [ref=e1345]: Review.docx
-                  - button "✏️ General" [ref=e1346] [cursor=pointer]:
-                    - generic [ref=e1347]: ✏️
+                - img [ref=e1434]
+              - button "Delete document" [ref=e1437] [cursor=pointer]:
+                - img [ref=e1438]
+          - generic [ref=e1441]:
+            - generic [ref=e1442]:
+              - img [ref=e1444]
+              - generic [ref=e1447]:
+                - generic [ref=e1448]:
+                  - paragraph [ref=e1449]: Review.docx
+                  - button "✏️ General" [ref=e1450] [cursor=pointer]:
+                    - generic [ref=e1451]: ✏️
                     - text: General
-                - paragraph [ref=e1348]: 📅 1/6/2026
-            - generic [ref=e1349]:
-              - link [ref=e1350] [cursor=pointer]:
+                - paragraph [ref=e1452]: 📅 1/6/2026
+            - generic [ref=e1453]:
+              - link [ref=e1454] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713873602_Review.docx
-                - img [ref=e1351]
-              - button "Delete document" [ref=e1354] [cursor=pointer]:
-                - img [ref=e1355]
-          - generic [ref=e1358]:
-            - generic [ref=e1359]:
-              - img [ref=e1361]
-              - generic [ref=e1365]:
-                - generic [ref=e1366]:
-                  - paragraph [ref=e1367]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e1368] [cursor=pointer]:
-                    - generic [ref=e1369]: ✏️
+                - img [ref=e1455]
+              - button "Delete document" [ref=e1458] [cursor=pointer]:
+                - img [ref=e1459]
+          - generic [ref=e1462]:
+            - generic [ref=e1463]:
+              - img [ref=e1465]
+              - generic [ref=e1469]:
+                - generic [ref=e1470]:
+                  - paragraph [ref=e1471]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e1472] [cursor=pointer]:
+                    - generic [ref=e1473]: ✏️
                     - text: General
-                - paragraph [ref=e1370]: 📅 1/6/2026
-            - generic [ref=e1371]:
-              - link [ref=e1372] [cursor=pointer]:
+                - paragraph [ref=e1474]: 📅 1/6/2026
+            - generic [ref=e1475]:
+              - link [ref=e1476] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713868058_ouro_1.4b_thinking.json
-                - img [ref=e1373]
-              - button "Delete document" [ref=e1376] [cursor=pointer]:
-                - img [ref=e1377]
-          - generic [ref=e1380]:
-            - generic [ref=e1381]:
-              - img [ref=e1383]
-              - generic [ref=e1387]:
-                - generic [ref=e1388]:
-                  - paragraph [ref=e1389]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767713864" [ref=e1390] [cursor=pointer]:
-                    - generic [ref=e1391]: ✏️
+                - img [ref=e1477]
+              - button "Delete document" [ref=e1480] [cursor=pointer]:
+                - img [ref=e1481]
+          - generic [ref=e1484]:
+            - generic [ref=e1485]:
+              - img [ref=e1487]
+              - generic [ref=e1491]:
+                - generic [ref=e1492]:
+                  - paragraph [ref=e1493]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767713864" [ref=e1494] [cursor=pointer]:
+                    - generic [ref=e1495]: ✏️
                     - text: Marketing_1767713864
-                - paragraph [ref=e1392]: 📅 1/6/2026
-            - generic [ref=e1393]:
-              - link [ref=e1394] [cursor=pointer]:
+                - paragraph [ref=e1496]: 📅 1/6/2026
+            - generic [ref=e1497]:
+              - link [ref=e1498] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713865664_ouro_1.4b_thinking.json
-                - img [ref=e1395]
-              - button "Delete document" [ref=e1398] [cursor=pointer]:
-                - img [ref=e1399]
-          - generic [ref=e1402]:
-            - generic [ref=e1403]:
-              - img [ref=e1405]
-              - generic [ref=e1408]:
-                - generic [ref=e1409]:
-                  - paragraph [ref=e1410]: deeplearning.md
-                  - button "✏️ General" [ref=e1411] [cursor=pointer]:
-                    - generic [ref=e1412]: ✏️
+                - img [ref=e1499]
+              - button "Delete document" [ref=e1502] [cursor=pointer]:
+                - img [ref=e1503]
+          - generic [ref=e1506]:
+            - generic [ref=e1507]:
+              - img [ref=e1509]
+              - generic [ref=e1512]:
+                - generic [ref=e1513]:
+                  - paragraph [ref=e1514]: deeplearning.md
+                  - button "✏️ General" [ref=e1515] [cursor=pointer]:
+                    - generic [ref=e1516]: ✏️
                     - text: General
-                - paragraph [ref=e1413]: 📅 1/6/2026
-            - generic [ref=e1414]:
-              - link [ref=e1415] [cursor=pointer]:
+                - paragraph [ref=e1517]: 📅 1/6/2026
+            - generic [ref=e1518]:
+              - link [ref=e1519] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713859590_deeplearning.md
-                - img [ref=e1416]
-              - button "Delete document" [ref=e1419] [cursor=pointer]:
-                - img [ref=e1420]
-          - generic [ref=e1423]:
-            - generic [ref=e1424]:
-              - img [ref=e1426]
-              - generic [ref=e1429]:
-                - generic [ref=e1430]:
-                  - paragraph [ref=e1431]: deeplearning.md
-                  - button "✏️ General" [ref=e1432] [cursor=pointer]:
-                    - generic [ref=e1433]: ✏️
+                - img [ref=e1520]
+              - button "Delete document" [ref=e1523] [cursor=pointer]:
+                - img [ref=e1524]
+          - generic [ref=e1527]:
+            - generic [ref=e1528]:
+              - img [ref=e1530]
+              - generic [ref=e1533]:
+                - generic [ref=e1534]:
+                  - paragraph [ref=e1535]: deeplearning.md
+                  - button "✏️ General" [ref=e1536] [cursor=pointer]:
+                    - generic [ref=e1537]: ✏️
                     - text: General
-                - paragraph [ref=e1434]: 📅 1/6/2026
-            - generic [ref=e1435]:
-              - link [ref=e1436] [cursor=pointer]:
+                - paragraph [ref=e1538]: 📅 1/6/2026
+            - generic [ref=e1539]:
+              - link [ref=e1540] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713858268_deeplearning.md
-                - img [ref=e1437]
-              - button "Delete document" [ref=e1440] [cursor=pointer]:
-                - img [ref=e1441]
-          - generic [ref=e1444]:
-            - generic [ref=e1445]:
-              - img [ref=e1447]
-              - generic [ref=e1450]:
-                - generic [ref=e1451]:
-                  - paragraph [ref=e1452]: deeplearning.md
-                  - button "✏️ General" [ref=e1453] [cursor=pointer]:
-                    - generic [ref=e1454]: ✏️
+                - img [ref=e1541]
+              - button "Delete document" [ref=e1544] [cursor=pointer]:
+                - img [ref=e1545]
+          - generic [ref=e1548]:
+            - generic [ref=e1549]:
+              - img [ref=e1551]
+              - generic [ref=e1554]:
+                - generic [ref=e1555]:
+                  - paragraph [ref=e1556]: deeplearning.md
+                  - button "✏️ General" [ref=e1557] [cursor=pointer]:
+                    - generic [ref=e1558]: ✏️
                     - text: General
-                - paragraph [ref=e1455]: 📅 1/6/2026
-            - generic [ref=e1456]:
-              - link [ref=e1457] [cursor=pointer]:
+                - paragraph [ref=e1559]: 📅 1/6/2026
+            - generic [ref=e1560]:
+              - link [ref=e1561] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713849906_deeplearning.md
-                - img [ref=e1458]
-              - button "Delete document" [ref=e1461] [cursor=pointer]:
-                - img [ref=e1462]
-          - generic [ref=e1465]:
-            - generic [ref=e1466]:
-              - img [ref=e1468]
-              - generic [ref=e1471]:
-                - generic [ref=e1472]:
-                  - paragraph [ref=e1473]: deeplearning.md
-                  - button "✏️ General" [ref=e1474] [cursor=pointer]:
-                    - generic [ref=e1475]: ✏️
+                - img [ref=e1562]
+              - button "Delete document" [ref=e1565] [cursor=pointer]:
+                - img [ref=e1566]
+          - generic [ref=e1569]:
+            - generic [ref=e1570]:
+              - img [ref=e1572]
+              - generic [ref=e1575]:
+                - generic [ref=e1576]:
+                  - paragraph [ref=e1577]: deeplearning.md
+                  - button "✏️ General" [ref=e1578] [cursor=pointer]:
+                    - generic [ref=e1579]: ✏️
                     - text: General
-                - paragraph [ref=e1476]: 📅 1/6/2026
-            - generic [ref=e1477]:
-              - link [ref=e1478] [cursor=pointer]:
+                - paragraph [ref=e1580]: 📅 1/6/2026
+            - generic [ref=e1581]:
+              - link [ref=e1582] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713844261_deeplearning.md
-                - img [ref=e1479]
-              - button "Delete document" [ref=e1482] [cursor=pointer]:
-                - img [ref=e1483]
-          - generic [ref=e1486]:
-            - generic [ref=e1487]:
-              - img [ref=e1489]
-              - generic [ref=e1492]:
-                - generic [ref=e1493]:
-                  - paragraph [ref=e1494]: deeplearning.md
-                  - button "✏️ General" [ref=e1495] [cursor=pointer]:
-                    - generic [ref=e1496]: ✏️
+                - img [ref=e1583]
+              - button "Delete document" [ref=e1586] [cursor=pointer]:
+                - img [ref=e1587]
+          - generic [ref=e1590]:
+            - generic [ref=e1591]:
+              - img [ref=e1593]
+              - generic [ref=e1596]:
+                - generic [ref=e1597]:
+                  - paragraph [ref=e1598]: deeplearning.md
+                  - button "✏️ General" [ref=e1599] [cursor=pointer]:
+                    - generic [ref=e1600]: ✏️
                     - text: General
-                - paragraph [ref=e1497]: 📅 1/6/2026
-            - generic [ref=e1498]:
-              - link [ref=e1499] [cursor=pointer]:
+                - paragraph [ref=e1601]: 📅 1/6/2026
+            - generic [ref=e1602]:
+              - link [ref=e1603] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713801424_deeplearning.md
-                - img [ref=e1500]
-              - button "Delete document" [ref=e1503] [cursor=pointer]:
-                - img [ref=e1504]
-          - generic [ref=e1507]:
-            - generic [ref=e1508]:
-              - img [ref=e1510]
-              - generic [ref=e1514]:
-                - generic [ref=e1515]:
-                  - paragraph [ref=e1516]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767713608" [ref=e1517] [cursor=pointer]:
-                    - generic [ref=e1518]: ✏️
+                - img [ref=e1604]
+              - button "Delete document" [ref=e1607] [cursor=pointer]:
+                - img [ref=e1608]
+          - generic [ref=e1611]:
+            - generic [ref=e1612]:
+              - img [ref=e1614]
+              - generic [ref=e1618]:
+                - generic [ref=e1619]:
+                  - paragraph [ref=e1620]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767713608" [ref=e1621] [cursor=pointer]:
+                    - generic [ref=e1622]: ✏️
                     - text: Marketing_1767713608
-                - paragraph [ref=e1519]: 📅 1/6/2026
-            - generic [ref=e1520]:
-              - link [ref=e1521] [cursor=pointer]:
+                - paragraph [ref=e1623]: 📅 1/6/2026
+            - generic [ref=e1624]:
+              - link [ref=e1625] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713610124_ouro_1.4b_thinking.json
-                - img [ref=e1522]
-              - button "Delete document" [ref=e1525] [cursor=pointer]:
-                - img [ref=e1526]
-          - generic [ref=e1529]:
-            - generic [ref=e1530]:
-              - img [ref=e1532]
-              - generic [ref=e1535]:
-                - generic [ref=e1536]:
-                  - paragraph [ref=e1537]: deeplearning.md
-                  - button "✏️ General" [ref=e1538] [cursor=pointer]:
-                    - generic [ref=e1539]: ✏️
+                - img [ref=e1626]
+              - button "Delete document" [ref=e1629] [cursor=pointer]:
+                - img [ref=e1630]
+          - generic [ref=e1633]:
+            - generic [ref=e1634]:
+              - img [ref=e1636]
+              - generic [ref=e1639]:
+                - generic [ref=e1640]:
+                  - paragraph [ref=e1641]: deeplearning.md
+                  - button "✏️ General" [ref=e1642] [cursor=pointer]:
+                    - generic [ref=e1643]: ✏️
                     - text: General
-                - paragraph [ref=e1540]: 📅 1/6/2026
-            - generic [ref=e1541]:
-              - link [ref=e1542] [cursor=pointer]:
+                - paragraph [ref=e1644]: 📅 1/6/2026
+            - generic [ref=e1645]:
+              - link [ref=e1646] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713605716_deeplearning.md
-                - img [ref=e1543]
-              - button "Delete document" [ref=e1546] [cursor=pointer]:
-                - img [ref=e1547]
-          - generic [ref=e1550]:
-            - generic [ref=e1551]:
-              - img [ref=e1553]
-              - generic [ref=e1556]:
-                - generic [ref=e1557]:
-                  - paragraph [ref=e1558]: deeplearning.md
-                  - button "✏️ General" [ref=e1559] [cursor=pointer]:
-                    - generic [ref=e1560]: ✏️
+                - img [ref=e1647]
+              - button "Delete document" [ref=e1650] [cursor=pointer]:
+                - img [ref=e1651]
+          - generic [ref=e1654]:
+            - generic [ref=e1655]:
+              - img [ref=e1657]
+              - generic [ref=e1660]:
+                - generic [ref=e1661]:
+                  - paragraph [ref=e1662]: deeplearning.md
+                  - button "✏️ General" [ref=e1663] [cursor=pointer]:
+                    - generic [ref=e1664]: ✏️
                     - text: General
-                - paragraph [ref=e1561]: 📅 1/6/2026
-            - generic [ref=e1562]:
-              - link [ref=e1563] [cursor=pointer]:
+                - paragraph [ref=e1665]: 📅 1/6/2026
+            - generic [ref=e1666]:
+              - link [ref=e1667] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713604724_deeplearning.md
-                - img [ref=e1564]
-              - button "Delete document" [ref=e1567] [cursor=pointer]:
-                - img [ref=e1568]
-          - generic [ref=e1571]:
-            - generic [ref=e1572]:
-              - img [ref=e1574]
-              - generic [ref=e1577]:
-                - generic [ref=e1578]:
-                  - paragraph [ref=e1579]: deeplearning.md
-                  - button "✏️ General" [ref=e1580] [cursor=pointer]:
-                    - generic [ref=e1581]: ✏️
+                - img [ref=e1668]
+              - button "Delete document" [ref=e1671] [cursor=pointer]:
+                - img [ref=e1672]
+          - generic [ref=e1675]:
+            - generic [ref=e1676]:
+              - img [ref=e1678]
+              - generic [ref=e1681]:
+                - generic [ref=e1682]:
+                  - paragraph [ref=e1683]: deeplearning.md
+                  - button "✏️ General" [ref=e1684] [cursor=pointer]:
+                    - generic [ref=e1685]: ✏️
                     - text: General
-                - paragraph [ref=e1582]: 📅 1/6/2026
-            - generic [ref=e1583]:
-              - link [ref=e1584] [cursor=pointer]:
+                - paragraph [ref=e1686]: 📅 1/6/2026
+            - generic [ref=e1687]:
+              - link [ref=e1688] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713593890_deeplearning.md
-                - img [ref=e1585]
-              - button "Delete document" [ref=e1588] [cursor=pointer]:
-                - img [ref=e1589]
-          - generic [ref=e1592]:
-            - generic [ref=e1593]:
-              - img [ref=e1595]
-              - generic [ref=e1598]:
-                - generic [ref=e1599]:
-                  - paragraph [ref=e1600]: deeplearning.md
-                  - button "✏️ General" [ref=e1601] [cursor=pointer]:
-                    - generic [ref=e1602]: ✏️
+                - img [ref=e1689]
+              - button "Delete document" [ref=e1692] [cursor=pointer]:
+                - img [ref=e1693]
+          - generic [ref=e1696]:
+            - generic [ref=e1697]:
+              - img [ref=e1699]
+              - generic [ref=e1702]:
+                - generic [ref=e1703]:
+                  - paragraph [ref=e1704]: deeplearning.md
+                  - button "✏️ General" [ref=e1705] [cursor=pointer]:
+                    - generic [ref=e1706]: ✏️
                     - text: General
-                - paragraph [ref=e1603]: 📅 1/6/2026
-            - generic [ref=e1604]:
-              - link [ref=e1605] [cursor=pointer]:
+                - paragraph [ref=e1707]: 📅 1/6/2026
+            - generic [ref=e1708]:
+              - link [ref=e1709] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713590729_deeplearning.md
-                - img [ref=e1606]
-              - button "Delete document" [ref=e1609] [cursor=pointer]:
-                - img [ref=e1610]
-          - generic [ref=e1613]:
-            - generic [ref=e1614]:
-              - img [ref=e1616]
-              - generic [ref=e1619]:
-                - generic [ref=e1620]:
-                  - paragraph [ref=e1621]: deeplearning.md
-                  - button "✏️ General" [ref=e1622] [cursor=pointer]:
-                    - generic [ref=e1623]: ✏️
+                - img [ref=e1710]
+              - button "Delete document" [ref=e1713] [cursor=pointer]:
+                - img [ref=e1714]
+          - generic [ref=e1717]:
+            - generic [ref=e1718]:
+              - img [ref=e1720]
+              - generic [ref=e1723]:
+                - generic [ref=e1724]:
+                  - paragraph [ref=e1725]: deeplearning.md
+                  - button "✏️ General" [ref=e1726] [cursor=pointer]:
+                    - generic [ref=e1727]: ✏️
                     - text: General
-                - paragraph [ref=e1624]: 📅 1/6/2026
-            - generic [ref=e1625]:
-              - link [ref=e1626] [cursor=pointer]:
+                - paragraph [ref=e1728]: 📅 1/6/2026
+            - generic [ref=e1729]:
+              - link [ref=e1730] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713547551_deeplearning.md
-                - img [ref=e1627]
-              - button "Delete document" [ref=e1630] [cursor=pointer]:
-                - img [ref=e1631]
-          - generic [ref=e1634]:
-            - generic [ref=e1635]:
-              - img [ref=e1637]
-              - generic [ref=e1640]:
-                - generic [ref=e1641]:
-                  - paragraph [ref=e1642]: Review.docx
-                  - button "✏️ General" [ref=e1643] [cursor=pointer]:
-                    - generic [ref=e1644]: ✏️
+                - img [ref=e1731]
+              - button "Delete document" [ref=e1734] [cursor=pointer]:
+                - img [ref=e1735]
+          - generic [ref=e1738]:
+            - generic [ref=e1739]:
+              - img [ref=e1741]
+              - generic [ref=e1744]:
+                - generic [ref=e1745]:
+                  - paragraph [ref=e1746]: Review.docx
+                  - button "✏️ General" [ref=e1747] [cursor=pointer]:
+                    - generic [ref=e1748]: ✏️
                     - text: General
-                - paragraph [ref=e1645]: 📅 1/6/2026
-            - generic [ref=e1646]:
-              - link [ref=e1647] [cursor=pointer]:
+                - paragraph [ref=e1749]: 📅 1/6/2026
+            - generic [ref=e1750]:
+              - link [ref=e1751] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713264518_Review.docx
-                - img [ref=e1648]
-              - button "Delete document" [ref=e1651] [cursor=pointer]:
-                - img [ref=e1652]
-          - generic [ref=e1655]:
-            - generic [ref=e1656]:
-              - img [ref=e1658]
-              - generic [ref=e1662]:
-                - generic [ref=e1663]:
-                  - paragraph [ref=e1664]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e1665] [cursor=pointer]:
-                    - generic [ref=e1666]: ✏️
+                - img [ref=e1752]
+              - button "Delete document" [ref=e1755] [cursor=pointer]:
+                - img [ref=e1756]
+          - generic [ref=e1759]:
+            - generic [ref=e1760]:
+              - img [ref=e1762]
+              - generic [ref=e1766]:
+                - generic [ref=e1767]:
+                  - paragraph [ref=e1768]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e1769] [cursor=pointer]:
+                    - generic [ref=e1770]: ✏️
                     - text: General
-                - paragraph [ref=e1667]: 📅 1/6/2026
-            - generic [ref=e1668]:
-              - link [ref=e1669] [cursor=pointer]:
+                - paragraph [ref=e1771]: 📅 1/6/2026
+            - generic [ref=e1772]:
+              - link [ref=e1773] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713259242_ouro_1.4b_thinking.json
-                - img [ref=e1670]
-              - button "Delete document" [ref=e1673] [cursor=pointer]:
-                - img [ref=e1674]
-          - generic [ref=e1677]:
-            - generic [ref=e1678]:
-              - img [ref=e1680]
-              - generic [ref=e1684]:
-                - generic [ref=e1685]:
-                  - paragraph [ref=e1686]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767713251" [ref=e1687] [cursor=pointer]:
-                    - generic [ref=e1688]: ✏️
+                - img [ref=e1774]
+              - button "Delete document" [ref=e1777] [cursor=pointer]:
+                - img [ref=e1778]
+          - generic [ref=e1781]:
+            - generic [ref=e1782]:
+              - img [ref=e1784]
+              - generic [ref=e1788]:
+                - generic [ref=e1789]:
+                  - paragraph [ref=e1790]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767713251" [ref=e1791] [cursor=pointer]:
+                    - generic [ref=e1792]: ✏️
                     - text: Marketing_1767713251
-                - paragraph [ref=e1689]: 📅 1/6/2026
-            - generic [ref=e1690]:
-              - link [ref=e1691] [cursor=pointer]:
+                - paragraph [ref=e1793]: 📅 1/6/2026
+            - generic [ref=e1794]:
+              - link [ref=e1795] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713252431_ouro_1.4b_thinking.json
-                - img [ref=e1692]
-              - button "Delete document" [ref=e1695] [cursor=pointer]:
-                - img [ref=e1696]
-          - generic [ref=e1699]:
-            - generic [ref=e1700]:
-              - img [ref=e1702]
-              - generic [ref=e1705]:
-                - generic [ref=e1706]:
-                  - paragraph [ref=e1707]: deeplearning.md
-                  - button "✏️ General" [ref=e1708] [cursor=pointer]:
-                    - generic [ref=e1709]: ✏️
+                - img [ref=e1796]
+              - button "Delete document" [ref=e1799] [cursor=pointer]:
+                - img [ref=e1800]
+          - generic [ref=e1803]:
+            - generic [ref=e1804]:
+              - img [ref=e1806]
+              - generic [ref=e1809]:
+                - generic [ref=e1810]:
+                  - paragraph [ref=e1811]: deeplearning.md
+                  - button "✏️ General" [ref=e1812] [cursor=pointer]:
+                    - generic [ref=e1813]: ✏️
                     - text: General
-                - paragraph [ref=e1710]: 📅 1/6/2026
-            - generic [ref=e1711]:
-              - link [ref=e1712] [cursor=pointer]:
+                - paragraph [ref=e1814]: 📅 1/6/2026
+            - generic [ref=e1815]:
+              - link [ref=e1816] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713250914_deeplearning.md
-                - img [ref=e1713]
-              - button "Delete document" [ref=e1716] [cursor=pointer]:
-                - img [ref=e1717]
-          - generic [ref=e1720]:
-            - generic [ref=e1721]:
-              - img [ref=e1723]
-              - generic [ref=e1726]:
-                - generic [ref=e1727]:
-                  - paragraph [ref=e1728]: deeplearning.md
-                  - button "✏️ General" [ref=e1729] [cursor=pointer]:
-                    - generic [ref=e1730]: ✏️
+                - img [ref=e1817]
+              - button "Delete document" [ref=e1820] [cursor=pointer]:
+                - img [ref=e1821]
+          - generic [ref=e1824]:
+            - generic [ref=e1825]:
+              - img [ref=e1827]
+              - generic [ref=e1830]:
+                - generic [ref=e1831]:
+                  - paragraph [ref=e1832]: deeplearning.md
+                  - button "✏️ General" [ref=e1833] [cursor=pointer]:
+                    - generic [ref=e1834]: ✏️
                     - text: General
-                - paragraph [ref=e1731]: 📅 1/6/2026
-            - generic [ref=e1732]:
-              - link [ref=e1733] [cursor=pointer]:
+                - paragraph [ref=e1835]: 📅 1/6/2026
+            - generic [ref=e1836]:
+              - link [ref=e1837] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713250893_deeplearning.md
-                - img [ref=e1734]
-              - button "Delete document" [ref=e1737] [cursor=pointer]:
-                - img [ref=e1738]
-          - generic [ref=e1741]:
-            - generic [ref=e1742]:
-              - img [ref=e1744]
-              - generic [ref=e1747]:
-                - generic [ref=e1748]:
-                  - paragraph [ref=e1749]: deeplearning.md
-                  - button "✏️ General" [ref=e1750] [cursor=pointer]:
-                    - generic [ref=e1751]: ✏️
+                - img [ref=e1838]
+              - button "Delete document" [ref=e1841] [cursor=pointer]:
+                - img [ref=e1842]
+          - generic [ref=e1845]:
+            - generic [ref=e1846]:
+              - img [ref=e1848]
+              - generic [ref=e1851]:
+                - generic [ref=e1852]:
+                  - paragraph [ref=e1853]: deeplearning.md
+                  - button "✏️ General" [ref=e1854] [cursor=pointer]:
+                    - generic [ref=e1855]: ✏️
                     - text: General
-                - paragraph [ref=e1752]: 📅 1/6/2026
-            - generic [ref=e1753]:
-              - link [ref=e1754] [cursor=pointer]:
+                - paragraph [ref=e1856]: 📅 1/6/2026
+            - generic [ref=e1857]:
+              - link [ref=e1858] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713237153_deeplearning.md
-                - img [ref=e1755]
-              - button "Delete document" [ref=e1758] [cursor=pointer]:
-                - img [ref=e1759]
-          - generic [ref=e1762]:
-            - generic [ref=e1763]:
-              - img [ref=e1765]
-              - generic [ref=e1768]:
-                - generic [ref=e1769]:
-                  - paragraph [ref=e1770]: deeplearning.md
-                  - button "✏️ General" [ref=e1771] [cursor=pointer]:
-                    - generic [ref=e1772]: ✏️
+                - img [ref=e1859]
+              - button "Delete document" [ref=e1862] [cursor=pointer]:
+                - img [ref=e1863]
+          - generic [ref=e1866]:
+            - generic [ref=e1867]:
+              - img [ref=e1869]
+              - generic [ref=e1872]:
+                - generic [ref=e1873]:
+                  - paragraph [ref=e1874]: deeplearning.md
+                  - button "✏️ General" [ref=e1875] [cursor=pointer]:
+                    - generic [ref=e1876]: ✏️
                     - text: General
-                - paragraph [ref=e1773]: 📅 1/6/2026
-            - generic [ref=e1774]:
-              - link [ref=e1775] [cursor=pointer]:
+                - paragraph [ref=e1877]: 📅 1/6/2026
+            - generic [ref=e1878]:
+              - link [ref=e1879] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767713182686_deeplearning.md
-                - img [ref=e1776]
-              - button "Delete document" [ref=e1779] [cursor=pointer]:
-                - img [ref=e1780]
-          - generic [ref=e1783]:
-            - generic [ref=e1784]:
-              - img [ref=e1786]
-              - generic [ref=e1789]:
-                - generic [ref=e1790]:
-                  - paragraph [ref=e1791]: Review.docx
-                  - button "✏️ General" [ref=e1792] [cursor=pointer]:
-                    - generic [ref=e1793]: ✏️
+                - img [ref=e1880]
+              - button "Delete document" [ref=e1883] [cursor=pointer]:
+                - img [ref=e1884]
+          - generic [ref=e1887]:
+            - generic [ref=e1888]:
+              - img [ref=e1890]
+              - generic [ref=e1893]:
+                - generic [ref=e1894]:
+                  - paragraph [ref=e1895]: Review.docx
+                  - button "✏️ General" [ref=e1896] [cursor=pointer]:
+                    - generic [ref=e1897]: ✏️
                     - text: General
-                - paragraph [ref=e1794]: 📅 1/6/2026
-            - generic [ref=e1795]:
-              - link [ref=e1796] [cursor=pointer]:
+                - paragraph [ref=e1898]: 📅 1/6/2026
+            - generic [ref=e1899]:
+              - link [ref=e1900] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712841774_Review.docx
-                - img [ref=e1797]
-              - button "Delete document" [ref=e1800] [cursor=pointer]:
-                - img [ref=e1801]
-          - generic [ref=e1804]:
-            - generic [ref=e1805]:
-              - img [ref=e1807]
-              - generic [ref=e1811]:
-                - generic [ref=e1812]:
-                  - paragraph [ref=e1813]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e1814] [cursor=pointer]:
-                    - generic [ref=e1815]: ✏️
+                - img [ref=e1901]
+              - button "Delete document" [ref=e1904] [cursor=pointer]:
+                - img [ref=e1905]
+          - generic [ref=e1908]:
+            - generic [ref=e1909]:
+              - img [ref=e1911]
+              - generic [ref=e1915]:
+                - generic [ref=e1916]:
+                  - paragraph [ref=e1917]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e1918] [cursor=pointer]:
+                    - generic [ref=e1919]: ✏️
                     - text: General
-                - paragraph [ref=e1816]: 📅 1/6/2026
-            - generic [ref=e1817]:
-              - link [ref=e1818] [cursor=pointer]:
+                - paragraph [ref=e1920]: 📅 1/6/2026
+            - generic [ref=e1921]:
+              - link [ref=e1922] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712836434_ouro_1.4b_thinking.json
-                - img [ref=e1819]
-              - button "Delete document" [ref=e1822] [cursor=pointer]:
-                - img [ref=e1823]
-          - generic [ref=e1826]:
-            - generic [ref=e1827]:
-              - img [ref=e1829]
-              - generic [ref=e1833]:
-                - generic [ref=e1834]:
-                  - paragraph [ref=e1835]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767712826" [ref=e1836] [cursor=pointer]:
-                    - generic [ref=e1837]: ✏️
+                - img [ref=e1923]
+              - button "Delete document" [ref=e1926] [cursor=pointer]:
+                - img [ref=e1927]
+          - generic [ref=e1930]:
+            - generic [ref=e1931]:
+              - img [ref=e1933]
+              - generic [ref=e1937]:
+                - generic [ref=e1938]:
+                  - paragraph [ref=e1939]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767712826" [ref=e1940] [cursor=pointer]:
+                    - generic [ref=e1941]: ✏️
                     - text: Marketing_1767712826
-                - paragraph [ref=e1838]: 📅 1/6/2026
-            - generic [ref=e1839]:
-              - link [ref=e1840] [cursor=pointer]:
+                - paragraph [ref=e1942]: 📅 1/6/2026
+            - generic [ref=e1943]:
+              - link [ref=e1944] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712828047_ouro_1.4b_thinking.json
-                - img [ref=e1841]
-              - button "Delete document" [ref=e1844] [cursor=pointer]:
-                - img [ref=e1845]
-          - generic [ref=e1848]:
-            - generic [ref=e1849]:
-              - img [ref=e1851]
-              - generic [ref=e1854]:
-                - generic [ref=e1855]:
-                  - paragraph [ref=e1856]: deeplearning.md
-                  - button "✏️ General" [ref=e1857] [cursor=pointer]:
-                    - generic [ref=e1858]: ✏️
+                - img [ref=e1945]
+              - button "Delete document" [ref=e1948] [cursor=pointer]:
+                - img [ref=e1949]
+          - generic [ref=e1952]:
+            - generic [ref=e1953]:
+              - img [ref=e1955]
+              - generic [ref=e1958]:
+                - generic [ref=e1959]:
+                  - paragraph [ref=e1960]: deeplearning.md
+                  - button "✏️ General" [ref=e1961] [cursor=pointer]:
+                    - generic [ref=e1962]: ✏️
                     - text: General
-                - paragraph [ref=e1859]: 📅 1/6/2026
-            - generic [ref=e1860]:
-              - link [ref=e1861] [cursor=pointer]:
+                - paragraph [ref=e1963]: 📅 1/6/2026
+            - generic [ref=e1964]:
+              - link [ref=e1965] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712826712_deeplearning.md
-                - img [ref=e1862]
-              - button "Delete document" [ref=e1865] [cursor=pointer]:
-                - img [ref=e1866]
-          - generic [ref=e1869]:
-            - generic [ref=e1870]:
-              - img [ref=e1872]
-              - generic [ref=e1875]:
-                - generic [ref=e1876]:
-                  - paragraph [ref=e1877]: deeplearning.md
-                  - button "✏️ General" [ref=e1878] [cursor=pointer]:
-                    - generic [ref=e1879]: ✏️
+                - img [ref=e1966]
+              - button "Delete document" [ref=e1969] [cursor=pointer]:
+                - img [ref=e1970]
+          - generic [ref=e1973]:
+            - generic [ref=e1974]:
+              - img [ref=e1976]
+              - generic [ref=e1979]:
+                - generic [ref=e1980]:
+                  - paragraph [ref=e1981]: deeplearning.md
+                  - button "✏️ General" [ref=e1982] [cursor=pointer]:
+                    - generic [ref=e1983]: ✏️
                     - text: General
-                - paragraph [ref=e1880]: 📅 1/6/2026
-            - generic [ref=e1881]:
-              - link [ref=e1882] [cursor=pointer]:
+                - paragraph [ref=e1984]: 📅 1/6/2026
+            - generic [ref=e1985]:
+              - link [ref=e1986] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712826589_deeplearning.md
-                - img [ref=e1883]
-              - button "Delete document" [ref=e1886] [cursor=pointer]:
-                - img [ref=e1887]
-          - generic [ref=e1890]:
-            - generic [ref=e1891]:
-              - img [ref=e1893]
-              - generic [ref=e1896]:
-                - generic [ref=e1897]:
-                  - paragraph [ref=e1898]: deeplearning.md
-                  - button "✏️ General" [ref=e1899] [cursor=pointer]:
-                    - generic [ref=e1900]: ✏️
+                - img [ref=e1987]
+              - button "Delete document" [ref=e1990] [cursor=pointer]:
+                - img [ref=e1991]
+          - generic [ref=e1994]:
+            - generic [ref=e1995]:
+              - img [ref=e1997]
+              - generic [ref=e2000]:
+                - generic [ref=e2001]:
+                  - paragraph [ref=e2002]: deeplearning.md
+                  - button "✏️ General" [ref=e2003] [cursor=pointer]:
+                    - generic [ref=e2004]: ✏️
                     - text: General
-                - paragraph [ref=e1901]: 📅 1/6/2026
-            - generic [ref=e1902]:
-              - link [ref=e1903] [cursor=pointer]:
+                - paragraph [ref=e2005]: 📅 1/6/2026
+            - generic [ref=e2006]:
+              - link [ref=e2007] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712813914_deeplearning.md
-                - img [ref=e1904]
-              - button "Delete document" [ref=e1907] [cursor=pointer]:
-                - img [ref=e1908]
-          - generic [ref=e1911]:
-            - generic [ref=e1912]:
-              - img [ref=e1914]
-              - generic [ref=e1917]:
-                - generic [ref=e1918]:
-                  - paragraph [ref=e1919]: deeplearning.md
-                  - button "✏️ General" [ref=e1920] [cursor=pointer]:
-                    - generic [ref=e1921]: ✏️
+                - img [ref=e2008]
+              - button "Delete document" [ref=e2011] [cursor=pointer]:
+                - img [ref=e2012]
+          - generic [ref=e2015]:
+            - generic [ref=e2016]:
+              - img [ref=e2018]
+              - generic [ref=e2021]:
+                - generic [ref=e2022]:
+                  - paragraph [ref=e2023]: deeplearning.md
+                  - button "✏️ General" [ref=e2024] [cursor=pointer]:
+                    - generic [ref=e2025]: ✏️
                     - text: General
-                - paragraph [ref=e1922]: 📅 1/6/2026
-            - generic [ref=e1923]:
-              - link [ref=e1924] [cursor=pointer]:
+                - paragraph [ref=e2026]: 📅 1/6/2026
+            - generic [ref=e2027]:
+              - link [ref=e2028] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712801176_deeplearning.md
-                - img [ref=e1925]
-              - button "Delete document" [ref=e1928] [cursor=pointer]:
-                - img [ref=e1929]
-          - generic [ref=e1932]:
-            - generic [ref=e1933]:
-              - img [ref=e1935]
-              - generic [ref=e1938]:
-                - generic [ref=e1939]:
-                  - paragraph [ref=e1940]: deeplearning.md
-                  - button "✏️ General" [ref=e1941] [cursor=pointer]:
-                    - generic [ref=e1942]: ✏️
+                - img [ref=e2029]
+              - button "Delete document" [ref=e2032] [cursor=pointer]:
+                - img [ref=e2033]
+          - generic [ref=e2036]:
+            - generic [ref=e2037]:
+              - img [ref=e2039]
+              - generic [ref=e2042]:
+                - generic [ref=e2043]:
+                  - paragraph [ref=e2044]: deeplearning.md
+                  - button "✏️ General" [ref=e2045] [cursor=pointer]:
+                    - generic [ref=e2046]: ✏️
                     - text: General
-                - paragraph [ref=e1943]: 📅 1/6/2026
-            - generic [ref=e1944]:
-              - link [ref=e1945] [cursor=pointer]:
+                - paragraph [ref=e2047]: 📅 1/6/2026
+            - generic [ref=e2048]:
+              - link [ref=e2049] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767712755180_deeplearning.md
-                - img [ref=e1946]
-              - button "Delete document" [ref=e1949] [cursor=pointer]:
-                - img [ref=e1950]
-          - generic [ref=e1953]:
-            - generic [ref=e1954]:
-              - img [ref=e1956]
-              - generic [ref=e1960]:
-                - generic [ref=e1961]:
-                  - paragraph [ref=e1962]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767711671" [ref=e1963] [cursor=pointer]:
-                    - generic [ref=e1964]: ✏️
+                - img [ref=e2050]
+              - button "Delete document" [ref=e2053] [cursor=pointer]:
+                - img [ref=e2054]
+          - generic [ref=e2057]:
+            - generic [ref=e2058]:
+              - img [ref=e2060]
+              - generic [ref=e2064]:
+                - generic [ref=e2065]:
+                  - paragraph [ref=e2066]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767711671" [ref=e2067] [cursor=pointer]:
+                    - generic [ref=e2068]: ✏️
                     - text: Marketing_1767711671
-                - paragraph [ref=e1965]: 📅 1/6/2026
-            - generic [ref=e1966]:
-              - link [ref=e1967] [cursor=pointer]:
+                - paragraph [ref=e2069]: 📅 1/6/2026
+            - generic [ref=e2070]:
+              - link [ref=e2071] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711672332_ouro_1.4b_thinking.json
-                - img [ref=e1968]
-              - button "Delete document" [ref=e1971] [cursor=pointer]:
-                - img [ref=e1972]
-          - generic [ref=e1975]:
-            - generic [ref=e1976]:
-              - img [ref=e1978]
-              - generic [ref=e1981]:
-                - generic [ref=e1982]:
-                  - paragraph [ref=e1983]: deeplearning.md
-                  - button "✏️ General" [ref=e1984] [cursor=pointer]:
-                    - generic [ref=e1985]: ✏️
+                - img [ref=e2072]
+              - button "Delete document" [ref=e2075] [cursor=pointer]:
+                - img [ref=e2076]
+          - generic [ref=e2079]:
+            - generic [ref=e2080]:
+              - img [ref=e2082]
+              - generic [ref=e2085]:
+                - generic [ref=e2086]:
+                  - paragraph [ref=e2087]: deeplearning.md
+                  - button "✏️ General" [ref=e2088] [cursor=pointer]:
+                    - generic [ref=e2089]: ✏️
                     - text: General
-                - paragraph [ref=e1986]: 📅 1/6/2026
-            - generic [ref=e1987]:
-              - link [ref=e1988] [cursor=pointer]:
+                - paragraph [ref=e2090]: 📅 1/6/2026
+            - generic [ref=e2091]:
+              - link [ref=e2092] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711653735_deeplearning.md
-                - img [ref=e1989]
-              - button "Delete document" [ref=e1992] [cursor=pointer]:
-                - img [ref=e1993]
-          - generic [ref=e1996]:
-            - generic [ref=e1997]:
-              - img [ref=e1999]
-              - generic [ref=e2002]:
-                - generic [ref=e2003]:
-                  - paragraph [ref=e2004]: Review.docx
-                  - button "✏️ General" [ref=e2005] [cursor=pointer]:
-                    - generic [ref=e2006]: ✏️
+                - img [ref=e2093]
+              - button "Delete document" [ref=e2096] [cursor=pointer]:
+                - img [ref=e2097]
+          - generic [ref=e2100]:
+            - generic [ref=e2101]:
+              - img [ref=e2103]
+              - generic [ref=e2106]:
+                - generic [ref=e2107]:
+                  - paragraph [ref=e2108]: Review.docx
+                  - button "✏️ General" [ref=e2109] [cursor=pointer]:
+                    - generic [ref=e2110]: ✏️
                     - text: General
-                - paragraph [ref=e2007]: 📅 1/6/2026
-            - generic [ref=e2008]:
-              - link [ref=e2009] [cursor=pointer]:
+                - paragraph [ref=e2111]: 📅 1/6/2026
+            - generic [ref=e2112]:
+              - link [ref=e2113] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711634598_Review.docx
-                - img [ref=e2010]
-              - button "Delete document" [ref=e2013] [cursor=pointer]:
-                - img [ref=e2014]
-          - generic [ref=e2017]:
-            - generic [ref=e2018]:
-              - img [ref=e2020]
-              - generic [ref=e2024]:
-                - generic [ref=e2025]:
-                  - paragraph [ref=e2026]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e2027] [cursor=pointer]:
-                    - generic [ref=e2028]: ✏️
+                - img [ref=e2114]
+              - button "Delete document" [ref=e2117] [cursor=pointer]:
+                - img [ref=e2118]
+          - generic [ref=e2121]:
+            - generic [ref=e2122]:
+              - img [ref=e2124]
+              - generic [ref=e2128]:
+                - generic [ref=e2129]:
+                  - paragraph [ref=e2130]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e2131] [cursor=pointer]:
+                    - generic [ref=e2132]: ✏️
                     - text: General
-                - paragraph [ref=e2029]: 📅 1/6/2026
-            - generic [ref=e2030]:
-              - link [ref=e2031] [cursor=pointer]:
+                - paragraph [ref=e2133]: 📅 1/6/2026
+            - generic [ref=e2134]:
+              - link [ref=e2135] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711629410_ouro_1.4b_thinking.json
-                - img [ref=e2032]
-              - button "Delete document" [ref=e2035] [cursor=pointer]:
-                - img [ref=e2036]
-          - generic [ref=e2039]:
-            - generic [ref=e2040]:
-              - img [ref=e2042]
-              - generic [ref=e2045]:
-                - generic [ref=e2046]:
-                  - paragraph [ref=e2047]: deeplearning.md
-                  - button "✏️ General" [ref=e2048] [cursor=pointer]:
-                    - generic [ref=e2049]: ✏️
+                - img [ref=e2136]
+              - button "Delete document" [ref=e2139] [cursor=pointer]:
+                - img [ref=e2140]
+          - generic [ref=e2143]:
+            - generic [ref=e2144]:
+              - img [ref=e2146]
+              - generic [ref=e2149]:
+                - generic [ref=e2150]:
+                  - paragraph [ref=e2151]: deeplearning.md
+                  - button "✏️ General" [ref=e2152] [cursor=pointer]:
+                    - generic [ref=e2153]: ✏️
                     - text: General
-                - paragraph [ref=e2050]: 📅 1/6/2026
-            - generic [ref=e2051]:
-              - link [ref=e2052] [cursor=pointer]:
+                - paragraph [ref=e2154]: 📅 1/6/2026
+            - generic [ref=e2155]:
+              - link [ref=e2156] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711621145_deeplearning.md
-                - img [ref=e2053]
-              - button "Delete document" [ref=e2056] [cursor=pointer]:
-                - img [ref=e2057]
-          - generic [ref=e2060]:
-            - generic [ref=e2061]:
-              - img [ref=e2063]
-              - generic [ref=e2066]:
-                - generic [ref=e2067]:
-                  - paragraph [ref=e2068]: deeplearning.md
-                  - button "✏️ General" [ref=e2069] [cursor=pointer]:
-                    - generic [ref=e2070]: ✏️
+                - img [ref=e2157]
+              - button "Delete document" [ref=e2160] [cursor=pointer]:
+                - img [ref=e2161]
+          - generic [ref=e2164]:
+            - generic [ref=e2165]:
+              - img [ref=e2167]
+              - generic [ref=e2170]:
+                - generic [ref=e2171]:
+                  - paragraph [ref=e2172]: deeplearning.md
+                  - button "✏️ General" [ref=e2173] [cursor=pointer]:
+                    - generic [ref=e2174]: ✏️
                     - text: General
-                - paragraph [ref=e2071]: 📅 1/6/2026
-            - generic [ref=e2072]:
-              - link [ref=e2073] [cursor=pointer]:
+                - paragraph [ref=e2175]: 📅 1/6/2026
+            - generic [ref=e2176]:
+              - link [ref=e2177] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711605045_deeplearning.md
-                - img [ref=e2074]
-              - button "Delete document" [ref=e2077] [cursor=pointer]:
-                - img [ref=e2078]
-          - generic [ref=e2081]:
-            - generic [ref=e2082]:
-              - img [ref=e2084]
-              - generic [ref=e2087]:
-                - generic [ref=e2088]:
-                  - paragraph [ref=e2089]: deeplearning.md
-                  - button "✏️ General" [ref=e2090] [cursor=pointer]:
-                    - generic [ref=e2091]: ✏️
+                - img [ref=e2178]
+              - button "Delete document" [ref=e2181] [cursor=pointer]:
+                - img [ref=e2182]
+          - generic [ref=e2185]:
+            - generic [ref=e2186]:
+              - img [ref=e2188]
+              - generic [ref=e2191]:
+                - generic [ref=e2192]:
+                  - paragraph [ref=e2193]: deeplearning.md
+                  - button "✏️ General" [ref=e2194] [cursor=pointer]:
+                    - generic [ref=e2195]: ✏️
                     - text: General
-                - paragraph [ref=e2092]: 📅 1/6/2026
-            - generic [ref=e2093]:
-              - link [ref=e2094] [cursor=pointer]:
+                - paragraph [ref=e2196]: 📅 1/6/2026
+            - generic [ref=e2197]:
+              - link [ref=e2198] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711583036_deeplearning.md
-                - img [ref=e2095]
-              - button "Delete document" [ref=e2098] [cursor=pointer]:
-                - img [ref=e2099]
-          - generic [ref=e2102]:
-            - generic [ref=e2103]:
-              - img [ref=e2105]
-              - generic [ref=e2109]:
-                - generic [ref=e2110]:
-                  - paragraph [ref=e2111]: ouro_1.4b_thinking.json
-                  - button "✏️ Marketing_1767711024" [ref=e2112] [cursor=pointer]:
-                    - generic [ref=e2113]: ✏️
+                - img [ref=e2199]
+              - button "Delete document" [ref=e2202] [cursor=pointer]:
+                - img [ref=e2203]
+          - generic [ref=e2206]:
+            - generic [ref=e2207]:
+              - img [ref=e2209]
+              - generic [ref=e2213]:
+                - generic [ref=e2214]:
+                  - paragraph [ref=e2215]: ouro_1.4b_thinking.json
+                  - button "✏️ Marketing_1767711024" [ref=e2216] [cursor=pointer]:
+                    - generic [ref=e2217]: ✏️
                     - text: Marketing_1767711024
-                - paragraph [ref=e2114]: 📅 1/6/2026
-            - generic [ref=e2115]:
-              - link [ref=e2116] [cursor=pointer]:
+                - paragraph [ref=e2218]: 📅 1/6/2026
+            - generic [ref=e2219]:
+              - link [ref=e2220] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767711024956_ouro_1.4b_thinking.json
-                - img [ref=e2117]
-              - button "Delete document" [ref=e2120] [cursor=pointer]:
-                - img [ref=e2121]
-          - generic [ref=e2124]:
-            - generic [ref=e2125]:
-              - img [ref=e2127]
-              - generic [ref=e2130]:
-                - generic [ref=e2131]:
-                  - paragraph [ref=e2132]: deeplearning.md
-                  - button "✏️ General" [ref=e2133] [cursor=pointer]:
-                    - generic [ref=e2134]: ✏️
+                - img [ref=e2221]
+              - button "Delete document" [ref=e2224] [cursor=pointer]:
+                - img [ref=e2225]
+          - generic [ref=e2228]:
+            - generic [ref=e2229]:
+              - img [ref=e2231]
+              - generic [ref=e2234]:
+                - generic [ref=e2235]:
+                  - paragraph [ref=e2236]: deeplearning.md
+                  - button "✏️ General" [ref=e2237] [cursor=pointer]:
+                    - generic [ref=e2238]: ✏️
                     - text: General
-                - paragraph [ref=e2135]: 📅 1/6/2026
-            - generic [ref=e2136]:
-              - link [ref=e2137] [cursor=pointer]:
+                - paragraph [ref=e2239]: 📅 1/6/2026
+            - generic [ref=e2240]:
+              - link [ref=e2241] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710991893_deeplearning.md
-                - img [ref=e2138]
-              - button "Delete document" [ref=e2141] [cursor=pointer]:
-                - img [ref=e2142]
-          - generic [ref=e2145]:
-            - generic [ref=e2146]:
-              - img [ref=e2148]
-              - generic [ref=e2151]:
-                - generic [ref=e2152]:
-                  - paragraph [ref=e2153]: deeplearning.md
-                  - button "✏️ General" [ref=e2154] [cursor=pointer]:
-                    - generic [ref=e2155]: ✏️
+                - img [ref=e2242]
+              - button "Delete document" [ref=e2245] [cursor=pointer]:
+                - img [ref=e2246]
+          - generic [ref=e2249]:
+            - generic [ref=e2250]:
+              - img [ref=e2252]
+              - generic [ref=e2255]:
+                - generic [ref=e2256]:
+                  - paragraph [ref=e2257]: deeplearning.md
+                  - button "✏️ General" [ref=e2258] [cursor=pointer]:
+                    - generic [ref=e2259]: ✏️
                     - text: General
-                - paragraph [ref=e2156]: 📅 1/6/2026
-            - generic [ref=e2157]:
-              - link [ref=e2158] [cursor=pointer]:
+                - paragraph [ref=e2260]: 📅 1/6/2026
+            - generic [ref=e2261]:
+              - link [ref=e2262] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710959662_deeplearning.md
-                - img [ref=e2159]
-              - button "Delete document" [ref=e2162] [cursor=pointer]:
-                - img [ref=e2163]
-          - generic [ref=e2166]:
-            - generic [ref=e2167]:
-              - img [ref=e2169]
-              - generic [ref=e2173]:
-                - generic [ref=e2174]:
-                  - paragraph [ref=e2175]: ouro_1.4b_thinking.json
-                  - button "✏️ General" [ref=e2176] [cursor=pointer]:
-                    - generic [ref=e2177]: ✏️
+                - img [ref=e2263]
+              - button "Delete document" [ref=e2266] [cursor=pointer]:
+                - img [ref=e2267]
+          - generic [ref=e2270]:
+            - generic [ref=e2271]:
+              - img [ref=e2273]
+              - generic [ref=e2277]:
+                - generic [ref=e2278]:
+                  - paragraph [ref=e2279]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e2280] [cursor=pointer]:
+                    - generic [ref=e2281]: ✏️
                     - text: General
-                - paragraph [ref=e2178]: 📅 1/6/2026
-            - generic [ref=e2179]:
-              - link [ref=e2180] [cursor=pointer]:
+                - paragraph [ref=e2282]: 📅 1/6/2026
+            - generic [ref=e2283]:
+              - link [ref=e2284] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710929364_ouro_1.4b_thinking.json
-                - img [ref=e2181]
-              - button "Delete document" [ref=e2184] [cursor=pointer]:
-                - img [ref=e2185]
-          - generic [ref=e2188]:
-            - generic [ref=e2189]:
-              - img [ref=e2191]
-              - generic [ref=e2194]:
-                - generic [ref=e2195]:
-                  - paragraph [ref=e2196]: deeplearning.md
-                  - button "✏️ General" [ref=e2197] [cursor=pointer]:
-                    - generic [ref=e2198]: ✏️
+                - img [ref=e2285]
+              - button "Delete document" [ref=e2288] [cursor=pointer]:
+                - img [ref=e2289]
+          - generic [ref=e2292]:
+            - generic [ref=e2293]:
+              - img [ref=e2295]
+              - generic [ref=e2298]:
+                - generic [ref=e2299]:
+                  - paragraph [ref=e2300]: deeplearning.md
+                  - button "✏️ General" [ref=e2301] [cursor=pointer]:
+                    - generic [ref=e2302]: ✏️
                     - text: General
-                - paragraph [ref=e2199]: 📅 1/6/2026
-            - generic [ref=e2200]:
-              - link [ref=e2201] [cursor=pointer]:
+                - paragraph [ref=e2303]: 📅 1/6/2026
+            - generic [ref=e2304]:
+              - link [ref=e2305] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710923464_deeplearning.md
-                - img [ref=e2202]
-              - button "Delete document" [ref=e2205] [cursor=pointer]:
-                - img [ref=e2206]
-          - generic [ref=e2209]:
-            - generic [ref=e2210]:
-              - img [ref=e2212]
-              - generic [ref=e2215]:
-                - generic [ref=e2216]:
-                  - paragraph [ref=e2217]: deeplearning.md
-                  - button "✏️ General" [ref=e2218] [cursor=pointer]:
-                    - generic [ref=e2219]: ✏️
+                - img [ref=e2306]
+              - button "Delete document" [ref=e2309] [cursor=pointer]:
+                - img [ref=e2310]
+          - generic [ref=e2313]:
+            - generic [ref=e2314]:
+              - img [ref=e2316]
+              - generic [ref=e2319]:
+                - generic [ref=e2320]:
+                  - paragraph [ref=e2321]: deeplearning.md
+                  - button "✏️ General" [ref=e2322] [cursor=pointer]:
+                    - generic [ref=e2323]: ✏️
                     - text: General
-                - paragraph [ref=e2220]: 📅 1/6/2026
-            - generic [ref=e2221]:
-              - link [ref=e2222] [cursor=pointer]:
+                - paragraph [ref=e2324]: 📅 1/6/2026
+            - generic [ref=e2325]:
+              - link [ref=e2326] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710901792_deeplearning.md
-                - img [ref=e2223]
-              - button "Delete document" [ref=e2226] [cursor=pointer]:
-                - img [ref=e2227]
-          - generic [ref=e2230]:
-            - generic [ref=e2231]:
-              - img [ref=e2233]
-              - generic [ref=e2236]:
-                - generic [ref=e2237]:
-                  - paragraph [ref=e2238]: deeplearning.md
-                  - button "✏️ General" [ref=e2239] [cursor=pointer]:
-                    - generic [ref=e2240]: ✏️
+                - img [ref=e2327]
+              - button "Delete document" [ref=e2330] [cursor=pointer]:
+                - img [ref=e2331]
+          - generic [ref=e2334]:
+            - generic [ref=e2335]:
+              - img [ref=e2337]
+              - generic [ref=e2340]:
+                - generic [ref=e2341]:
+                  - paragraph [ref=e2342]: deeplearning.md
+                  - button "✏️ General" [ref=e2343] [cursor=pointer]:
+                    - generic [ref=e2344]: ✏️
                     - text: General
-                - paragraph [ref=e2241]: 📅 1/6/2026
-            - generic [ref=e2242]:
-              - link [ref=e2243] [cursor=pointer]:
+                - paragraph [ref=e2345]: 📅 1/6/2026
+            - generic [ref=e2346]:
+              - link [ref=e2347] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710581638_deeplearning.md
-                - img [ref=e2244]
-              - button "Delete document" [ref=e2247] [cursor=pointer]:
-                - img [ref=e2248]
-          - generic [ref=e2251]:
-            - generic [ref=e2252]:
-              - img [ref=e2254]
-              - generic [ref=e2257]:
-                - generic [ref=e2258]:
-                  - paragraph [ref=e2259]: deeplearning.md
-                  - button "✏️ General" [ref=e2260] [cursor=pointer]:
-                    - generic [ref=e2261]: ✏️
+                - img [ref=e2348]
+              - button "Delete document" [ref=e2351] [cursor=pointer]:
+                - img [ref=e2352]
+          - generic [ref=e2355]:
+            - generic [ref=e2356]:
+              - img [ref=e2358]
+              - generic [ref=e2361]:
+                - generic [ref=e2362]:
+                  - paragraph [ref=e2363]: deeplearning.md
+                  - button "✏️ General" [ref=e2364] [cursor=pointer]:
+                    - generic [ref=e2365]: ✏️
                     - text: General
-                - paragraph [ref=e2262]: 📅 1/6/2026
-            - generic [ref=e2263]:
-              - link [ref=e2264] [cursor=pointer]:
+                - paragraph [ref=e2366]: 📅 1/6/2026
+            - generic [ref=e2367]:
+              - link [ref=e2368] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710516594_deeplearning.md
-                - img [ref=e2265]
-              - button "Delete document" [ref=e2268] [cursor=pointer]:
-                - img [ref=e2269]
-          - generic [ref=e2272]:
-            - generic [ref=e2273]:
-              - img [ref=e2275]
-              - generic [ref=e2278]:
-                - generic [ref=e2279]:
-                  - paragraph [ref=e2280]: deeplearning.md
-                  - button "✏️ General" [ref=e2281] [cursor=pointer]:
-                    - generic [ref=e2282]: ✏️
+                - img [ref=e2369]
+              - button "Delete document" [ref=e2372] [cursor=pointer]:
+                - img [ref=e2373]
+          - generic [ref=e2376]:
+            - generic [ref=e2377]:
+              - img [ref=e2379]
+              - generic [ref=e2382]:
+                - generic [ref=e2383]:
+                  - paragraph [ref=e2384]: deeplearning.md
+                  - button "✏️ General" [ref=e2385] [cursor=pointer]:
+                    - generic [ref=e2386]: ✏️
                     - text: General
-                - paragraph [ref=e2283]: 📅 1/6/2026
-            - generic [ref=e2284]:
-              - link [ref=e2285] [cursor=pointer]:
+                - paragraph [ref=e2387]: 📅 1/6/2026
+            - generic [ref=e2388]:
+              - link [ref=e2389] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710307946_deeplearning.md
-                - img [ref=e2286]
-              - button "Delete document" [ref=e2289] [cursor=pointer]:
-                - img [ref=e2290]
-          - generic [ref=e2293]:
-            - generic [ref=e2294]:
-              - img [ref=e2296]
-              - generic [ref=e2299]:
-                - generic [ref=e2300]:
-                  - paragraph [ref=e2301]: deeplearning.md
-                  - button "✏️ General" [ref=e2302] [cursor=pointer]:
-                    - generic [ref=e2303]: ✏️
+                - img [ref=e2390]
+              - button "Delete document" [ref=e2393] [cursor=pointer]:
+                - img [ref=e2394]
+          - generic [ref=e2397]:
+            - generic [ref=e2398]:
+              - img [ref=e2400]
+              - generic [ref=e2403]:
+                - generic [ref=e2404]:
+                  - paragraph [ref=e2405]: deeplearning.md
+                  - button "✏️ General" [ref=e2406] [cursor=pointer]:
+                    - generic [ref=e2407]: ✏️
                     - text: General
-                - paragraph [ref=e2304]: 📅 1/6/2026
-            - generic [ref=e2305]:
-              - link [ref=e2306] [cursor=pointer]:
+                - paragraph [ref=e2408]: 📅 1/6/2026
+            - generic [ref=e2409]:
+              - link [ref=e2410] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710093583_deeplearning.md
-                - img [ref=e2307]
-              - button "Delete document" [ref=e2310] [cursor=pointer]:
-                - img [ref=e2311]
-          - generic [ref=e2314]:
-            - generic [ref=e2315]:
-              - img [ref=e2317]
-              - generic [ref=e2320]:
-                - generic [ref=e2321]:
-                  - paragraph [ref=e2322]: deeplearning.md
-                  - button "✏️ General" [ref=e2323] [cursor=pointer]:
-                    - generic [ref=e2324]: ✏️
+                - img [ref=e2411]
+              - button "Delete document" [ref=e2414] [cursor=pointer]:
+                - img [ref=e2415]
+          - generic [ref=e2418]:
+            - generic [ref=e2419]:
+              - img [ref=e2421]
+              - generic [ref=e2424]:
+                - generic [ref=e2425]:
+                  - paragraph [ref=e2426]: deeplearning.md
+                  - button "✏️ General" [ref=e2427] [cursor=pointer]:
+                    - generic [ref=e2428]: ✏️
                     - text: General
-                - paragraph [ref=e2325]: 📅 1/6/2026
-            - generic [ref=e2326]:
-              - link [ref=e2327] [cursor=pointer]:
+                - paragraph [ref=e2429]: 📅 1/6/2026
+            - generic [ref=e2430]:
+              - link [ref=e2431] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767710033513_deeplearning.md
-                - img [ref=e2328]
-              - button "Delete document" [ref=e2331] [cursor=pointer]:
-                - img [ref=e2332]
-          - generic [ref=e2335]:
-            - generic [ref=e2336]:
-              - img [ref=e2338]
-              - generic [ref=e2341]:
-                - generic [ref=e2342]:
-                  - paragraph [ref=e2343]: arrow.md
-                  - button "✏️ tech" [ref=e2344] [cursor=pointer]:
-                    - generic [ref=e2345]: ✏️
+                - img [ref=e2432]
+              - button "Delete document" [ref=e2435] [cursor=pointer]:
+                - img [ref=e2436]
+          - generic [ref=e2439]:
+            - generic [ref=e2440]:
+              - img [ref=e2442]
+              - generic [ref=e2445]:
+                - generic [ref=e2446]:
+                  - paragraph [ref=e2447]: arrow.md
+                  - button "✏️ tech" [ref=e2448] [cursor=pointer]:
+                    - generic [ref=e2449]: ✏️
                     - text: tech
-                - paragraph [ref=e2346]: 📅 1/6/2026
-            - generic [ref=e2347]:
-              - link [ref=e2348] [cursor=pointer]:
+                - paragraph [ref=e2450]: 📅 1/6/2026
+            - generic [ref=e2451]:
+              - link [ref=e2452] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767633172705_arrow.md
-                - img [ref=e2349]
-              - button "Delete document" [ref=e2352] [cursor=pointer]:
-                - img [ref=e2353]
-          - generic [ref=e2356]:
-            - generic [ref=e2357]:
-              - img [ref=e2359]
-              - generic [ref=e2362]:
-                - generic [ref=e2363]:
-                  - paragraph [ref=e2364]: bigdata.txt
-                  - button "✏️ General" [ref=e2365] [cursor=pointer]:
-                    - generic [ref=e2366]: ✏️
+                - img [ref=e2453]
+              - button "Delete document" [ref=e2456] [cursor=pointer]:
+                - img [ref=e2457]
+          - generic [ref=e2460]:
+            - generic [ref=e2461]:
+              - img [ref=e2463]
+              - generic [ref=e2466]:
+                - generic [ref=e2467]:
+                  - paragraph [ref=e2468]: bigdata.txt
+                  - button "✏️ General" [ref=e2469] [cursor=pointer]:
+                    - generic [ref=e2470]: ✏️
                     - text: General
-                - paragraph [ref=e2367]: 📅 1/6/2026
-            - generic [ref=e2368]:
-              - link [ref=e2369] [cursor=pointer]:
+                - paragraph [ref=e2471]: 📅 1/6/2026
+            - generic [ref=e2472]:
+              - link [ref=e2473] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767633144842_bigdata.txt
-                - img [ref=e2370]
-              - button "Delete document" [ref=e2373] [cursor=pointer]:
-                - img [ref=e2374]
-          - generic [ref=e2377]:
-            - generic [ref=e2378]:
-              - img [ref=e2380]
-              - generic [ref=e2383]:
-                - generic [ref=e2384]:
-                  - paragraph [ref=e2385]: 2502.17416v1.pdf
-                  - button "✏️ General" [ref=e2386] [cursor=pointer]:
-                    - generic [ref=e2387]: ✏️
+                - img [ref=e2474]
+              - button "Delete document" [ref=e2477] [cursor=pointer]:
+                - img [ref=e2478]
+          - generic [ref=e2481]:
+            - generic [ref=e2482]:
+              - img [ref=e2484]
+              - generic [ref=e2487]:
+                - generic [ref=e2488]:
+                  - paragraph [ref=e2489]: 2502.17416v1.pdf
+                  - button "✏️ General" [ref=e2490] [cursor=pointer]:
+                    - generic [ref=e2491]: ✏️
                     - text: General
-                - paragraph [ref=e2388]: 📅 1/6/2026
-            - generic [ref=e2389]:
-              - link [ref=e2390] [cursor=pointer]:
+                - paragraph [ref=e2492]: 📅 1/6/2026
+            - generic [ref=e2493]:
+              - link [ref=e2494] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767633128098_2502.17416v1.pdf
-                - img [ref=e2391]
-              - button "Delete document" [ref=e2394] [cursor=pointer]:
-                - img [ref=e2395]
-          - generic [ref=e2398]:
-            - generic [ref=e2399]:
-              - img [ref=e2401]
-              - generic [ref=e2404]:
-                - generic [ref=e2405]:
-                  - paragraph [ref=e2406]: 2502.17416v1.pdf
-                  - button "✏️ General" [ref=e2407] [cursor=pointer]:
-                    - generic [ref=e2408]: ✏️
+                - img [ref=e2495]
+              - button "Delete document" [ref=e2498] [cursor=pointer]:
+                - img [ref=e2499]
+          - generic [ref=e2502]:
+            - generic [ref=e2503]:
+              - img [ref=e2505]
+              - generic [ref=e2508]:
+                - generic [ref=e2509]:
+                  - paragraph [ref=e2510]: 2502.17416v1.pdf
+                  - button "✏️ General" [ref=e2511] [cursor=pointer]:
+                    - generic [ref=e2512]: ✏️
                     - text: General
-                - paragraph [ref=e2409]: 📅 1/6/2026
-            - generic [ref=e2410]:
-              - link [ref=e2411] [cursor=pointer]:
+                - paragraph [ref=e2513]: 📅 1/6/2026
+            - generic [ref=e2514]:
+              - link [ref=e2515] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767633095764_2502.17416v1.pdf
-                - img [ref=e2412]
-              - button "Delete document" [ref=e2415] [cursor=pointer]:
-                - img [ref=e2416]
-          - generic [ref=e2419]:
-            - generic [ref=e2420]:
-              - img [ref=e2422]
-              - generic [ref=e2425]:
-                - generic [ref=e2426]:
-                  - paragraph [ref=e2427]: 23127003_23127005_23127210_PA4.pdf
-                  - button "✏️ General" [ref=e2428] [cursor=pointer]:
-                    - generic [ref=e2429]: ✏️
+                - img [ref=e2516]
+              - button "Delete document" [ref=e2519] [cursor=pointer]:
+                - img [ref=e2520]
+          - generic [ref=e2523]:
+            - generic [ref=e2524]:
+              - img [ref=e2526]
+              - generic [ref=e2529]:
+                - generic [ref=e2530]:
+                  - paragraph [ref=e2531]: 23127003_23127005_23127210_PA4.pdf
+                  - button "✏️ General" [ref=e2532] [cursor=pointer]:
+                    - generic [ref=e2533]: ✏️
                     - text: General
-                - paragraph [ref=e2430]: 📅 1/6/2026
-            - generic [ref=e2431]:
-              - link [ref=e2432] [cursor=pointer]:
+                - paragraph [ref=e2534]: 📅 1/6/2026
+            - generic [ref=e2535]:
+              - link [ref=e2536] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767633080636_23127003_23127005_23127210_PA4.pdf
-                - img [ref=e2433]
-              - button "Delete document" [ref=e2436] [cursor=pointer]:
-                - img [ref=e2437]
-          - generic [ref=e2440]:
-            - generic [ref=e2441]:
-              - img [ref=e2443]
-              - generic [ref=e2446]:
-                - generic [ref=e2447]:
-                  - paragraph [ref=e2448]: 2502.17416v1.pdf
-                  - button "✏️ General" [ref=e2449] [cursor=pointer]:
-                    - generic [ref=e2450]: ✏️
+                - img [ref=e2537]
+              - button "Delete document" [ref=e2540] [cursor=pointer]:
+                - img [ref=e2541]
+          - generic [ref=e2544]:
+            - generic [ref=e2545]:
+              - img [ref=e2547]
+              - generic [ref=e2550]:
+                - generic [ref=e2551]:
+                  - paragraph [ref=e2552]: 2502.17416v1.pdf
+                  - button "✏️ General" [ref=e2553] [cursor=pointer]:
+                    - generic [ref=e2554]: ✏️
                     - text: General
-                - paragraph [ref=e2451]: 📅 1/6/2026
-            - generic [ref=e2452]:
-              - link [ref=e2453] [cursor=pointer]:
+                - paragraph [ref=e2555]: 📅 1/6/2026
+            - generic [ref=e2556]:
+              - link [ref=e2557] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767633057566_2502.17416v1.pdf
-                - img [ref=e2454]
-              - button "Delete document" [ref=e2457] [cursor=pointer]:
-                - img [ref=e2458]
-          - generic [ref=e2461]:
-            - generic [ref=e2462]:
-              - img [ref=e2464]
-              - generic [ref=e2467]:
-                - generic [ref=e2468]:
-                  - paragraph [ref=e2469]: deeplearning.md
-                  - button "✏️ tech" [ref=e2470] [cursor=pointer]:
-                    - generic [ref=e2471]: ✏️
+                - img [ref=e2558]
+              - button "Delete document" [ref=e2561] [cursor=pointer]:
+                - img [ref=e2562]
+          - generic [ref=e2565]:
+            - generic [ref=e2566]:
+              - img [ref=e2568]
+              - generic [ref=e2571]:
+                - generic [ref=e2572]:
+                  - paragraph [ref=e2573]: deeplearning.md
+                  - button "✏️ tech" [ref=e2574] [cursor=pointer]:
+                    - generic [ref=e2575]: ✏️
                     - text: tech
-                - paragraph [ref=e2472]: 📅 1/5/2026
-            - generic [ref=e2473]:
-              - link [ref=e2474] [cursor=pointer]:
+                - paragraph [ref=e2576]: 📅 1/5/2026
+            - generic [ref=e2577]:
+              - link [ref=e2578] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767610004381_deeplearning.md
-                - img [ref=e2475]
-              - button "Delete document" [ref=e2478] [cursor=pointer]:
-                - img [ref=e2479]
-          - generic [ref=e2482]:
-            - generic [ref=e2483]:
-              - img [ref=e2485]
-              - generic [ref=e2488]:
-                - generic [ref=e2489]:
-                  - paragraph [ref=e2490]: bigdata.txt
-                  - button "✏️ tech" [ref=e2491] [cursor=pointer]:
-                    - generic [ref=e2492]: ✏️
+                - img [ref=e2579]
+              - button "Delete document" [ref=e2582] [cursor=pointer]:
+                - img [ref=e2583]
+          - generic [ref=e2586]:
+            - generic [ref=e2587]:
+              - img [ref=e2589]
+              - generic [ref=e2592]:
+                - generic [ref=e2593]:
+                  - paragraph [ref=e2594]: bigdata.txt
+                  - button "✏️ tech" [ref=e2595] [cursor=pointer]:
+                    - generic [ref=e2596]: ✏️
                     - text: tech
-                - paragraph [ref=e2493]: 📅 1/5/2026
-            - generic [ref=e2494]:
-              - link [ref=e2495] [cursor=pointer]:
+                - paragraph [ref=e2597]: 📅 1/5/2026
+            - generic [ref=e2598]:
+              - link [ref=e2599] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767608258109_bigdata.txt
-                - img [ref=e2496]
-              - button "Delete document" [ref=e2499] [cursor=pointer]:
-                - img [ref=e2500]
-          - generic [ref=e2503]:
-            - generic [ref=e2504]:
-              - img [ref=e2506]
-              - generic [ref=e2509]:
-                - generic [ref=e2510]:
-                  - paragraph [ref=e2511]: arrow.md
-                  - button "✏️ tech" [ref=e2512] [cursor=pointer]:
-                    - generic [ref=e2513]: ✏️
+                - img [ref=e2600]
+              - button "Delete document" [ref=e2603] [cursor=pointer]:
+                - img [ref=e2604]
+          - generic [ref=e2607]:
+            - generic [ref=e2608]:
+              - img [ref=e2610]
+              - generic [ref=e2613]:
+                - generic [ref=e2614]:
+                  - paragraph [ref=e2615]: arrow.md
+                  - button "✏️ tech" [ref=e2616] [cursor=pointer]:
+                    - generic [ref=e2617]: ✏️
                     - text: tech
-                - paragraph [ref=e2514]: 📅 1/5/2026
-            - generic [ref=e2515]:
-              - link [ref=e2516] [cursor=pointer]:
+                - paragraph [ref=e2618]: 📅 1/5/2026
+            - generic [ref=e2619]:
+              - link [ref=e2620] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767608252610_arrow.md
-                - img [ref=e2517]
-              - button "Delete document" [ref=e2520] [cursor=pointer]:
-                - img [ref=e2521]
-          - generic [ref=e2524]:
-            - generic [ref=e2525]:
-              - img [ref=e2527]
-              - generic [ref=e2530]:
-                - generic [ref=e2531]:
-                  - paragraph [ref=e2532]: arrow.md
-                  - button "✏️ General" [ref=e2533] [cursor=pointer]:
-                    - generic [ref=e2534]: ✏️
+                - img [ref=e2621]
+              - button "Delete document" [ref=e2624] [cursor=pointer]:
+                - img [ref=e2625]
+          - generic [ref=e2628]:
+            - generic [ref=e2629]:
+              - img [ref=e2631]
+              - generic [ref=e2634]:
+                - generic [ref=e2635]:
+                  - paragraph [ref=e2636]: arrow.md
+                  - button "✏️ General" [ref=e2637] [cursor=pointer]:
+                    - generic [ref=e2638]: ✏️
                     - text: General
-                - paragraph [ref=e2535]: 📅 1/5/2026
-            - generic [ref=e2536]:
-              - link [ref=e2537] [cursor=pointer]:
+                - paragraph [ref=e2639]: 📅 1/5/2026
+            - generic [ref=e2640]:
+              - link [ref=e2641] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767606546637_arrow.md
-                - img [ref=e2538]
-              - button "Delete document" [ref=e2541] [cursor=pointer]:
-                - img [ref=e2542]
-          - generic [ref=e2545]:
-            - generic [ref=e2546]:
-              - img [ref=e2548]
-              - generic [ref=e2551]:
-                - generic [ref=e2552]:
-                  - paragraph [ref=e2553]: peft.md
-                  - button "✏️ General" [ref=e2554] [cursor=pointer]:
-                    - generic [ref=e2555]: ✏️
+                - img [ref=e2642]
+              - button "Delete document" [ref=e2645] [cursor=pointer]:
+                - img [ref=e2646]
+          - generic [ref=e2649]:
+            - generic [ref=e2650]:
+              - img [ref=e2652]
+              - generic [ref=e2655]:
+                - generic [ref=e2656]:
+                  - paragraph [ref=e2657]: peft.md
+                  - button "✏️ General" [ref=e2658] [cursor=pointer]:
+                    - generic [ref=e2659]: ✏️
                     - text: General
-                - paragraph [ref=e2556]: 📅 1/5/2026
-            - generic [ref=e2557]:
-              - link [ref=e2558] [cursor=pointer]:
+                - paragraph [ref=e2660]: 📅 1/5/2026
+            - generic [ref=e2661]:
+              - link [ref=e2662] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767606064966_peft.md
-                - img [ref=e2559]
-              - button "Delete document" [ref=e2562] [cursor=pointer]:
-                - img [ref=e2563]
-          - generic [ref=e2566]:
-            - generic [ref=e2567]:
-              - img [ref=e2569]
-              - generic [ref=e2572]:
-                - generic [ref=e2573]:
-                  - paragraph [ref=e2574]: transformers.md
-                  - button "✏️ General" [ref=e2575] [cursor=pointer]:
-                    - generic [ref=e2576]: ✏️
+                - img [ref=e2663]
+              - button "Delete document" [ref=e2666] [cursor=pointer]:
+                - img [ref=e2667]
+          - generic [ref=e2670]:
+            - generic [ref=e2671]:
+              - img [ref=e2673]
+              - generic [ref=e2676]:
+                - generic [ref=e2677]:
+                  - paragraph [ref=e2678]: transformers.md
+                  - button "✏️ General" [ref=e2679] [cursor=pointer]:
+                    - generic [ref=e2680]: ✏️
                     - text: General
-                - paragraph [ref=e2577]: 📅 1/5/2026
-            - generic [ref=e2578]:
-              - link [ref=e2579] [cursor=pointer]:
+                - paragraph [ref=e2681]: 📅 1/5/2026
+            - generic [ref=e2682]:
+              - link [ref=e2683] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767604267476_transformers.md
-                - img [ref=e2580]
-              - button "Delete document" [ref=e2583] [cursor=pointer]:
-                - img [ref=e2584]
-          - generic [ref=e2587]:
-            - generic [ref=e2588]:
-              - img [ref=e2590]
-              - generic [ref=e2593]:
-                - generic [ref=e2594]:
-                  - paragraph [ref=e2595]: huggingface.md
-                  - button "✏️ General" [ref=e2596] [cursor=pointer]:
-                    - generic [ref=e2597]: ✏️
+                - img [ref=e2684]
+              - button "Delete document" [ref=e2687] [cursor=pointer]:
+                - img [ref=e2688]
+          - generic [ref=e2691]:
+            - generic [ref=e2692]:
+              - img [ref=e2694]
+              - generic [ref=e2697]:
+                - generic [ref=e2698]:
+                  - paragraph [ref=e2699]: huggingface.md
+                  - button "✏️ General" [ref=e2700] [cursor=pointer]:
+                    - generic [ref=e2701]: ✏️
                     - text: General
-                - paragraph [ref=e2598]: 📅 1/5/2026
-            - generic [ref=e2599]:
-              - link [ref=e2600] [cursor=pointer]:
+                - paragraph [ref=e2702]: 📅 1/5/2026
+            - generic [ref=e2703]:
+              - link [ref=e2704] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767603920099_huggingface.md
-                - img [ref=e2601]
-              - button "Delete document" [ref=e2604] [cursor=pointer]:
-                - img [ref=e2605]
-          - generic [ref=e2608]:
-            - generic [ref=e2609]:
-              - img [ref=e2611]
-              - generic [ref=e2614]:
-                - generic [ref=e2615]:
-                  - paragraph [ref=e2616]: HR_Policy_2025.pdf
-                  - button "✏️ General" [ref=e2617] [cursor=pointer]:
-                    - generic [ref=e2618]: ✏️
+                - img [ref=e2705]
+              - button "Delete document" [ref=e2708] [cursor=pointer]:
+                - img [ref=e2709]
+          - generic [ref=e2712]:
+            - generic [ref=e2713]:
+              - img [ref=e2715]
+              - generic [ref=e2718]:
+                - generic [ref=e2719]:
+                  - paragraph [ref=e2720]: HR_Policy_2025.pdf
+                  - button "✏️ General" [ref=e2721] [cursor=pointer]:
+                    - generic [ref=e2722]: ✏️
                     - text: General
-                - paragraph [ref=e2619]: 📅 1/5/2026
-            - generic [ref=e2620]:
-              - link [ref=e2621] [cursor=pointer]:
+                - paragraph [ref=e2723]: 📅 1/5/2026
+            - generic [ref=e2724]:
+              - link [ref=e2725] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767603073243_HR_Policy_2025.pdf
-                - img [ref=e2622]
-              - button "Delete document" [ref=e2625] [cursor=pointer]:
-                - img [ref=e2626]
-          - generic [ref=e2629]:
-            - generic [ref=e2630]:
-              - img [ref=e2632]
-              - generic [ref=e2635]:
-                - generic [ref=e2636]:
-                  - paragraph [ref=e2637]: quantum-computation.txt
-                  - button "✏️ General" [ref=e2638] [cursor=pointer]:
-                    - generic [ref=e2639]: ✏️
+                - img [ref=e2726]
+              - button "Delete document" [ref=e2729] [cursor=pointer]:
+                - img [ref=e2730]
+          - generic [ref=e2733]:
+            - generic [ref=e2734]:
+              - img [ref=e2736]
+              - generic [ref=e2739]:
+                - generic [ref=e2740]:
+                  - paragraph [ref=e2741]: quantum-computation.txt
+                  - button "✏️ General" [ref=e2742] [cursor=pointer]:
+                    - generic [ref=e2743]: ✏️
                     - text: General
-                - paragraph [ref=e2640]: 📅 1/5/2026
-            - generic [ref=e2641]:
-              - link [ref=e2642] [cursor=pointer]:
+                - paragraph [ref=e2744]: 📅 1/5/2026
+            - generic [ref=e2745]:
+              - link [ref=e2746] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767549002101_quantum-computation.txt
-                - img [ref=e2643]
-              - button "Delete document" [ref=e2646] [cursor=pointer]:
-                - img [ref=e2647]
-          - generic [ref=e2650]:
-            - generic [ref=e2651]:
-              - img [ref=e2653]
-              - generic [ref=e2656]:
-                - generic [ref=e2657]:
-                  - paragraph [ref=e2658]: bigdata.txt
-                  - button "✏️ General" [ref=e2659] [cursor=pointer]:
-                    - generic [ref=e2660]: ✏️
+                - img [ref=e2747]
+              - button "Delete document" [ref=e2750] [cursor=pointer]:
+                - img [ref=e2751]
+          - generic [ref=e2754]:
+            - generic [ref=e2755]:
+              - img [ref=e2757]
+              - generic [ref=e2760]:
+                - generic [ref=e2761]:
+                  - paragraph [ref=e2762]: bigdata.txt
+                  - button "✏️ General" [ref=e2763] [cursor=pointer]:
+                    - generic [ref=e2764]: ✏️
                     - text: General
-                - paragraph [ref=e2661]: 📅 1/5/2026
-            - generic [ref=e2662]:
-              - link [ref=e2663] [cursor=pointer]:
+                - paragraph [ref=e2765]: 📅 1/5/2026
+            - generic [ref=e2766]:
+              - link [ref=e2767] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767548604311_bigdata.txt
-                - img [ref=e2664]
-              - button "Delete document" [ref=e2667] [cursor=pointer]:
-                - img [ref=e2668]
-          - generic [ref=e2671]:
-            - generic [ref=e2672]:
-              - img [ref=e2674]
-              - generic [ref=e2677]:
-                - generic [ref=e2678]:
-                  - paragraph [ref=e2679]: truyenkieu.txt
-                  - button "✏️ General" [ref=e2680] [cursor=pointer]:
-                    - generic [ref=e2681]: ✏️
+                - img [ref=e2768]
+              - button "Delete document" [ref=e2771] [cursor=pointer]:
+                - img [ref=e2772]
+          - generic [ref=e2775]:
+            - generic [ref=e2776]:
+              - img [ref=e2778]
+              - generic [ref=e2781]:
+                - generic [ref=e2782]:
+                  - paragraph [ref=e2783]: truyenkieu.txt
+                  - button "✏️ General" [ref=e2784] [cursor=pointer]:
+                    - generic [ref=e2785]: ✏️
                     - text: General
-                - paragraph [ref=e2682]: 📅 1/5/2026
-            - generic [ref=e2683]:
-              - link [ref=e2684] [cursor=pointer]:
+                - paragraph [ref=e2786]: 📅 1/5/2026
+            - generic [ref=e2787]:
+              - link [ref=e2788] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767548325924_truyenkieu.txt
-                - img [ref=e2685]
-              - button "Delete document" [ref=e2688] [cursor=pointer]:
-                - img [ref=e2689]
-          - generic [ref=e2692]:
-            - generic [ref=e2693]:
-              - img [ref=e2695]
-              - generic [ref=e2698]:
-                - generic [ref=e2699]:
-                  - paragraph [ref=e2700]: Report.pdf
-                  - button "✏️ General" [ref=e2701] [cursor=pointer]:
-                    - generic [ref=e2702]: ✏️
+                - img [ref=e2789]
+              - button "Delete document" [ref=e2792] [cursor=pointer]:
+                - img [ref=e2793]
+          - generic [ref=e2796]:
+            - generic [ref=e2797]:
+              - img [ref=e2799]
+              - generic [ref=e2802]:
+                - generic [ref=e2803]:
+                  - paragraph [ref=e2804]: Report.pdf
+                  - button "✏️ General" [ref=e2805] [cursor=pointer]:
+                    - generic [ref=e2806]: ✏️
                     - text: General
-                - paragraph [ref=e2703]: 📅 1/5/2026
-            - generic [ref=e2704]:
-              - link [ref=e2705] [cursor=pointer]:
+                - paragraph [ref=e2807]: 📅 1/5/2026
+            - generic [ref=e2808]:
+              - link [ref=e2809] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767548100324_Report.pdf
-                - img [ref=e2706]
-              - button "Delete document" [ref=e2709] [cursor=pointer]:
-                - img [ref=e2710]
-          - generic [ref=e2713]:
-            - generic [ref=e2714]:
-              - img [ref=e2716]
-              - generic [ref=e2719]:
-                - generic [ref=e2720]:
-                  - paragraph [ref=e2721]: RL.txt
-                  - button "✏️ General" [ref=e2722] [cursor=pointer]:
-                    - generic [ref=e2723]: ✏️
+                - img [ref=e2810]
+              - button "Delete document" [ref=e2813] [cursor=pointer]:
+                - img [ref=e2814]
+          - generic [ref=e2817]:
+            - generic [ref=e2818]:
+              - img [ref=e2820]
+              - generic [ref=e2823]:
+                - generic [ref=e2824]:
+                  - paragraph [ref=e2825]: RL.txt
+                  - button "✏️ General" [ref=e2826] [cursor=pointer]:
+                    - generic [ref=e2827]: ✏️
                     - text: General
-                - paragraph [ref=e2724]: 📅 1/5/2026
-            - generic [ref=e2725]:
-              - link [ref=e2726] [cursor=pointer]:
+                - paragraph [ref=e2828]: 📅 1/5/2026
+            - generic [ref=e2829]:
+              - link [ref=e2830] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767547170572_RL.txt
-                - img [ref=e2727]
-              - button "Delete document" [ref=e2730] [cursor=pointer]:
-                - img [ref=e2731]
-          - generic [ref=e2734]:
-            - generic [ref=e2735]:
-              - img [ref=e2737]
-              - generic [ref=e2740]:
-                - generic [ref=e2741]:
-                  - paragraph [ref=e2742]: plain.txt
-                  - button "✏️ General" [ref=e2743] [cursor=pointer]:
-                    - generic [ref=e2744]: ✏️
+                - img [ref=e2831]
+              - button "Delete document" [ref=e2834] [cursor=pointer]:
+                - img [ref=e2835]
+          - generic [ref=e2838]:
+            - generic [ref=e2839]:
+              - img [ref=e2841]
+              - generic [ref=e2844]:
+                - generic [ref=e2845]:
+                  - paragraph [ref=e2846]: plain.txt
+                  - button "✏️ General" [ref=e2847] [cursor=pointer]:
+                    - generic [ref=e2848]: ✏️
                     - text: General
-                - paragraph [ref=e2745]: 📅 1/5/2026
-            - generic [ref=e2746]:
-              - link [ref=e2747] [cursor=pointer]:
+                - paragraph [ref=e2849]: 📅 1/5/2026
+            - generic [ref=e2850]:
+              - link [ref=e2851] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767547103378_plain.txt
-                - img [ref=e2748]
-              - button "Delete document" [ref=e2751] [cursor=pointer]:
-                - img [ref=e2752]
-          - generic [ref=e2755]:
-            - generic [ref=e2756]:
-              - img [ref=e2758]
-              - generic [ref=e2761]:
-                - generic [ref=e2762]:
-                  - paragraph [ref=e2763]: plain_decrypted.txt
-                  - button "✏️ General" [ref=e2764] [cursor=pointer]:
-                    - generic [ref=e2765]: ✏️
+                - img [ref=e2852]
+              - button "Delete document" [ref=e2855] [cursor=pointer]:
+                - img [ref=e2856]
+          - generic [ref=e2859]:
+            - generic [ref=e2860]:
+              - img [ref=e2862]
+              - generic [ref=e2865]:
+                - generic [ref=e2866]:
+                  - paragraph [ref=e2867]: plain_decrypted.txt
+                  - button "✏️ General" [ref=e2868] [cursor=pointer]:
+                    - generic [ref=e2869]: ✏️
                     - text: General
-                - paragraph [ref=e2766]: 📅 1/5/2026
-            - generic [ref=e2767]:
-              - link [ref=e2768] [cursor=pointer]:
+                - paragraph [ref=e2870]: 📅 1/5/2026
+            - generic [ref=e2871]:
+              - link [ref=e2872] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767546969776_plain_decrypted.txt
-                - img [ref=e2769]
-              - button "Delete document" [ref=e2772] [cursor=pointer]:
-                - img [ref=e2773]
-          - generic [ref=e2776]:
-            - generic [ref=e2777]:
-              - img [ref=e2779]
-              - generic [ref=e2782]:
-                - generic [ref=e2783]:
-                  - paragraph [ref=e2784]: plain_pythondecrypted.txt
-                  - button "✏️ General" [ref=e2785] [cursor=pointer]:
-                    - generic [ref=e2786]: ✏️
+                - img [ref=e2873]
+              - button "Delete document" [ref=e2876] [cursor=pointer]:
+                - img [ref=e2877]
+          - generic [ref=e2880]:
+            - generic [ref=e2881]:
+              - img [ref=e2883]
+              - generic [ref=e2886]:
+                - generic [ref=e2887]:
+                  - paragraph [ref=e2888]: plain_pythondecrypted.txt
+                  - button "✏️ General" [ref=e2889] [cursor=pointer]:
+                    - generic [ref=e2890]: ✏️
                     - text: General
-                - paragraph [ref=e2787]: 📅 1/5/2026
-            - generic [ref=e2788]:
-              - link [ref=e2789] [cursor=pointer]:
+                - paragraph [ref=e2891]: 📅 1/5/2026
+            - generic [ref=e2892]:
+              - link [ref=e2893] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767546958806_plain_pythondecrypted.txt
-                - img [ref=e2790]
-              - button "Delete document" [ref=e2793] [cursor=pointer]:
-                - img [ref=e2794]
-          - generic [ref=e2797]:
-            - generic [ref=e2798]:
-              - img [ref=e2800]
-              - generic [ref=e2803]:
-                - generic [ref=e2804]:
-                  - paragraph [ref=e2805]: runcode.txt
-                  - button "✏️ General" [ref=e2806] [cursor=pointer]:
-                    - generic [ref=e2807]: ✏️
+                - img [ref=e2894]
+              - button "Delete document" [ref=e2897] [cursor=pointer]:
+                - img [ref=e2898]
+          - generic [ref=e2901]:
+            - generic [ref=e2902]:
+              - img [ref=e2904]
+              - generic [ref=e2907]:
+                - generic [ref=e2908]:
+                  - paragraph [ref=e2909]: runcode.txt
+                  - button "✏️ General" [ref=e2910] [cursor=pointer]:
+                    - generic [ref=e2911]: ✏️
                     - text: General
-                - paragraph [ref=e2808]: 📅 1/4/2026
-            - generic [ref=e2809]:
-              - link [ref=e2810] [cursor=pointer]:
+                - paragraph [ref=e2912]: 📅 1/4/2026
+            - generic [ref=e2913]:
+              - link [ref=e2914] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767544226955_runcode.txt
-                - img [ref=e2811]
-              - button "Delete document" [ref=e2814] [cursor=pointer]:
-                - img [ref=e2815]
-          - generic [ref=e2818]:
-            - generic [ref=e2819]:
-              - img [ref=e2821]
-              - generic [ref=e2824]:
-                - generic [ref=e2825]:
-                  - paragraph [ref=e2826]: Report.pdf
-                  - button "✏️ General" [ref=e2827] [cursor=pointer]:
-                    - generic [ref=e2828]: ✏️
+                - img [ref=e2915]
+              - button "Delete document" [ref=e2918] [cursor=pointer]:
+                - img [ref=e2919]
+          - generic [ref=e2922]:
+            - generic [ref=e2923]:
+              - img [ref=e2925]
+              - generic [ref=e2928]:
+                - generic [ref=e2929]:
+                  - paragraph [ref=e2930]: Report.pdf
+                  - button "✏️ General" [ref=e2931] [cursor=pointer]:
+                    - generic [ref=e2932]: ✏️
                     - text: General
-                - paragraph [ref=e2829]: 📅 1/4/2026
-            - generic [ref=e2830]:
-              - link [ref=e2831] [cursor=pointer]:
+                - paragraph [ref=e2933]: 📅 1/4/2026
+            - generic [ref=e2934]:
+              - link [ref=e2935] [cursor=pointer]:
                 - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/2294f03b-664d-40a5-8377-cd643d4b0fbe/1767544075915_Report.pdf
-                - img [ref=e2832]
-              - button "Delete document" [ref=e2835] [cursor=pointer]:
-                - img [ref=e2836]
+                - img [ref=e2936]
+              - button "Delete document" [ref=e2939] [cursor=pointer]:
+                - img [ref=e2940]
 ```

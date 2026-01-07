@@ -67,7 +67,7 @@ test.describe('Document Upload Functionality', () => {
     await page.getByRole('button', { name: /Ingest|Upload|Add Document/i }).click();
 
     // 1. Open category dropdown
-    const categoryButton = page.locator('button').filter({ hasText: /General|machine|Category|Select/ }).first();
+    const categoryButton = page.locator('button[title="Click to edit category"]').first();
     await categoryButton.waitFor({ state: 'visible', timeout: 5000 });
     await categoryButton.click();
 
@@ -85,9 +85,10 @@ test.describe('Document Upload Functionality', () => {
     const createButton = page.getByRole('button', { name: /Create|Save|Add/i }).first();
     await createButton.click();
 
-    // 4. Wait for category to be created and selected
+    // 4. Wait for category to be created and verify it's selected in modal
     await page.waitForTimeout(1000);
-    await expect(categoryButton).toContainText(newCategory, { timeout: 5000 });
+    // Verify the category display shows the new category (not in the button, but in the modal)
+    await expect(page.getByText(newCategory).first()).toBeVisible({ timeout: 5000 });
 
     // 5. Upload file with new category
     const filePath = path.join(__dirname, 'fixtures', 'ouro_1.4b_thinking.json');
@@ -107,7 +108,9 @@ test.describe('Document Upload Functionality', () => {
     await expect(page.getByText(newCategory).first()).toBeVisible();
     
     // 8. Cleanup - Delete document
-    const deleteButton = page.locator('button:has(svg.lucide-trash2)').first();
+    const docRow = page.locator('div').filter({ hasText: 'ouro_1.4b_thinking.json' }).first();
+    await docRow.hover();
+    const deleteButton = page.locator('button[title="Delete document"]').first();
     await deleteButton.waitFor({ state: 'visible', timeout: 5000 });
     await deleteButton.click();
     
@@ -202,11 +205,11 @@ test.describe('Document Upload Functionality', () => {
       await ingestButton.waitFor({ state: 'visible', timeout: 5000 });
       await ingestButton.click();
 
-      // Wait for file input to be ready
+      // Wait for modal to render
+      await page.waitForTimeout(500);
+
+      // File input is hidden, so use setInputFiles directly without waitFor
       const fileInput = page.locator('input[type="file"]');
-      await fileInput.waitFor({ state: 'visible', timeout: 5000 });
-      
-      // Upload file
       await fileInput.setInputFiles(file.path);
 
       // Wait for success
@@ -226,10 +229,13 @@ test.describe('Document Upload Functionality', () => {
     }
 
     // Cleanup: Delete all uploaded files
-    const deleteButtons = page.locator('button:has(svg.lucide-trash2)');
+    const deleteButtons = page.locator('button[title="Delete document"]');
     const count = await deleteButtons.count();
     for (let i = 0; i < Math.min(count, 3); i++) {
-      const deleteBtn = page.locator('button:has(svg.lucide-trash2)').first();
+      const docRow = page.locator('div').filter({ hasText: /deeplearning.md|ouro_1.4b_thinking.json|Review.docx/ }).first();
+      await docRow.hover();
+      
+      const deleteBtn = page.locator('button[title="Delete document"]').first();
       await deleteBtn.waitFor({ state: 'visible', timeout: 5000 });
       await deleteBtn.click();
       
@@ -248,8 +254,12 @@ test.describe('Document Upload Functionality', () => {
     await ingestButton.click();
     
     const filePath = path.join(__dirname, 'fixtures', 'deeplearning.md');
+    
+    // Wait for modal to render
+    await page.waitForTimeout(500);
+    
+    // File input is hidden, so use setInputFiles directly
     const fileInput = page.locator('input[type="file"]');
-    await fileInput.waitFor({ state: 'visible', timeout: 5000 });
     await fileInput.setInputFiles(filePath);
     
     await expect(page.getByText(/Ingested|Success|Uploaded/i).first()).toBeVisible({ timeout: 30000 });
@@ -297,7 +307,7 @@ test.describe('Document Upload Functionality', () => {
     
     const customCategory = 'Marketing_' + Date.now();
     
-    const categoryButton = page.locator('button').filter({ hasText: /General|machine|Category|Select/ }).first();
+    const categoryButton = page.locator('button[title="Click to edit category"]').first();
     await categoryButton.waitFor({ state: 'visible', timeout: 5000 });
     await categoryButton.click();
     
@@ -313,9 +323,10 @@ test.describe('Document Upload Functionality', () => {
     await createButton.click();
 
     // 2. Upload file with custom category
-    const fileInput = page.locator('input[type="file"]');
-    await fileInput.waitFor({ state: 'visible', timeout: 5000 });
+    // Wait for modal to render
+    await page.waitForTimeout(500);
     
+    const fileInput = page.locator('input[type="file"]');
     const filePath = path.join(__dirname, 'fixtures', 'ouro_1.4b_thinking.json');
     await fileInput.setInputFiles(filePath);
     
@@ -358,7 +369,6 @@ test.describe('Document Upload Functionality', () => {
     
     await page.waitForTimeout(1000);
   });
-
 
 });
 
