@@ -405,6 +405,9 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   const [editCategory, setEditCategory] = useState('');
   const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
   
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isCategoryFilterOpen, setIsCategoryFilterOpen] = useState(false);
+
   const fetchDocs = useCallback(async () => {
     setIsLoading(true);
     setErrorMsg(null);
@@ -425,6 +428,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
 
   useEffect(() => { fetchDocs(); }, [fetchDocs]);
 
+// In the handleUpload function, after fetchDocs() is called (around line 420)
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isAdmin) return;
     const files = e.target.files;
@@ -495,6 +499,11 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
         await new Promise(r => setTimeout(r, 800));
       }
       
+      // ADD THIS: Update categories if uploadCategory is new
+      if (!categories.includes(uploadCategory)) {
+        setCategories(prev => [...prev, uploadCategory]);
+      }
+      
       await fetchDocs();
       setShowUpload(false);
     } catch (e: any) { 
@@ -510,7 +519,7 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
       setCurrentFileName('');
     }
   };
-
+  
   const handleDelete = async (doc: Document) => {
     if (!isAdmin || !window.confirm(`Permanently remove ${doc.file_name}?`)) return;
     try {
@@ -542,11 +551,16 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
   };
 
   const filteredDocs = useMemo(() => {
-    return (documents || []).filter(d => 
-      d.file_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      d.category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [documents, searchTerm]);
+    return (documents || []).filter(d => {
+      const matchesSearch = d.file_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        d.category.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      // Add category filter logic
+      const matchesCategory = !selectedCategory || d.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [documents, searchTerm, selectedCategory]);
 
   return (
     <div className="p-10 max-w-6xl mx-auto w-full h-full flex flex-col">
@@ -725,15 +739,67 @@ const DocumentLibrary: React.FC<DocumentLibraryProps> = ({ user, workspace }) =>
 
       <div className="bg-white border border-slate-200 rounded-[2.5rem] flex-1 overflow-hidden flex flex-col shadow-xl">
         <div className="p-8 border-b border-slate-100 flex items-center gap-5 bg-slate-50/30">
-           <Search size={22} className="text-slate-300" />
-           <input 
+          <Search size={22} className="text-slate-300" />
+          <input 
             placeholder="Search Intelligence Vault records..." 
             className="w-full bg-transparent outline-none font-bold text-slate-800 placeholder:text-slate-300 text-lg" 
             value={searchTerm} 
             onChange={e => setSearchTerm(e.target.value)} 
           />
-        </div>
-        
+          
+          {/* NEW: Category Filter Button */}
+          <div className="relative ml-auto">
+            <button
+              onClick={() => setIsCategoryFilterOpen(!isCategoryFilterOpen)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs uppercase transition-all whitespace-nowrap ${
+                selectedCategory 
+                  ? 'bg-indigo-100 text-indigo-700 border border-indigo-300' 
+                  : 'bg-slate-100 text-slate-600 border border-slate-200 hover:border-indigo-300'
+              }`}
+              title="Filter by category"
+            >
+              <span>🏷️</span> {selectedCategory || 'All Categories'}
+              <ChevronDown size={14} className={`transition-transform ${isCategoryFilterOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Filter Dropdown */}
+            {isCategoryFilterOpen && (
+              <div className="absolute right-0 mt-2 bg-white border-2 border-indigo-100 rounded-xl shadow-2xl z-50 py-2 min-w-max animate-in fade-in zoom-in-95">
+                {/* Show All */}
+                <button
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    setIsCategoryFilterOpen(false);
+                  }}
+                  className={`block w-full px-6 py-3 text-left text-sm font-bold hover:bg-indigo-50 transition-colors ${
+                    !selectedCategory ? 'bg-indigo-100 text-indigo-700' : 'text-slate-700'
+                  }`}
+                >
+                  ✓ All Categories
+                </button>
+
+                {/* Divider */}
+                <div className="h-px bg-slate-100 my-2"></div>
+
+                {/* Category Options */}
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      setSelectedCategory(cat);
+                      setIsCategoryFilterOpen(false);
+                    }}
+                    className={`block w-full px-6 py-3 text-left text-sm font-bold hover:bg-indigo-50 transition-colors ${
+                      selectedCategory === cat ? 'bg-indigo-100 text-indigo-700' : 'text-slate-700'
+                    }`}
+                  >
+                    ✓ {cat}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>        
         <div className="flex-1 overflow-y-auto custom-scrollbar">
           {isLoading ? (
             <div className="p-32 text-center animate-pulse">
