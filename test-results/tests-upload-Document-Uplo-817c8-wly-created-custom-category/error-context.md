@@ -1,0 +1,179 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e10]: PathFinder
+    - generic [ref=e12]:
+      - generic [ref=e13]: V
+      - generic [ref=e14]:
+        - paragraph [ref=e15]: Active Vault
+        - paragraph [ref=e16]: Main Intelligence Vault
+    - navigation [ref=e17]:
+      - button "Conversation" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e21]: Conversation
+      - button "Document Library" [ref=e22] [cursor=pointer]:
+        - img [ref=e23]
+        - generic [ref=e25]: Document Library
+      - button "Team & Settings" [ref=e26] [cursor=pointer]:
+        - img [ref=e27]
+        - generic [ref=e30]: Team & Settings
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]: A
+        - generic [ref=e34]:
+          - paragraph [ref=e35]: admin
+          - paragraph [ref=e36]: Administrator
+      - button "End Session" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - text: End Session
+  - main [ref=e41]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - heading "Intelligence Vault" [level=1] [ref=e45]
+          - paragraph [ref=e46]:
+            - img [ref=e47]
+            - text: Cloud-Managed Knowledge Asset Management
+        - generic [ref=e49]:
+          - button "Clear Vault" [ref=e50] [cursor=pointer]:
+            - img [ref=e51]
+            - text: Clear Vault
+          - button "Close" [ref=e54] [cursor=pointer]:
+            - img [ref=e55]
+            - text: Close
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - generic [ref=e62]: 📁 Classification Category
+          - button "ML-Research_17678032" [ref=e63] [cursor=pointer]:
+            - generic [ref=e64]: ML-Research_17678032
+            - img [ref=e65]
+        - generic [ref=e68] [cursor=pointer]:
+          - img [ref=e69]
+          - paragraph [ref=e73]: 📤 SELECT VAULT ASSETS
+          - paragraph [ref=e74]: "Supported: PDF, DOCX, CSV, JSON, HTML, TXT, MD, RTF"
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - img [ref=e77]
+          - textbox "Search Intelligence Vault records..." [ref=e80]
+          - button "🏷️ All Categories" [ref=e82] [cursor=pointer]:
+            - generic [ref=e83]: 🏷️
+            - text: All Categories
+            - img [ref=e84]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - img [ref=e91]
+              - generic [ref=e94]:
+                - generic [ref=e95]:
+                  - paragraph [ref=e96]: deeplearning.md
+                  - button "✏️ General" [ref=e97] [cursor=pointer]:
+                    - generic [ref=e98]: ✏️
+                    - text: General
+                - paragraph [ref=e99]: 📅 1/7/2026
+            - generic [ref=e100]:
+              - link [ref=e101] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767803225852_deeplearning.md
+                - img [ref=e102]
+              - button "Delete document" [ref=e105] [cursor=pointer]:
+                - img [ref=e106]
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - img [ref=e112]
+              - generic [ref=e116]:
+                - generic [ref=e117]:
+                  - paragraph [ref=e118]: ouro_1.4b_thinking.json
+                  - button "✏️ General" [ref=e119] [cursor=pointer]:
+                    - generic [ref=e120]: ✏️
+                    - text: General
+                - paragraph [ref=e121]: 📅 1/7/2026
+            - generic [ref=e122]:
+              - link [ref=e123] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767790608891_ouro_1.4b_thinking.json
+                - img [ref=e124]
+              - button "Delete document" [ref=e127] [cursor=pointer]:
+                - img [ref=e128]
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - img [ref=e134]
+              - generic [ref=e137]:
+                - generic [ref=e138]:
+                  - paragraph [ref=e139]: deeplearning.md
+                  - button "✏️ General" [ref=e140] [cursor=pointer]:
+                    - generic [ref=e141]: ✏️
+                    - text: General
+                - paragraph [ref=e142]: 📅 1/7/2026
+            - generic [ref=e143]:
+              - link [ref=e144] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767790603427_deeplearning.md
+                - img [ref=e145]
+              - button "Delete document" [ref=e148] [cursor=pointer]:
+                - img [ref=e149]
+          - generic [ref=e152]:
+            - generic [ref=e153]:
+              - img [ref=e155]
+              - generic [ref=e158]:
+                - generic [ref=e159]:
+                  - paragraph [ref=e160]: Sales_Process.pdf
+                  - button "✏️ General" [ref=e161] [cursor=pointer]:
+                    - generic [ref=e162]: ✏️
+                    - text: General
+                - paragraph [ref=e163]: 📅 1/7/2026
+            - generic [ref=e164]:
+              - link [ref=e165] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767787498950_Sales_Process.pdf
+                - img [ref=e166]
+              - button "Delete document" [ref=e169] [cursor=pointer]:
+                - img [ref=e170]
+          - generic [ref=e173]:
+            - generic [ref=e174]:
+              - img [ref=e176]
+              - generic [ref=e179]:
+                - generic [ref=e180]:
+                  - paragraph [ref=e181]: IT_Security_Guide.pdf
+                  - button "✏️ General" [ref=e182] [cursor=pointer]:
+                    - generic [ref=e183]: ✏️
+                    - text: General
+                - paragraph [ref=e184]: 📅 1/7/2026
+            - generic [ref=e185]:
+              - link [ref=e186] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767787497067_IT_Security_Guide.pdf
+                - img [ref=e187]
+              - button "Delete document" [ref=e190] [cursor=pointer]:
+                - img [ref=e191]
+          - generic [ref=e194]:
+            - generic [ref=e195]:
+              - img [ref=e197]
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - paragraph [ref=e202]: HR_Policy_2025.pdf
+                  - button "✏️ General" [ref=e203] [cursor=pointer]:
+                    - generic [ref=e204]: ✏️
+                    - text: General
+                - paragraph [ref=e205]: 📅 1/7/2026
+            - generic [ref=e206]:
+              - link [ref=e207] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767787494216_HR_Policy_2025.pdf
+                - img [ref=e208]
+              - button "Delete document" [ref=e211] [cursor=pointer]:
+                - img [ref=e212]
+          - generic [ref=e215]:
+            - generic [ref=e216]:
+              - img [ref=e218]
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - paragraph [ref=e223]: hollowknight.txt
+                  - button "✏️ General" [ref=e224] [cursor=pointer]:
+                    - generic [ref=e225]: ✏️
+                    - text: General
+                - paragraph [ref=e226]: 📅 1/7/2026
+            - generic [ref=e227]:
+              - link [ref=e228] [cursor=pointer]:
+                - /url: https://xwjcjhqzpxgeppvpdfml.supabase.co/storage/v1/object/public/documents/a9eeaf74-6665-4b67-89d3-d84dd75383bc/1767787492099_hollowknight.txt
+                - img [ref=e229]
+              - button "Delete document" [ref=e232] [cursor=pointer]:
+                - img [ref=e233]
+```

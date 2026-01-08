@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
-import { X, Mail, Shield, Send, Loader2, CheckCircle, MailPlus } from 'lucide-react';
+import { X, Mail, Shield, Send, Loader2, CheckCircle, MailPlus, AlertCircle } from 'lucide-react';
 import { UserRole } from '../types';
 import { supabaseService } from '../services/supabase';
+import { sendInvitationEmail } from '../services/invitation';
 
 interface InviteMemberModalProps {
   onClose: () => void;
@@ -14,7 +14,8 @@ const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ onClose, onSucces
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<UserRole>(UserRole.USER);
   const [isSending, setIsSending] = useState(false);
-  const [step, setStep] = useState<'form' | 'success'>('form');
+  const [step, setStep] = useState<'form' | 'success' | 'error'>('form');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInvite = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,20 +23,24 @@ const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ onClose, onSucces
 
     setIsSending(true);
     try {
-      // 1. Create the invitation in Supabase with workspace scope
+      // 1. Create invitation record in Supabase
       await supabaseService.createInvitation(email, role, workspaceId);
-      
-      // 2. Simulate Google Mail dispatch
-      // In a real app, this would trigger an Edge Function with SendGrid/Nodemailer
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
+      // 2. Send invitation email via Edge Function
+      const emailResult = await sendInvitationEmail(email, role, workspaceId);
+
+      if (!emailResult.success) {
+        throw new Error(emailResult.error || 'Failed to send invitation email');
+      }
+
       setStep('success');
       setTimeout(() => {
         onSuccess();
         onClose();
-      }, 2000);
+      }, 2500);
     } catch (error: any) {
-      alert(`Invitation Error: ${error.message}`);
+      setErrorMessage(error.message || 'An unexpected error occurred');
+      setStep('error');
     } finally {
       setIsSending(false);
     }
@@ -47,6 +52,7 @@ const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ onClose, onSucces
         <button 
           onClick={onClose}
           className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-all"
+          title="Close invite modal"
         >
           <X size={20} />
         </button>
@@ -74,7 +80,9 @@ const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ onClose, onSucces
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="teammate@company.com"
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all font-medium"
+                    disabled={isSending}
+                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all font-medium disabled:opacity-50"
+                    title="Enter teammate email address"
                   />
                 </div>
               </div>
@@ -82,38 +90,34 @@ const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ onClose, onSucces
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest px-1">Security Role</label>
                 <div className="grid grid-cols-2 gap-3">
-                  <button 
-                    type="button"
-                    onClick={() => setRole(UserRole.USER)}
-                    className={`p-4 rounded-2xl border-2 transition-all flex flex-col gap-2 items-start ${
-                      role === UserRole.USER ? 'border-indigo-600 bg-indigo-50/50' : 'border-slate-100 bg-white hover:border-slate-200'
-                    }`}
-                  >
-                    <Shield size={18} className={role === UserRole.USER ? 'text-indigo-600' : 'text-slate-400'} />
-                    <span className="text-xs font-bold">{UserRole.USER}</span>
-                  </button>
-                  <button 
-                    type="button"
-                    onClick={() => setRole(UserRole.ADMIN)}
-                    className={`p-4 rounded-2xl border-2 transition-all flex flex-col gap-2 items-start ${
-                      role === UserRole.ADMIN ? 'border-indigo-600 bg-indigo-50/50' : 'border-slate-100 bg-white hover:border-slate-200'
-                    }`}
-                  >
-                    <Shield size={18} className={role === UserRole.ADMIN ? 'text-indigo-600' : 'text-slate-400'} />
-                    <span className="text-xs font-bold">{UserRole.ADMIN}</span>
-                  </button>
+                  {[UserRole.USER, UserRole.ADMIN].map((roleOption) => (
+                    <button 
+                      key={roleOption}
+                      type="button"
+                      onClick={() => setRole(roleOption)}
+                      disabled={isSending}
+                      className={`p-4 rounded-2xl border-2 transition-all flex flex-col gap-2 items-start disabled:opacity-50 ${
+                        role === roleOption ? 'border-indigo-600 bg-indigo-50/50' : 'border-slate-100 bg-white hover:border-slate-200'
+                      }`}
+                      title={`Select ${roleOption} role`}
+                    >
+                      <Shield size={18} className={role === roleOption ? 'text-indigo-600' : 'text-slate-400'} />
+                      <span className="text-xs font-bold">{roleOption}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
 
               <button 
                 type="submit"
-                disabled={isSending}
-                className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-xl hover:bg-black transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50"
+                disabled={isSending || !email}
+                className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-xl hover:bg-black transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Send invitation email"
               >
                 {isSending ? (
                   <>
                     <Loader2 size={20} className="animate-spin" />
-                    Dispatching via Google Mail...
+                    Sending invitation...
                   </>
                 ) : (
                   <>
@@ -124,18 +128,33 @@ const InviteMemberModal: React.FC<InviteMemberModalProps> = ({ onClose, onSucces
               </button>
             </form>
           </div>
-        ) : (
+        ) : step === 'success' ? (
           <div className="p-10 text-center animate-in zoom-in-95">
             <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-[2rem] flex items-center justify-center mx-auto mb-6">
               <CheckCircle size={40} />
             </div>
-            <h2 className="text-2xl font-black text-slate-900 mb-2">Invite Dispatched!</h2>
+            <h2 className="text-2xl font-black text-slate-900 mb-2">Invite Sent!</h2>
             <p className="text-slate-500 mb-8">
-              A secure activation link has been sent to <span className="text-slate-900 font-bold">{email}</span>.
+              Invitation email sent to <span className="text-slate-900 font-bold">{email}</span>. They'll receive an activation link.
             </p>
-            <div className="bg-slate-50 p-4 rounded-2xl text-[10px] text-slate-400 uppercase font-black tracking-widest">
-              Notification sent to your admin panel
+            <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl text-[10px] text-emerald-700 uppercase font-black tracking-widest">
+              ✓ Email delivered successfully
             </div>
+          </div>
+        ) : (
+          <div className="p-10 text-center animate-in zoom-in-95">
+            <div className="w-20 h-20 bg-red-100 text-red-600 rounded-[2rem] flex items-center justify-center mx-auto mb-6">
+              <AlertCircle size={40} />
+            </div>
+            <h2 className="text-2xl font-black text-slate-900 mb-2">Send Failed</h2>
+            <p className="text-slate-500 mb-4">{errorMessage}</p>
+            <button 
+              onClick={() => setStep('form')}
+              className="w-full bg-slate-900 text-white py-3 rounded-2xl font-bold hover:bg-black transition-all"
+              title="Retry sending invitation"
+            >
+              Try Again
+            </button>
           </div>
         )}
       </div>
