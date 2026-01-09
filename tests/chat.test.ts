@@ -1,3 +1,26 @@
+/**
+ * @fileoverview Test suite for Smart Chat Functionality in the PathFinder application.
+ * 
+ * This file contains comprehensive end-to-end tests using Playwright to validate various
+ * aspects of the chat system, including message sending, response handling, history persistence,
+ * citations, filtering, feedback, and UI states.
+ * 
+ * @description
+ * The tests cover the following scenarios:
+ * - Sending messages and receiving AI responses (TC01)
+ * - Persistence of chat history across page reloads (TC02)
+ * - Clearing conversation history (TC03)
+ * - Displaying and interacting with document citations (TC04)
+ * - Filtering documents by category (TC05)
+ * - Providing feedback on AI responses (TC06)
+ * - Handling empty chat states (TC07)
+ * - Managing long responses with proper scrolling (TC08)
+ * 
+ * Helper functions are provided for common actions like login and navigation.
+ * 
+ * @requires @playwright/test
+ * @requires Application running on http://localhost:3000
+ */
 import { test, expect, Page } from '@playwright/test';
 
 // Helper function for login

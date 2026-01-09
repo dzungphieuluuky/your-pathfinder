@@ -13,7 +13,7 @@
 - **Build:** `npm run build`
 - **Run tests:** `npx playwright test tests/upload.test.ts` (see test file for more options)
 - **Supabase setup:** Run SQL from `supabase_setup.txt` in Supabase SQL Editor to enable RLS and storage policies.
-- **Environment:** Set keys in `.env.local` (see README for required variables).
+- **Environment:** Set keys in `.env.local`: `API_KEY` (Gemini), `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (VITE_ prefixes also supported).
 
 ## Document Handling Patterns
 - **File types supported:** PDF, DOCX, DOC, TXT, MD, HTML, RTF, CSV, JSON, XLSX/XLS (see `SUPPORTED_FILE_TYPES` in `DocumentLibrary.tsx`).

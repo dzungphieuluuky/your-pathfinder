@@ -1,3 +1,21 @@
+/**
+ * @fileoverview Test suite for Document Upload Functionality in PathFinder application.
+ * 
+ * This file contains Playwright tests that verify the document upload features,
+ * including single and batch uploads, permissions, category management, file type support,
+ * deletion, and filtering. Tests ensure proper UI interactions, state management,
+ * and backend integration for admins and regular users.
+ * 
+ * @requires @playwright/test - Playwright testing framework
+ * @requires path - Node.js path module
+ * @requires url - Node.js URL module for ES modules
+ * 
+ * Prerequisites for running tests:
+ * - Application running on http://localhost:3000
+ * - Test fixture files in tests/fixtures/ folder (e.g., deeplearning.md, ouro_1.4b_thinking.json, Review.docx)
+ * 
+ * Run tests with: npx playwright test tests/upload.test.ts
+ */
 import { test, expect, Page } from '@playwright/test';
 import path from 'path';
 import { fileURLToPath } from 'url';
