@@ -1,0 +1,732 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e10]: PathFinder
+    - generic [ref=e12]:
+      - generic [ref=e13]: V
+      - generic [ref=e14]:
+        - paragraph [ref=e15]: Active Vault
+        - paragraph [ref=e16]: Main Intelligence Vault
+    - navigation [ref=e17]:
+      - button "Conversation" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e21]: Conversation
+      - button "Document Library" [ref=e22] [cursor=pointer]:
+        - img [ref=e23]
+        - generic [ref=e25]: Document Library
+      - button "Team & Settings" [ref=e26] [cursor=pointer]:
+        - img [ref=e27]
+        - generic [ref=e30]: Team & Settings
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]: A
+        - generic [ref=e34]:
+          - paragraph [ref=e35]: admin
+          - paragraph [ref=e36]: Administrator
+      - button "End Session" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - text: End Session
+  - main [ref=e41]:
+    - generic [ref=e42]:
+      - generic [ref=e45]:
+        - img [ref=e47]
+        - generic [ref=e50]:
+          - heading "Workspace Settings" [level=1] [ref=e51]
+          - paragraph [ref=e52]: Manage your account and workspace access
+      - generic [ref=e54]:
+        - generic [ref=e57]:
+          - button "Profile" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]:
+              - img [ref=e60]
+              - generic [ref=e63]: Profile
+          - button "Security" [ref=e64] [cursor=pointer]:
+            - generic [ref=e65]:
+              - img [ref=e66]
+              - generic [ref=e69]: Security
+          - button "Admin Panel 6" [ref=e70] [cursor=pointer]:
+            - generic [ref=e71]:
+              - img [ref=e72]
+              - generic [ref=e74]: Admin Panel
+            - generic [ref=e75]: "6"
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - heading "⚙️ Admin Controls" [level=2] [ref=e80]
+            - paragraph [ref=e81]: Manage workspace members and invitations
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - generic [ref=e84]:
+                - heading "👥 Workspace Membership" [level=3] [ref=e85]
+                - paragraph [ref=e86]: Send invitations via secure email dispatch
+              - button "Invite Member" [ref=e87] [cursor=pointer]:
+                - img [ref=e88]
+                - text: Invite Member
+            - generic [ref=e91]:
+              - generic [ref=e92]:
+                - heading "Pending Invitations" [level=4] [ref=e93]:
+                  - img [ref=e94]
+                  - text: Pending Invitations
+                - generic [ref=e97]: "70"
+              - table [ref=e99]:
+                - rowgroup [ref=e100]:
+                  - row "📧 Email 👤 Role ⚡ Status 📅 Date 🎯 Actions" [ref=e101]:
+                    - columnheader "📧 Email" [ref=e102] [cursor=pointer]:
+                      - generic [ref=e103]:
+                        - text: 📧 Email
+                        - img [ref=e104]
+                    - columnheader "👤 Role" [ref=e107] [cursor=pointer]:
+                      - generic [ref=e108]:
+                        - text: 👤 Role
+                        - img [ref=e109]
+                    - columnheader "⚡ Status" [ref=e112] [cursor=pointer]:
+                      - generic [ref=e113]:
+                        - text: ⚡ Status
+                        - img [ref=e114]
+                    - columnheader "📅 Date" [ref=e117] [cursor=pointer]:
+                      - generic [ref=e118]:
+                        - text: 📅 Date
+                        - img [ref=e119]
+                    - columnheader "🎯 Actions" [ref=e122]
+                - rowgroup [ref=e123]:
+                  - row "edge_function_1767948239930@test.com End-User pending Jan 9, 2026" [ref=e124]:
+                    - cell "edge_function_1767948239930@test.com" [ref=e125]
+                    - cell "End-User" [ref=e126]
+                    - cell "pending" [ref=e127]:
+                      - generic [ref=e128]: pending
+                    - cell "Jan 9, 2026" [ref=e129]
+                    - cell [ref=e130]
+                  - row "edge_function_1767948239930@test.com End-User ⏳Pending Jan 9, 2026" [ref=e131]:
+                    - cell "edge_function_1767948239930@test.com" [ref=e132]
+                    - cell "End-User" [ref=e133]
+                    - cell "⏳Pending" [ref=e134]:
+                      - generic [ref=e135]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e136]
+                    - cell [ref=e137]:
+                      - button "Revoke Invitation" [ref=e138] [cursor=pointer]:
+                        - img [ref=e139]
+                  - row "seq2_1767948238699@test.com End-User ⏳Pending Jan 9, 2026" [ref=e143]:
+                    - cell "seq2_1767948238699@test.com" [ref=e144]
+                    - cell "End-User" [ref=e145]
+                    - cell "⏳Pending" [ref=e146]:
+                      - generic [ref=e147]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e148]
+                    - cell [ref=e149]:
+                      - button "Revoke Invitation" [ref=e150] [cursor=pointer]:
+                        - img [ref=e151]
+                  - row "seq2_1767948238699@test.com End-User pending Jan 9, 2026" [ref=e155]:
+                    - cell "seq2_1767948238699@test.com" [ref=e156]
+                    - cell "End-User" [ref=e157]
+                    - cell "pending" [ref=e158]:
+                      - generic [ref=e159]: pending
+                    - cell "Jan 9, 2026" [ref=e160]
+                    - cell [ref=e161]
+                  - row "user+test_1767948237621@company.co.uk End-User pending Jan 9, 2026" [ref=e162]:
+                    - cell "user+test_1767948237621@company.co.uk" [ref=e163]
+                    - cell "End-User" [ref=e164]
+                    - cell "pending" [ref=e165]:
+                      - generic [ref=e166]: pending
+                    - cell "Jan 9, 2026" [ref=e167]
+                    - cell [ref=e168]
+                  - row "user+test_1767948237621@company.co.uk End-User ⏳Pending Jan 9, 2026" [ref=e169]:
+                    - cell "user+test_1767948237621@company.co.uk" [ref=e170]
+                    - cell "End-User" [ref=e171]
+                    - cell "⏳Pending" [ref=e172]:
+                      - generic [ref=e173]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e174]
+                    - cell [ref=e175]:
+                      - button "Revoke Invitation" [ref=e176] [cursor=pointer]:
+                        - img [ref=e177]
+                  - row "checkicon_1767948228776@test.com End-User pending Jan 9, 2026" [ref=e181]:
+                    - cell "checkicon_1767948228776@test.com" [ref=e182]
+                    - cell "End-User" [ref=e183]
+                    - cell "pending" [ref=e184]:
+                      - generic [ref=e185]: pending
+                    - cell "Jan 9, 2026" [ref=e186]
+                    - cell [ref=e187]
+                  - row "seq1_1767948233222@test.com End-User pending Jan 9, 2026" [ref=e188]:
+                    - cell "seq1_1767948233222@test.com" [ref=e189]
+                    - cell "End-User" [ref=e190]
+                    - cell "pending" [ref=e191]:
+                      - generic [ref=e192]: pending
+                    - cell "Jan 9, 2026" [ref=e193]
+                    - cell [ref=e194]
+                  - row "seq1_1767948233222@test.com End-User ⏳Pending Jan 9, 2026" [ref=e195]:
+                    - cell "seq1_1767948233222@test.com" [ref=e196]
+                    - cell "End-User" [ref=e197]
+                    - cell "⏳Pending" [ref=e198]:
+                      - generic [ref=e199]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e200]
+                    - cell [ref=e201]:
+                      - button "Revoke Invitation" [ref=e202] [cursor=pointer]:
+                        - img [ref=e203]
+                  - row "error_1767948232160@test.com End-User ⏳Pending Jan 9, 2026" [ref=e207]:
+                    - cell "error_1767948232160@test.com" [ref=e208]
+                    - cell "End-User" [ref=e209]
+                    - cell "⏳Pending" [ref=e210]:
+                      - generic [ref=e211]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e212]
+                    - cell [ref=e213]:
+                      - button "Revoke Invitation" [ref=e214] [cursor=pointer]:
+                        - img [ref=e215]
+                  - row "autoclose_1767948230114@test.com End-User pending Jan 9, 2026" [ref=e219]:
+                    - cell "autoclose_1767948230114@test.com" [ref=e220]
+                    - cell "End-User" [ref=e221]
+                    - cell "pending" [ref=e222]:
+                      - generic [ref=e223]: pending
+                    - cell "Jan 9, 2026" [ref=e224]
+                    - cell [ref=e225]
+                  - row "autoclose_1767948230114@test.com End-User ⏳Pending Jan 9, 2026" [ref=e226]:
+                    - cell "autoclose_1767948230114@test.com" [ref=e227]
+                    - cell "End-User" [ref=e228]
+                    - cell "⏳Pending" [ref=e229]:
+                      - generic [ref=e230]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e231]
+                    - cell [ref=e232]:
+                      - button "Revoke Invitation" [ref=e233] [cursor=pointer]:
+                        - img [ref=e234]
+                  - row "checkicon_1767948228776@test.com End-User ⏳Pending Jan 9, 2026" [ref=e238]:
+                    - cell "checkicon_1767948228776@test.com" [ref=e239]
+                    - cell "End-User" [ref=e240]
+                    - cell "⏳Pending" [ref=e241]:
+                      - generic [ref=e242]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e243]
+                    - cell [ref=e244]:
+                      - button "Revoke Invitation" [ref=e245] [cursor=pointer]:
+                        - img [ref=e246]
+                  - row "success_1767948228578@company.com End-User pending Jan 9, 2026" [ref=e250]:
+                    - cell "success_1767948228578@company.com" [ref=e251]
+                    - cell "End-User" [ref=e252]
+                    - cell "pending" [ref=e253]:
+                      - generic [ref=e254]: pending
+                    - cell "Jan 9, 2026" [ref=e255]
+                    - cell [ref=e256]
+                  - row "success_1767948228578@company.com End-User ⏳Pending Jan 9, 2026" [ref=e257]:
+                    - cell "success_1767948228578@company.com" [ref=e258]
+                    - cell "End-User" [ref=e259]
+                    - cell "⏳Pending" [ref=e260]:
+                      - generic [ref=e261]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e262]
+                    - cell [ref=e263]:
+                      - button "Revoke Invitation" [ref=e264] [cursor=pointer]:
+                        - img [ref=e265]
+                  - row "user_1767948223949@test.com End-User pending Jan 9, 2026" [ref=e269]:
+                    - cell "user_1767948223949@test.com" [ref=e270]
+                    - cell "End-User" [ref=e271]
+                    - cell "pending" [ref=e272]:
+                      - generic [ref=e273]: pending
+                    - cell "Jan 9, 2026" [ref=e274]
+                    - cell [ref=e275]
+                  - row "loading_1767948225078@test.com End-User pending Jan 9, 2026" [ref=e276]:
+                    - cell "loading_1767948225078@test.com" [ref=e277]
+                    - cell "End-User" [ref=e278]
+                    - cell "pending" [ref=e279]:
+                      - generic [ref=e280]: pending
+                    - cell "Jan 9, 2026" [ref=e281]
+                    - cell [ref=e282]
+                  - row "loading_1767948225078@test.com End-User ⏳Pending Jan 9, 2026" [ref=e283]:
+                    - cell "loading_1767948225078@test.com" [ref=e284]
+                    - cell "End-User" [ref=e285]
+                    - cell "⏳Pending" [ref=e286]:
+                      - generic [ref=e287]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e288]
+                    - cell [ref=e289]:
+                      - button "Revoke Invitation" [ref=e290] [cursor=pointer]:
+                        - img [ref=e291]
+                  - row "user_1767948223949@test.com End-User ⏳Pending Jan 9, 2026" [ref=e295]:
+                    - cell "user_1767948223949@test.com" [ref=e296]
+                    - cell "End-User" [ref=e297]
+                    - cell "⏳Pending" [ref=e298]:
+                      - generic [ref=e299]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e300]
+                    - cell [ref=e301]:
+                      - button "Revoke Invitation" [ref=e302] [cursor=pointer]:
+                        - img [ref=e303]
+                  - row "nakiet23@clc.fitus.edu.vn End-User pending Jan 9, 2026" [ref=e307]:
+                    - cell "nakiet23@clc.fitus.edu.vn" [ref=e308]
+                    - cell "End-User" [ref=e309]
+                    - cell "pending" [ref=e310]:
+                      - generic [ref=e311]: pending
+                    - cell "Jan 9, 2026" [ref=e312]
+                    - cell [ref=e313]
+                  - row "nakiet23@clc.fitus.edu.vn End-User ⏳Pending Jan 9, 2026" [ref=e314]:
+                    - cell "nakiet23@clc.fitus.edu.vn" [ref=e315]
+                    - cell "End-User" [ref=e316]
+                    - cell "⏳Pending" [ref=e317]:
+                      - generic [ref=e318]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e319]
+                    - cell [ref=e320]:
+                      - button "Revoke Invitation" [ref=e321] [cursor=pointer]:
+                        - img [ref=e322]
+                  - row "user_1767945698976@test.com End-User pending Jan 9, 2026" [ref=e326]:
+                    - cell "user_1767945698976@test.com" [ref=e327]
+                    - cell "End-User" [ref=e328]
+                    - cell "pending" [ref=e329]:
+                      - generic [ref=e330]: pending
+                    - cell "Jan 9, 2026" [ref=e331]
+                    - cell [ref=e332]
+                  - row "user_1767945698976@test.com End-User ⏳Pending Jan 9, 2026" [ref=e333]:
+                    - cell "user_1767945698976@test.com" [ref=e334]
+                    - cell "End-User" [ref=e335]
+                    - cell "⏳Pending" [ref=e336]:
+                      - generic [ref=e337]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e338]
+                    - cell [ref=e339]:
+                      - button "Revoke Invitation" [ref=e340] [cursor=pointer]:
+                        - img [ref=e341]
+                  - row "user_1767945536702@test.com End-User pending Jan 9, 2026" [ref=e345]:
+                    - cell "user_1767945536702@test.com" [ref=e346]
+                    - cell "End-User" [ref=e347]
+                    - cell "pending" [ref=e348]:
+                      - generic [ref=e349]: pending
+                    - cell "Jan 9, 2026" [ref=e350]
+                    - cell [ref=e351]
+                  - row "user_1767945536702@test.com End-User ⏳Pending Jan 9, 2026" [ref=e352]:
+                    - cell "user_1767945536702@test.com" [ref=e353]
+                    - cell "End-User" [ref=e354]
+                    - cell "⏳Pending" [ref=e355]:
+                      - generic [ref=e356]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e357]
+                    - cell [ref=e358]:
+                      - button "Revoke Invitation" [ref=e359] [cursor=pointer]:
+                        - img [ref=e360]
+                  - row "user_1767945250817@test.com End-User pending Jan 9, 2026" [ref=e364]:
+                    - cell "user_1767945250817@test.com" [ref=e365]
+                    - cell "End-User" [ref=e366]
+                    - cell "pending" [ref=e367]:
+                      - generic [ref=e368]: pending
+                    - cell "Jan 9, 2026" [ref=e369]
+                    - cell [ref=e370]
+                  - row "user_1767945250817@test.com End-User ⏳Pending Jan 9, 2026" [ref=e371]:
+                    - cell "user_1767945250817@test.com" [ref=e372]
+                    - cell "End-User" [ref=e373]
+                    - cell "⏳Pending" [ref=e374]:
+                      - generic [ref=e375]: ⏳Pending
+                    - cell "Jan 9, 2026" [ref=e376]
+                    - cell [ref=e377]:
+                      - button "Revoke Invitation" [ref=e378] [cursor=pointer]:
+                        - img [ref=e379]
+                  - row "khoa36096@gmail.com End-User pending Jan 8, 2026" [ref=e383]:
+                    - cell "khoa36096@gmail.com" [ref=e384]
+                    - cell "End-User" [ref=e385]
+                    - cell "pending" [ref=e386]:
+                      - generic [ref=e387]: pending
+                    - cell "Jan 8, 2026" [ref=e388]
+                    - cell [ref=e389]
+                  - row "khoa36096@gmail.com End-User ⏳Pending Jan 8, 2026" [ref=e390]:
+                    - cell "khoa36096@gmail.com" [ref=e391]
+                    - cell "End-User" [ref=e392]
+                    - cell "⏳Pending" [ref=e393]:
+                      - generic [ref=e394]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e395]
+                    - cell [ref=e396]:
+                      - button "Revoke Invitation" [ref=e397] [cursor=pointer]:
+                        - img [ref=e398]
+                  - row "khoa24edu@gmail.com End-User pending Jan 8, 2026" [ref=e402]:
+                    - cell "khoa24edu@gmail.com" [ref=e403]
+                    - cell "End-User" [ref=e404]
+                    - cell "pending" [ref=e405]:
+                      - generic [ref=e406]: pending
+                    - cell "Jan 8, 2026" [ref=e407]
+                    - cell [ref=e408]
+                  - row "khoa24edu@gmail.com End-User ⏳Pending Jan 8, 2026" [ref=e409]:
+                    - cell "khoa24edu@gmail.com" [ref=e410]
+                    - cell "End-User" [ref=e411]
+                    - cell "⏳Pending" [ref=e412]:
+                      - generic [ref=e413]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e414]
+                    - cell [ref=e415]:
+                      - button "Revoke Invitation" [ref=e416] [cursor=pointer]:
+                        - img [ref=e417]
+                  - row "pndung23@clc.fitus.edu.vn End-User pending Jan 8, 2026" [ref=e421]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e422]
+                    - cell "End-User" [ref=e423]
+                    - cell "pending" [ref=e424]:
+                      - generic [ref=e425]: pending
+                    - cell "Jan 8, 2026" [ref=e426]
+                    - cell [ref=e427]
+                  - row "pndung23@clc.fitus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e428]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e429]
+                    - cell "End-User" [ref=e430]
+                    - cell "⏳Pending" [ref=e431]:
+                      - generic [ref=e432]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e433]
+                    - cell [ref=e434]:
+                      - button "Revoke Invitation" [ref=e435] [cursor=pointer]:
+                        - img [ref=e436]
+                  - row "khoa36096@gmail.com End-User ⏳Pending Jan 8, 2026" [ref=e440]:
+                    - cell "khoa36096@gmail.com" [ref=e441]
+                    - cell "End-User" [ref=e442]
+                    - cell "⏳Pending" [ref=e443]:
+                      - generic [ref=e444]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e445]
+                    - cell [ref=e446]:
+                      - button "Revoke Invitation" [ref=e447] [cursor=pointer]:
+                        - img [ref=e448]
+                  - row "23127003@student.hcmus.edu.vn End-User pending Jan 8, 2026" [ref=e452]:
+                    - cell "23127003@student.hcmus.edu.vn" [ref=e453]
+                    - cell "End-User" [ref=e454]
+                    - cell "pending" [ref=e455]:
+                      - generic [ref=e456]: pending
+                    - cell "Jan 8, 2026" [ref=e457]
+                    - cell [ref=e458]
+                  - row "23127003@student.hcmus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e459]:
+                    - cell "23127003@student.hcmus.edu.vn" [ref=e460]
+                    - cell "End-User" [ref=e461]
+                    - cell "⏳Pending" [ref=e462]:
+                      - generic [ref=e463]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e464]
+                    - cell [ref=e465]:
+                      - button "Revoke Invitation" [ref=e466] [cursor=pointer]:
+                        - img [ref=e467]
+                  - row "ndkhoa232@clc.fitus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e471]:
+                    - cell "ndkhoa232@clc.fitus.edu.vn" [ref=e472]
+                    - cell "End-User" [ref=e473]
+                    - cell "⏳Pending" [ref=e474]:
+                      - generic [ref=e475]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e476]
+                    - cell [ref=e477]:
+                      - button "Revoke Invitation" [ref=e478] [cursor=pointer]:
+                        - img [ref=e479]
+                  - row "23127003@student.hcmus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e483]:
+                    - cell "23127003@student.hcmus.edu.vn" [ref=e484]
+                    - cell "End-User" [ref=e485]
+                    - cell "⏳Pending" [ref=e486]:
+                      - generic [ref=e487]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e488]
+                    - cell [ref=e489]:
+                      - button "Revoke Invitation" [ref=e490] [cursor=pointer]:
+                        - img [ref=e491]
+                  - row "nlqanh23@clc.fitus.edu.vn End-User pending Jan 8, 2026" [ref=e495]:
+                    - cell "nlqanh23@clc.fitus.edu.vn" [ref=e496]
+                    - cell "End-User" [ref=e497]
+                    - cell "pending" [ref=e498]:
+                      - generic [ref=e499]: pending
+                    - cell "Jan 8, 2026" [ref=e500]
+                    - cell [ref=e501]
+                  - row "nlqanh23@clc.fitus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e502]:
+                    - cell "nlqanh23@clc.fitus.edu.vn" [ref=e503]
+                    - cell "End-User" [ref=e504]
+                    - cell "⏳Pending" [ref=e505]:
+                      - generic [ref=e506]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e507]
+                    - cell [ref=e508]:
+                      - button "Revoke Invitation" [ref=e509] [cursor=pointer]:
+                        - img [ref=e510]
+                  - row "nakiet23@clc.fitus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e514]:
+                    - cell "nakiet23@clc.fitus.edu.vn" [ref=e515]
+                    - cell "End-User" [ref=e516]
+                    - cell "⏳Pending" [ref=e517]:
+                      - generic [ref=e518]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e519]
+                    - cell [ref=e520]:
+                      - button "Revoke Invitation" [ref=e521] [cursor=pointer]:
+                        - img [ref=e522]
+                  - row "23127003@student.hcmus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e526]:
+                    - cell "23127003@student.hcmus.edu.vn" [ref=e527]
+                    - cell "End-User" [ref=e528]
+                    - cell "⏳Pending" [ref=e529]:
+                      - generic [ref=e530]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e531]
+                    - cell [ref=e532]:
+                      - button "Revoke Invitation" [ref=e533] [cursor=pointer]:
+                        - img [ref=e534]
+                  - row "pndung23@clc.fitus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e538]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e539]
+                    - cell "End-User" [ref=e540]
+                    - cell "⏳Pending" [ref=e541]:
+                      - generic [ref=e542]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e543]
+                    - cell [ref=e544]:
+                      - button "Revoke Invitation" [ref=e545] [cursor=pointer]:
+                        - img [ref=e546]
+                  - row "lhngoc23@clc.fitus.edu.vn End-User pending Jan 8, 2026" [ref=e550]:
+                    - cell "lhngoc23@clc.fitus.edu.vn" [ref=e551]
+                    - cell "End-User" [ref=e552]
+                    - cell "pending" [ref=e553]:
+                      - generic [ref=e554]: pending
+                    - cell "Jan 8, 2026" [ref=e555]
+                    - cell [ref=e556]
+                  - row "lhngoc23@clc.fitus.edu.vn End-User ⏳Pending Jan 8, 2026" [ref=e557]:
+                    - cell "lhngoc23@clc.fitus.edu.vn" [ref=e558]
+                    - cell "End-User" [ref=e559]
+                    - cell "⏳Pending" [ref=e560]:
+                      - generic [ref=e561]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e562]
+                    - cell [ref=e563]:
+                      - button "Revoke Invitation" [ref=e564] [cursor=pointer]:
+                        - img [ref=e565]
+                  - row "teammate@gmail.com End-User ⏳Pending Jan 8, 2026" [ref=e569]:
+                    - cell "teammate@gmail.com" [ref=e570]
+                    - cell "End-User" [ref=e571]
+                    - cell "⏳Pending" [ref=e572]:
+                      - generic [ref=e573]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e574]
+                    - cell [ref=e575]:
+                      - button "Revoke Invitation" [ref=e576] [cursor=pointer]:
+                        - img [ref=e577]
+                  - row "dzungpham@gmail.com End-User ⏳Pending Jan 8, 2026" [ref=e581]:
+                    - cell "dzungpham@gmail.com" [ref=e582]
+                    - cell "End-User" [ref=e583]
+                    - cell "⏳Pending" [ref=e584]:
+                      - generic [ref=e585]: ⏳Pending
+                    - cell "Jan 8, 2026" [ref=e586]
+                    - cell [ref=e587]:
+                      - button "Revoke Invitation" [ref=e588] [cursor=pointer]:
+                        - img [ref=e589]
+                  - row "dungngocpham171@gmail.com End-User ⏳Pending Jan 7, 2026" [ref=e593]:
+                    - cell "dungngocpham171@gmail.com" [ref=e594]
+                    - cell "End-User" [ref=e595]
+                    - cell "⏳Pending" [ref=e596]:
+                      - generic [ref=e597]: ⏳Pending
+                    - cell "Jan 7, 2026" [ref=e598]
+                    - cell [ref=e599]:
+                      - button "Revoke Invitation" [ref=e600] [cursor=pointer]:
+                        - img [ref=e601]
+                  - row "dungngocpham171@gmail.com End-User ⏳Pending Jan 7, 2026" [ref=e605]:
+                    - cell "dungngocpham171@gmail.com" [ref=e606]
+                    - cell "End-User" [ref=e607]
+                    - cell "⏳Pending" [ref=e608]:
+                      - generic [ref=e609]: ⏳Pending
+                    - cell "Jan 7, 2026" [ref=e610]
+                    - cell [ref=e611]:
+                      - button "Revoke Invitation" [ref=e612] [cursor=pointer]:
+                        - img [ref=e613]
+                  - row "pndung23@clc.fitus.edu.vn End-User ⏳Pending Jan 7, 2026" [ref=e617]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e618]
+                    - cell "End-User" [ref=e619]
+                    - cell "⏳Pending" [ref=e620]:
+                      - generic [ref=e621]: ⏳Pending
+                    - cell "Jan 7, 2026" [ref=e622]
+                    - cell [ref=e623]:
+                      - button "Revoke Invitation" [ref=e624] [cursor=pointer]:
+                        - img [ref=e625]
+                  - row "pndung23@clc.fitus.edu.vn End-User ⏳Pending Jan 7, 2026" [ref=e629]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e630]
+                    - cell "End-User" [ref=e631]
+                    - cell "⏳Pending" [ref=e632]:
+                      - generic [ref=e633]: ⏳Pending
+                    - cell "Jan 7, 2026" [ref=e634]
+                    - cell [ref=e635]:
+                      - button "Revoke Invitation" [ref=e636] [cursor=pointer]:
+                        - img [ref=e637]
+                  - row "polarpear@gmail.com end-user pending Jan 7, 2026" [ref=e641]:
+                    - cell "polarpear@gmail.com" [ref=e642]
+                    - cell "end-user" [ref=e643]
+                    - cell "pending" [ref=e644]:
+                      - generic [ref=e645]: pending
+                    - cell "Jan 7, 2026" [ref=e646]
+                    - cell [ref=e647]
+                  - row "hades@gmail.com end-user pending Jan 7, 2026" [ref=e648]:
+                    - cell "hades@gmail.com" [ref=e649]
+                    - cell "end-user" [ref=e650]
+                    - cell "pending" [ref=e651]:
+                      - generic [ref=e652]: pending
+                    - cell "Jan 7, 2026" [ref=e653]
+                    - cell [ref=e654]
+                  - row "holeesheet@gmail.com end-user pending Jan 7, 2026" [ref=e655]:
+                    - cell "holeesheet@gmail.com" [ref=e656]
+                    - cell "end-user" [ref=e657]
+                    - cell "pending" [ref=e658]:
+                      - generic [ref=e659]: pending
+                    - cell "Jan 7, 2026" [ref=e660]
+                    - cell [ref=e661]
+                  - row "polarbear@gmail.com end-user pending Jan 7, 2026" [ref=e662]:
+                    - cell "polarbear@gmail.com" [ref=e663]
+                    - cell "end-user" [ref=e664]
+                    - cell "pending" [ref=e665]:
+                      - generic [ref=e666]: pending
+                    - cell "Jan 7, 2026" [ref=e667]
+                    - cell [ref=e668]
+                  - row "holala@gmail.com end-user pending Jan 7, 2026" [ref=e669]:
+                    - cell "holala@gmail.com" [ref=e670]
+                    - cell "end-user" [ref=e671]
+                    - cell "pending" [ref=e672]:
+                      - generic [ref=e673]: pending
+                    - cell "Jan 7, 2026" [ref=e674]
+                    - cell [ref=e675]
+                  - row "ulala@gmail.com end-user pending Jan 7, 2026" [ref=e676]:
+                    - cell "ulala@gmail.com" [ref=e677]
+                    - cell "end-user" [ref=e678]
+                    - cell "pending" [ref=e679]:
+                      - generic [ref=e680]: pending
+                    - cell "Jan 7, 2026" [ref=e681]
+                    - cell [ref=e682]
+                  - row "email@gmail.com end-user pending Jan 7, 2026" [ref=e683]:
+                    - cell "email@gmail.com" [ref=e684]
+                    - cell "end-user" [ref=e685]
+                    - cell "pending" [ref=e686]:
+                      - generic [ref=e687]: pending
+                    - cell "Jan 7, 2026" [ref=e688]
+                    - cell [ref=e689]
+                  - row "pndung23@gmail.com user pending Jan 7, 2026" [ref=e690]:
+                    - cell "pndung23@gmail.com" [ref=e691]
+                    - cell "user" [ref=e692]
+                    - cell "pending" [ref=e693]:
+                      - generic [ref=e694]: pending
+                    - cell "Jan 7, 2026" [ref=e695]
+                    - cell [ref=e696]
+                  - row "pndung23@clc.fitus.edu.vn user revoked Jan 7, 2026" [ref=e697]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e698]
+                    - cell "user" [ref=e699]
+                    - cell "revoked" [ref=e700]:
+                      - generic [ref=e701]: revoked
+                    - cell "Jan 7, 2026" [ref=e702]
+                    - cell [ref=e703]
+                  - row "dungngocpham171@gmail.com user pending Jan 7, 2026" [ref=e704]:
+                    - cell "dungngocpham171@gmail.com" [ref=e705]
+                    - cell "user" [ref=e706]
+                    - cell "pending" [ref=e707]:
+                      - generic [ref=e708]: pending
+                    - cell "Jan 7, 2026" [ref=e709]
+                    - cell [ref=e710]
+                  - row "dungngocpham171@gmail.com user revoked Jan 7, 2026" [ref=e711]:
+                    - cell "dungngocpham171@gmail.com" [ref=e712]
+                    - cell "user" [ref=e713]
+                    - cell "revoked" [ref=e714]:
+                      - generic [ref=e715]: revoked
+                    - cell "Jan 7, 2026" [ref=e716]
+                    - cell [ref=e717]
+                  - row "pndung23@clc.fitus.edu.vn user revoked Jan 7, 2026" [ref=e718]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e719]
+                    - cell "user" [ref=e720]
+                    - cell "revoked" [ref=e721]:
+                      - generic [ref=e722]: revoked
+                    - cell "Jan 7, 2026" [ref=e723]
+                    - cell [ref=e724]
+                  - row "pndung23@clc.fitus.edu.vn user revoked Jan 7, 2026" [ref=e725]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e726]
+                    - cell "user" [ref=e727]
+                    - cell "revoked" [ref=e728]:
+                      - generic [ref=e729]: revoked
+                    - cell "Jan 7, 2026" [ref=e730]
+                    - cell [ref=e731]
+                  - row "pndung23@clc.fitus.edu.vn user revoked Jan 7, 2026" [ref=e732]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e733]
+                    - cell "user" [ref=e734]
+                    - cell "revoked" [ref=e735]:
+                      - generic [ref=e736]: revoked
+                    - cell "Jan 7, 2026" [ref=e737]
+                    - cell [ref=e738]
+                  - row "23127210@student.hcmus.edu.vn user pending Jan 7, 2026" [ref=e739]:
+                    - cell "23127210@student.hcmus.edu.vn" [ref=e740]
+                    - cell "user" [ref=e741]
+                    - cell "pending" [ref=e742]:
+                      - generic [ref=e743]: pending
+                    - cell "Jan 7, 2026" [ref=e744]
+                    - cell [ref=e745]
+                  - row "ndkhoa232@clc.fitus.edu.vn user pending Jan 7, 2026" [ref=e746]:
+                    - cell "ndkhoa232@clc.fitus.edu.vn" [ref=e747]
+                    - cell "user" [ref=e748]
+                    - cell "pending" [ref=e749]:
+                      - generic [ref=e750]: pending
+                    - cell "Jan 7, 2026" [ref=e751]
+                    - cell [ref=e752]
+                  - row "23127003@student.hcmus.edu.vn user revoked Jan 7, 2026" [ref=e753]:
+                    - cell "23127003@student.hcmus.edu.vn" [ref=e754]
+                    - cell "user" [ref=e755]
+                    - cell "revoked" [ref=e756]:
+                      - generic [ref=e757]: revoked
+                    - cell "Jan 7, 2026" [ref=e758]
+                    - cell [ref=e759]
+                  - row "pndung23@clc.fitus.edu.vn user revoked Jan 7, 2026" [ref=e760]:
+                    - cell "pndung23@clc.fitus.edu.vn" [ref=e761]
+                    - cell "user" [ref=e762]
+                    - cell "revoked" [ref=e763]:
+                      - generic [ref=e764]: revoked
+                    - cell "Jan 7, 2026" [ref=e765]
+                    - cell [ref=e766]
+                  - row "dungngocpham171@gmail.com user revoked Jan 7, 2026" [ref=e767]:
+                    - cell "dungngocpham171@gmail.com" [ref=e768]
+                    - cell "user" [ref=e769]
+                    - cell "revoked" [ref=e770]:
+                      - generic [ref=e771]: revoked
+                    - cell "Jan 7, 2026" [ref=e772]
+                    - cell [ref=e773]
+            - generic [ref=e774]:
+              - generic [ref=e775]:
+                - heading "Workspace Members" [level=4] [ref=e776]:
+                  - img [ref=e777]
+                  - text: Workspace Members
+                - generic [ref=e780]: "6"
+              - generic [ref=e781]:
+                - generic [ref=e782]:
+                  - generic [ref=e783]:
+                    - generic [ref=e784]: D
+                    - generic [ref=e785]:
+                      - paragraph [ref=e786]: dungngocpham171@gmail.com
+                      - paragraph [ref=e787]: admin • Joined Jan 7
+                  - button [ref=e788] [cursor=pointer]:
+                    - img [ref=e789]
+                - generic [ref=e793]:
+                  - generic [ref=e794]:
+                    - generic [ref=e795]: D
+                    - generic [ref=e796]:
+                      - paragraph [ref=e797]: dungngocpham171@gmail.com
+                      - paragraph [ref=e798]: admin • Joined Jan 7
+                  - button [ref=e799] [cursor=pointer]:
+                    - img [ref=e800]
+                - generic [ref=e804]:
+                  - generic [ref=e805]:
+                    - generic [ref=e806]: D
+                    - generic [ref=e807]:
+                      - paragraph [ref=e808]: dungngocpham171@gmail.com
+                      - paragraph [ref=e809]: admin • Joined Jan 7
+                  - button [ref=e810] [cursor=pointer]:
+                    - img [ref=e811]
+                - generic [ref=e815]:
+                  - generic [ref=e816]:
+                    - generic [ref=e817]: D
+                    - generic [ref=e818]:
+                      - paragraph [ref=e819]: dungngocpham171@gmail.com
+                      - paragraph [ref=e820]: admin • Joined Jan 7
+                  - button [ref=e821] [cursor=pointer]:
+                    - img [ref=e822]
+                - generic [ref=e826]:
+                  - generic [ref=e827]:
+                    - generic [ref=e828]: D
+                    - generic [ref=e829]:
+                      - paragraph [ref=e830]: dungngocpham171@gmail.com
+                      - paragraph [ref=e831]: admin • Joined Jan 7
+                  - button [ref=e832] [cursor=pointer]:
+                    - img [ref=e833]
+                - generic [ref=e837]:
+                  - generic [ref=e838]:
+                    - generic [ref=e839]: D
+                    - generic [ref=e840]:
+                      - paragraph [ref=e841]: dungngocpham171@gmail.com
+                      - paragraph [ref=e842]: admin • Joined Jan 7
+                  - button [ref=e843] [cursor=pointer]:
+                    - img [ref=e844]
+      - generic [ref=e849]:
+        - button "Close invite modal" [ref=e850] [cursor=pointer]:
+          - img [ref=e851]
+        - generic [ref=e854]:
+          - generic [ref=e855]:
+            - img [ref=e857]
+            - generic [ref=e860]:
+              - heading "Invite Teammate" [level=2] [ref=e861]
+              - paragraph [ref=e862]: Provide workspace access
+          - generic [ref=e863]:
+            - generic [ref=e864]:
+              - text: Target Email
+              - generic [ref=e865]:
+                - img [ref=e866]
+                - textbox "Enter teammate email address" [active] [ref=e869]:
+                  - /placeholder: teammate@company.com
+                  - text: admin_1767951226268@test.com
+            - generic [ref=e870]:
+              - text: Security Role
+              - generic [ref=e871]:
+                - button "End-User" [ref=e872] [cursor=pointer]:
+                  - img [ref=e873]
+                  - generic [ref=e875]: End-User
+                - button "Administrator" [ref=e876] [cursor=pointer]:
+                  - img [ref=e877]
+                  - generic [ref=e879]: Administrator
+            - button "Send Invitation" [ref=e880] [cursor=pointer]:
+              - img [ref=e881]
+              - text: Send Invitation
+```
